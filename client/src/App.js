@@ -1,14 +1,18 @@
 import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css"
+import Header from "./components/Header";
 
 import About from "./pages/About";
-import Home from "./pages/Home";
+import Home from "./pages/home/Home";
 
 const App = () => (
-	<Routes>
-		<Route path="/" element={<Home />} />
-		<Route path="/about/this/site" element={<About />} />
-	</Routes>
+	<div>
+		<Header />
+		<Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/about/this/site" element={<About />} />
+		</Routes>
+	</div>
 );
 
 export default App;
