@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Header from "./components/Header";
 import About from "./pages/About";
 import Home from "./pages/home/Home";
-import UserPreferences from "./components/UserPreferences";
+import UserPreferences from "./pages/user-preferences/UserPreferences";
 
 const App = () => (
 	<div>

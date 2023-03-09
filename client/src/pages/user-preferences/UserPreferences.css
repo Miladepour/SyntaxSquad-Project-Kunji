@@ -3,13 +3,18 @@
     margin: 0 auto;
   }
   
-  .form-group {
+  .form-group2 {
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: space-around;
+    align-items: center;
   }
   
   .container-btn {
     text-align: center;
     margin-bottom: 50px;
   }
+  

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
-import Data from "./form-data/formdata";
+import Data from "../../components/form-data/formdata";
 import "./UserPreferences.css";
 
 export default function UserPreferences() {
@@ -16,22 +16,20 @@ export default function UserPreferences() {
 
 	return (
 		<Form className="form" onSubmit={handleSubmit(onSubmit)}>
-			<Form.Group className="form-group" controlId="service">
+			<Form.Group className="form-group2" controlId="service">
 				<Form.Label>Please select the service:</Form.Label>
 				<Form.Select
 					aria-label="Default select example"
 					className="w-50"
 					type="text"
 					name="service"
-					placeholder="Select here..."
 					{...register("service", {
-						required: "please select your service",
+						required: "Please select your service",
 					})}
+                    placeholder="Select here..."
                     onChange={(e) => console.log(e.target.value)}
 				>
-					<option defaultValue="" hidden>
-						Select here...
-					</option>
+                    <option value="">Select here...</option>
 					{Data.services.map((service) => {
 						return (
 							<option key={service} value={service}>
@@ -40,23 +38,24 @@ export default function UserPreferences() {
 						);
 					})}
 				</Form.Select>
+                <Form.Text className="text-muted">
+                {errors.service && errors.service.message}
+                </Form.Text>
 			</Form.Group>
-			<Form.Group className="form-group" controlId="location">
+			<Form.Group className="form-group2" controlId="location">
 				<Form.Label>Please select preferred location for service:</Form.Label>
 				<Form.Select
 					aria-label="Default select example"
 					className="w-50"
 					type="text"
 					name="location"
-					placeholder="Select here..."
 					{...register("location", {
-						required: "please select your location",
+						required: "Please select your location",
 					})}
+                    placeholder="Select here..."
                     onChange={(e) => console.log(e.target.value)}
 				>
-					<option defaultValue="" hidden>
-						Select here...
-					</option>
+                    <option value="">Select here...</option>
 					{Data.location.map((location) => {
 						return (
 							<option key={location} value={location}>
@@ -65,6 +64,9 @@ export default function UserPreferences() {
 						);
 					})}
 				</Form.Select>
+                <Form.Text className="text-muted">
+                {errors.location && errors.location.message}
+                </Form.Text>
 			</Form.Group>
 			<div className="container-btn">
 				<Link className="btn btn-primary" to="#" onClick={handleSubmit(onSubmit)}>
