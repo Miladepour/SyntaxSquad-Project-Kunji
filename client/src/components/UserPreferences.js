@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import { useForm } from "react-hook-form";
@@ -6,26 +5,17 @@ import Data from "./form-data/formdata";
 import "./UserPreferences.css";
 
 export default function UserPreferences() {
-    const [input, setInput] = useState({
-        service: "",
-        location: "",
-      });
-
-      const handleChange = (event, inputName) => {
-        setInput({ ...input, [inputName]: event.target.value });
-        console.log(`>>>Selected ${inputName}:`, event.target.value);
-      };
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-
-	const serviceRef = register("service");
-	const locationRef = register("location");
+	const onSubmit = (data) => {
+		console.log(data);
+	};
 
 	return (
-		<Form className="form">
+		<Form className="form" onSubmit={handleSubmit(onSubmit)}>
 			<Form.Group className="form-group" controlId="service">
 				<Form.Label>Please select the service:</Form.Label>
 				<Form.Select
@@ -34,9 +24,10 @@ export default function UserPreferences() {
 					type="text"
 					name="service"
 					placeholder="Select here..."
-                    ref={serviceRef}
-                    value={input.service}
-                    onChange={(event) => handleChange(event, "service")}
+					{...register("service", {
+						required: "please select your service",
+					})}
+                    onChange={(e) => console.log(e.target.value)}
 				>
 					<option defaultValue="" hidden>
 						Select here...
@@ -58,9 +49,10 @@ export default function UserPreferences() {
 					type="text"
 					name="location"
 					placeholder="Select here..."
-                    ref={locationRef}
-                    value={input.location}
-                    onChange={(event) => handleChange(event, "location")}
+					{...register("location", {
+						required: "please select your location",
+					})}
+                    onChange={(e) => console.log(e.target.value)}
 				>
 					<option defaultValue="" hidden>
 						Select here...
@@ -75,7 +67,7 @@ export default function UserPreferences() {
 				</Form.Select>
 			</Form.Group>
 			<div className="container-btn">
-				<Link className="btn btn-primary" to="#">
+				<Link className="btn btn-primary" to="#" onClick={handleSubmit(onSubmit)}>
 					Next
 				</Link>
 			</div>
