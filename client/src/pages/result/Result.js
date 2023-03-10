@@ -1,11 +1,15 @@
 import {  useEffect, useState } from "react";
-
-import { Table } from "react-bootstrap";
 import rawData from "../../data/kujiHelplineSheet.json";
+import Table from "react-bootstrap/Table";
 import  "./Result.css";
-
+import  Button  from "react-bootstrap/Button";
 export default function Result() {
-  // let simplevar,variable;/*for the filtered data  came from preference page/*
+  const [service,setService]=useState("");
+  const [location,setLocation]=useState("");
+  function handleChange(){
+    setService(service);
+    setLocation(location);
+  }
   const [data, setData] = useState([]);
     useEffect(()=>{
         function getData(){
@@ -14,6 +18,12 @@ export default function Result() {
     getData();
     },[]);
   return (
+    <>
+    <Button onClick={handleChange}>Filter</Button>
+    <Button>Location:<span>{location}</span></Button>
+    <Button>Service requested:<span>{service}</span></Button>
+    <br></br>
+    <Button>List Of NGOs</Button>
     <Table striped bordered hover >
        <thead>
         <tr>
@@ -27,8 +37,10 @@ export default function Result() {
        </tr>
       </thead>
       <tbody>
+        {/* filter the data ehich came from pre page/data.filter((item)=> item.Themes=== service && item.Zone===location). for filtering data*/}
       {data.map((item) => (
           <tr key={item.id}>
+            <td>{item.id}</td>
           <td>{item.Themes}</td>
           <td>{item.Zone}</td>
           <td>{item.Organization}</td>
@@ -39,6 +51,6 @@ export default function Result() {
           </tr>
         ))}
         </tbody>
-   </Table>
-  );
+  </Table>
+  </>);
   }
