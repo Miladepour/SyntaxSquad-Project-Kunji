@@ -10,7 +10,8 @@ export default function UserPreferences() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-
+	const onSubmit = (data) => {
+	};
 	return (
 		<Form className="form" onSubmit={handleSubmit(onSubmit)}>
 			<Form.Group className="form-group2" controlId="service">
