@@ -35,7 +35,7 @@ export default function UserPreferences() {
 						);
 					})}
 				</Form.Select>
-				<Form.Text className="text-muted">
+				<Form.Text className="error-message">
 					{errors.service && errors.service.message}
 				</Form.Text>
 			</Form.Group>
@@ -59,7 +59,7 @@ export default function UserPreferences() {
 						);
 					})}
 				</Form.Select>
-				<Form.Text className="text-muted">
+				<Form.Text className="error-message">
 					{errors.location && errors.location.message}
 				</Form.Text>
 			</Form.Group>
