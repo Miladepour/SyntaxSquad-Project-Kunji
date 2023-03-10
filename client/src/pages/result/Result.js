@@ -23,7 +23,7 @@ export default function Result() {
     <Button>Location:<span>{location}</span></Button>
     <Button>Service requested:<span>{service}</span></Button>
     <br></br>
-    <Button>List Of NGOs</Button>
+    <Button className="button-list">List Of NGOs</Button>
     <Table striped bordered hover >
        <thead>
         <tr>
