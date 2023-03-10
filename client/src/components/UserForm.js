@@ -1,120 +1,181 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import "./UserForm.css";
 
+const schema = yup.object({
+  name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, 'must be letters only.').required(),
+
+  gender: yup.string().required(),
+
+  dateOfBirth: yup.string().required("Please enter a date.").matches(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/, 'must be a valid date in the format DD/MM/YYYY'),
+
+  currentLocation: yup.string().min(3).max(50).required(),
+
+  pinCode: yup.number().typeError("must be a number.").min(100000).max(999999).required(),
+
+  phoneNumber: yup.string().min(5).max(20).required(),
+
+  qualification: yup.string().min(3).max(50).required(),
+
+  dateOfRelease: yup.string().required("Please enter a date.").matches(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/, 'must be a valid date in the format DD/MM/YYYY'),
+
+  caseStatus: yup.string().required(),
+}).required();
+
 export default function UserForm() {
-  const [input, setInput] = useState({
-    name: "",
-    gender: "",
-    dateOfBirth: "",
-    currentLocation: "",
-    pinCode: "",
-    phoneNumber: "",
-    qualification: "",
-    dateOfRelease: "",
-    caseStatus: ""
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    resolver: yupResolver(schema)
   });
 
-  const handleChange = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
-  }
+  const onSubmit = (data) => {
+    navigate("/user-preferences");
+  };
 
   return (
-    <Form className="form">
+    <Form className="form" onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className="form-group" controlId="name">
         <Form.Label>Name</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="name"
-          value={input.name}
-          onChange={handleChange} />
+        <div className="container-input">
+          <Form.Control
+            type="text"
+            {...register("name")}
+            isInvalid={errors.name?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.name?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
       <Form.Group className="form-group" controlId="gender">
         <Form.Label>Gender</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="gender"
-          value={input.gender}
-          onChange={handleChange} />
+        <div className="container-input">
+          <Form.Select
+            aria-label="gender"
+            {...register("gender")}
+            isInvalid={errors?.gender}
+          >
+            <option value="">Select...</option>
+            <option value="male">Male</option>
+            <option value="Female">Female</option>
+          </Form.Select>
+        </div>
       </Form.Group>
 
       <Form.Group className="form-group" controlId="dateOfBirth">
         <Form.Label>Date of Birth</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="dateOfBirth"
-          value={input.dateOfBirth}
-          onChange={handleChange} />
+        <div className="container-input">
+          <Form.Control
+            type="date"
+            {...register("dateOfBirth")}
+            isInvalid={errors?.dateOfBirth}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.dateOfBirth?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
       <Form.Group className="form-group" controlId="currentLocation">
         <Form.Label>Current Location</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="currentLocation"
-          value={input.currentLocation}
-          onChange={handleChange} />
+        <div className="container-input">
+          <Form.Control
+            type="text"
+            {...register("currentLocation")}
+            isInvalid={errors.currentLocation?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.currentLocation?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
       <Form.Group className="form-group" controlId="pinCode">
         <Form.Label>Pin Code</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="pinCode"
-          value={input.pinCode}
-          onChange={handleChange} />
+        <div className="container-input">
+          <Form.Control
+            type="text"
+            {...register("pinCode")}
+            isInvalid={errors.pinCode?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.pinCode?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
       <Form.Group className="form-group" controlId="phoneNumber">
         <Form.Label>Phone Number</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="phoneNumber"
-          value={input.phoneNumber}
-          onChange={handleChange} />
+        <div className="container-input">
+          <Form.Control
+            type="text"
+            {...register("phoneNumber")}
+            isInvalid={errors.phoneNumber?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.phoneNumber?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
       <Form.Group className="form-group" controlId="qualification">
-        <Form.Label>Educational Qualification</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="qualification"
-          value={input.qualification}
-          onChange={handleChange} />
+        <Form.Label>Qualification</Form.Label>
+        <div className="container-input">
+          <Form.Control
+            type="text"
+            {...register("qualification")}
+            isInvalid={errors.qualification?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.qualification?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
       <Form.Group className="form-group" controlId="dateOfRelease">
-        <Form.Label>Date of release</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="dateOfRelease"
-          value={input.dateOfRelease}
-          onChange={handleChange} />
+        <Form.Label>Date of Birth</Form.Label>
+        <div className="container-input">
+          <Form.Control
+            type="date"
+            {...register("dateOfRelease")}
+            isInvalid={errors?.dateOfRelease}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.dateOfRelease?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
       <Form.Group className="form-group" controlId="caseStatus">
         <Form.Label>Case Status</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="caseStatus"
-          value={input.caseStatus}
-          onChange={handleChange} />
+        <div className="container-input">
+          <Form.Select
+            aria-label="caseStatus"
+            {...register("caseStatus")}
+            isInvalid={errors?.caseStatus}
+          >
+            <option value="">Select...</option>
+            <option value="ongoing">Ongoing</option>
+            <option value="complete">Complete</option>
+          </Form.Select>
+        </div>
       </Form.Group>
 
       <div className="container-btn">
-        <Link className="btn btn-primary" to="/">Next</Link>
+        <Button variant="primary" type="submit">
+          Next
+        </Button>
       </div>
     </Form>
   );
