@@ -10,9 +10,8 @@ export default function UserPreferences() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-	const onSubmit = (data) => {
-		console.log(data);
-	};
+
+	const onSubmit = (data) => {};
 
 	return (
 		<Form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -26,10 +25,8 @@ export default function UserPreferences() {
 					{...register("service", {
 						required: "Please select your service",
 					})}
-                    placeholder="Select here..."
-                    onChange={(e) => console.log(e.target.value)}
 				>
-                    <option value="">Select here...</option>
+					<option value="">Select here...</option>
 					{Data.services.map((service) => {
 						return (
 							<option key={service} value={service}>
@@ -38,9 +35,9 @@ export default function UserPreferences() {
 						);
 					})}
 				</Form.Select>
-                <Form.Text className="text-muted">
-                {errors.service && errors.service.message}
-                </Form.Text>
+				<Form.Text className="text-muted">
+					{errors.service && errors.service.message}
+				</Form.Text>
 			</Form.Group>
 			<Form.Group className="form-group2" controlId="location">
 				<Form.Label>Please select preferred location for service:</Form.Label>
@@ -52,10 +49,8 @@ export default function UserPreferences() {
 					{...register("location", {
 						required: "Please select your location",
 					})}
-                    placeholder="Select here..."
-                    onChange={(e) => console.log(e.target.value)}
 				>
-                    <option value="">Select here...</option>
+					<option value="">Select here...</option>
 					{Data.location.map((location) => {
 						return (
 							<option key={location} value={location}>
@@ -64,12 +59,16 @@ export default function UserPreferences() {
 						);
 					})}
 				</Form.Select>
-                <Form.Text className="text-muted">
-                {errors.location && errors.location.message}
-                </Form.Text>
+				<Form.Text className="text-muted">
+					{errors.location && errors.location.message}
+				</Form.Text>
 			</Form.Group>
 			<div className="container-btn">
-				<Link className="btn btn-primary" to="#" onClick={handleSubmit(onSubmit)}>
+				<Link
+					className="btn btn-primary"
+					to="#"
+					onClick={handleSubmit(onSubmit)}
+				>
 					Next
 				</Link>
 			</div>
