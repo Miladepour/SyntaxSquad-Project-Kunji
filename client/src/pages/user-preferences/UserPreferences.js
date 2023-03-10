@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
 import Data from "../../components/form-data/formdata";
 import "./UserPreferences.css";
@@ -10,8 +10,6 @@ export default function UserPreferences() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-
-	const onSubmit = (data) => {};
 
 	return (
 		<Form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -64,13 +62,9 @@ export default function UserPreferences() {
 				</Form.Text>
 			</Form.Group>
 			<div className="container-btn">
-				<Link
-					className="btn btn-primary"
-					to="#"
-					onClick={handleSubmit(onSubmit)}
-				>
-					Next
-				</Link>
+				<Button variant="btn btn-primary" type="submit">
+					Show Result
+				</Button>
 			</div>
 		</Form>
 	);
