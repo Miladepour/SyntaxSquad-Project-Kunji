@@ -63,7 +63,7 @@ export default function UserPreferences() {
 				</Form.Text>
 			</Form.Group>
 			<div className="container-btn">
-				<Button variant="btn btn-primary" type="submit">
+				<Button type="submit">
 					Show Result
 				</Button>
 			</div>
