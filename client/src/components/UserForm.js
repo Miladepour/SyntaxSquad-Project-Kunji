@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { yupResolver } from '@hookform/resolvers/yup';
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { parse, isDate } from "date-fns";
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import "./UserForm.css";
 
@@ -19,7 +19,7 @@ function parseDateString(value, originalValue) {
 }
 
 const schema = yup.object({
-  name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, 'Name must be letters only.').required().label("Name"),
+  name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, "Name must be letters only.").required().label("Name"),
 
   gender: yup.string().required("Please select a gender.").label("Gender"),
 
