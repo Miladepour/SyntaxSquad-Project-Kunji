@@ -10,8 +10,6 @@ export default function Result() {
     useEffect(()=>{
         function getData(){
          setData(rawData);
-         setLocation;
-         setService;
         }
     getData();
     },[]);
