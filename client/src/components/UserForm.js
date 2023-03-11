@@ -2,29 +2,40 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { parse, isDate } from "date-fns";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 import "./UserForm.css";
 
+const today = new Date();
+
+function parseDateString(value, originalValue) {
+  const parsedDate = isDate(originalValue)
+    ? originalValue
+    : parse(originalValue, "yyyy-MM-dd", new Date());
+
+  return parsedDate;
+}
+
 const schema = yup.object({
-  name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, 'must be letters only.').required(),
+  name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, 'Name must be letters only.').required().label("Name"),
 
-  gender: yup.string().required(),
+  gender: yup.string().required("Please select a gender.").label("Gender"),
 
-  dateOfBirth: yup.string().required("Please enter a date.").matches(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/, 'must be a valid date in the format DD/MM/YYYY'),
+  dateOfBirth: yup.date().transform(parseDateString).max(today).label("Date of Birth"),
 
-  currentLocation: yup.string().min(3).max(50).required(),
+  currentLocation: yup.string().min(3).max(50).required().label("Current Location"),
 
-  pinCode: yup.number().typeError("must be a number.").min(100000).max(999999).required(),
+  pinCode: yup.number().typeError("Pin code must be a number.").min(100000).max(999999).required().label("Pin Code"),
 
-  phoneNumber: yup.string().min(5).max(20).required(),
+  phoneNumber: yup.string().min(5).max(20).required().label("Phone Number"),
 
-  qualification: yup.string().min(3).max(50).required(),
+  qualification: yup.string().min(3).max(50).required().label("Qualification"),
 
-  dateOfRelease: yup.string().required("Please enter a date.").matches(/^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$/, 'must be a valid date in the format DD/MM/YYYY'),
+  dateOfRelease: yup.date().transform(parseDateString).max(today).label("Date of Release"),
 
-  caseStatus: yup.string().required(),
+  caseStatus: yup.string().required("Please select a case status.").label("Case Status"),
 }).required();
 
 export default function UserForm() {
@@ -70,6 +81,9 @@ export default function UserForm() {
             <option value="male">Male</option>
             <option value="Female">Female</option>
           </Form.Select>
+          <Form.Control.Feedback type="invalid">
+            {errors.gender?.message}
+          </Form.Control.Feedback>
         </div>
       </Form.Group>
 
@@ -144,7 +158,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className="form-group" controlId="dateOfRelease">
-        <Form.Label>Date of Birth</Form.Label>
+        <Form.Label>Date of Release</Form.Label>
         <div className="container-input">
           <Form.Control
             type="date"
@@ -169,6 +183,9 @@ export default function UserForm() {
             <option value="ongoing">Ongoing</option>
             <option value="complete">Complete</option>
           </Form.Select>
+          <Form.Control.Feedback type="invalid">
+            {errors.caseStatus?.message}
+          </Form.Control.Feedback>
         </div>
       </Form.Group>
 
