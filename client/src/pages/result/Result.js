@@ -2,28 +2,49 @@ import {  useEffect, useState } from "react";
 import rawData from "../../data/kujiHelplineSheet.json";
 import Table from "react-bootstrap/Table";
 import  "./Result.css";
-import  Button  from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 export default function Result() {
-  const [service,setService]=useState("");
-  const [location,setLocation]=useState("");
-  function handleChange(){
-    setService(service);
-    setLocation(location);
-  }
+  const [service,setService]=useState("Legal Aid");
+  const [location,setLocation]=useState("North");
   const [data, setData] = useState([]);
     useEffect(()=>{
         function getData(){
          setData(rawData);
+         setLocation;
+         setService;
         }
     getData();
     },[]);
+
+    function selectService(e) {
+      setService(e.target.value);
+    }
+
+    function selectLocation(e) {
+      setLocation(e.target.value);
+    }
   return (
     <>
-    <Button onClick={handleChange}>Filter</Button>
-    <Button>Location:<span>{location}</span></Button>
-    <Button>Service requested:<span>{service}</span></Button>
+    <Form>
+      <Form.Group className="select-group" controlId="service">
+        <Form.Label>Service</Form.Label>
+        <Form.Select aria-label="Service" value={service} onChange={selectService}>
+          {[...new Set(data.map((item) => item.Themes))].map((item,index)=>(
+            <option  key={index}>{item}</option>
+          ))}
+        </Form.Select>
+      </Form.Group>
+      <Form.Group className="select-group" controlId="location">
+        <Form.Label>Location</Form.Label>
+        <Form.Select aria-label="Location" value={location} onChange={selectLocation}>
+          {[...new Set(data.map((item) => item.Zone))].map((item,index)=>(
+            <option key={index}>{item}</option>
+          ))}
+        </Form.Select>
+      </Form.Group>
+    </Form>
     <br></br>
-    <Button className="button-list">List Of NGOs</Button>
+    <h3 className="bg-primary header-list">List of NGOs</h3>
     <Table striped bordered hover >
        <thead>
         <tr>
@@ -37,10 +58,8 @@ export default function Result() {
        </tr>
       </thead>
       <tbody>
-        {/* filter the data ehich came from pre page/data.filter((item)=> item.Themes=== service && item.Zone===location). for filtering data*/}
-      {data.map((item) => (
+      {data.filter((item)=> item.Themes=== service && item.Zone===location).map((item) => (
           <tr key={item.id}>
-            <td>{item.id}</td>
           <td>{item.Themes}</td>
           <td>{item.Zone}</td>
           <td>{item.Organization}</td>
