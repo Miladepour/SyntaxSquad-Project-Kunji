@@ -21,6 +21,8 @@ function parseDateString(value, originalValue) {
 const schema = yup.object({
   name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, "Name must be letters only.").required().label("Name"),
 
+  email: yup.string().email().required().label("Email"),
+
   gender: yup.string().required("Please select a gender.").label("Gender"),
 
   dateOfBirth: yup.date().transform(parseDateString).max(today).label("Date of Birth"),
@@ -65,6 +67,20 @@ export default function UserForm() {
           />
           <Form.Control.Feedback type="invalid">
             {errors.name?.message}
+          </Form.Control.Feedback>
+        </div>
+      </Form.Group>
+
+      <Form.Group className="form-group" controlId="email">
+        <Form.Label>Email</Form.Label>
+        <div className="container-input">
+          <Form.Control
+            type="email"
+            {...register("email")}
+            isInvalid={errors.email?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.email?.message}
           </Form.Control.Feedback>
         </div>
       </Form.Group>
