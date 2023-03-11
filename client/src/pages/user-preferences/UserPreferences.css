@@ -3,7 +3,7 @@
     margin: 0 auto;
   }
   
-  .form-group2 {
+  .form-group {
     display: flex;
     justify-content: space-between;
     margin-bottom: 25px;
@@ -11,6 +11,7 @@
     flex-wrap: nowrap;
     align-content: space-around;
     align-items: center;
+    text-align: center;
   }
   
   .container-btn {

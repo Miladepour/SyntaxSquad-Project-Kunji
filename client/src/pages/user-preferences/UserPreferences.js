@@ -14,16 +14,15 @@ export default function UserPreferences() {
 	};
 	return (
 		<Form className="form" onSubmit={handleSubmit(onSubmit)}>
-			<Form.Group className="form-group2" controlId="service">
+			<Form.Group className="form-group" controlId="service">
 				<Form.Label>Please select the service:</Form.Label>
 				<Form.Select
 					aria-label="Default select example"
 					className="w-50"
-					type="text"
-					name="service"
 					{...register("service", {
 						required: "Please select your service",
 					})}
+					isInvalid={errors?.service}
 				>
 					<option value="">Select here...</option>
 					{Data.services.map((service) => {
@@ -34,20 +33,19 @@ export default function UserPreferences() {
 						);
 					})}
 				</Form.Select>
-				<Form.Text className="error-message">
-					{errors.service && errors.service.message}
-				</Form.Text>
+				<Form.Control.Feedback type="invalid">
+            {errors.service?.message}
+          </Form.Control.Feedback>
 			</Form.Group>
-			<Form.Group className="form-group2" controlId="location">
+			<Form.Group className="form-group" controlId="location">
 				<Form.Label>Please select preferred location for service:</Form.Label>
 				<Form.Select
 					aria-label="Default select example"
 					className="w-50"
-					type="text"
-					name="location"
 					{...register("location", {
 						required: "Please select your location",
 					})}
+					isInvalid={errors?.location}
 				>
 					<option value="">Select here...</option>
 					{Data.location.map((location) => {
@@ -58,9 +56,9 @@ export default function UserPreferences() {
 						);
 					})}
 				</Form.Select>
-				<Form.Text className="error-message">
-					{errors.location && errors.location.message}
-				</Form.Text>
+				<Form.Control.Feedback type="invalid">
+            {errors.location?.message}
+          </Form.Control.Feedback>
 			</Form.Group>
 			<div className="container-btn">
 				<Button type="submit">
