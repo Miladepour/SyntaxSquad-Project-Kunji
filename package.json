@@ -79,6 +79,7 @@
 		"morgan": "^1.10.0",
 		"pg": "^8.9.0",
 		"react-bootstrap": "^2.7.2",
+		"react-hook-form": "^7.38.0",
 		"winston": "^3.8.2"
 	},
 	"engines": {

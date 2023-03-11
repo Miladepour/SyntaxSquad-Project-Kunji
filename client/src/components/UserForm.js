@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Form from 'react-bootstrap/Form';
+import Form from "react-bootstrap/Form";
 
 import "./UserForm.css";
 
@@ -14,12 +14,12 @@ export default function UserForm() {
     phoneNumber: "",
     qualification: "",
     dateOfRelease: "",
-    caseStatus: ""
+    caseStatus: "",
   });
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
-  }
+  };
 
   return (
     <Form className="form">
@@ -114,7 +114,7 @@ export default function UserForm() {
       </Form.Group>
 
       <div className="container-btn">
-        <Link className="btn btn-primary" to="/">Next</Link>
+        <Link className="btn btn-primary" to="/UserPreferences">Next</Link>
       </div>
     </Form>
   );
