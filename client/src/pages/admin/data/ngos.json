@@ -1,0 +1,29 @@
+[
+  {
+    "service": "Legal Aid",
+    "zone": "North",
+    "organization": "North District Legal Service",
+    "address": "North District Legal Service, Authority Room No. 402 Rohini, Courts Complex, Delhi",
+    "contact": "011 2755 7310",
+    "website": "https://dslsa.org/nd/?page_id=118",
+    "email": "https://dslsa.org/nd/?page_id=118"
+  },
+  {
+		"service": "Legal Aid",
+		"zone": "East",
+		"organization": "District Legal Services Authority (DLSA)",
+		"address": "District Legal Services Authority (DLSA), West Room no. 295, Tis Hazari Courts, Delhi",
+		"contact": "011 2396 8052",
+		"website": "",
+		"email": ""
+	},
+  {
+		"service": "Drug De-Addiction",
+		"zone": "North",
+		"organization": "Shafa Home",
+		"address": "Shafa Home, 130, Pocket - 1, Sector - 20, Rohini, Delhi - 110085",
+		"contact": "011 2755 7310",
+		"website": "https://dslsa.org/nd/?page_id=118",
+		"email": "https://dslsa.org/nd/?page_id=118"
+	}
+]
