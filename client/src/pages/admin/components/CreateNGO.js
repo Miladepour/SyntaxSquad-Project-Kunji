@@ -16,18 +16,35 @@ const schema = yup.object({
   email: yup.string().email().min(3).max(50).required().label("Email"),
 }).required();
 
-export default function CreateNGO({ createNGO, handleClose }) {
+export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, updateNGO, handleClose }) {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm({
-    resolver: yupResolver(schema)
+    resolver: yupResolver(schema),
+    defaultValues: {
+      service: formAction === "update" ? singleNGO[0].service : "",
+      zone: formAction === "update" ? singleNGO[0].zone : "",
+      organization: formAction === "update" ? singleNGO[0].organization : "",
+      address: formAction === "update" ? singleNGO[0].address : "",
+      contact: formAction === "update" ? singleNGO[0].contact : "",
+      website: formAction === "update" ? singleNGO[0].website : "",
+      email: formAction === "update" ? singleNGO[0].email : "",
+    }
   });
 
   const onSubmit = (data) => {
-    createNGO(data);
-    handleClose();
+    if (formAction === "create") {
+      const id = ngos.length > 1 ? ngos[ngos.length - 1].id + 1 : 1;
+
+      createNGO({ ...data, id });
+      handleClose();
+    }
+    if (formAction === "update") {
+      updateNGO(singleNGO[0].id, data);
+      handleClose();
+    }
   };
 
   return(
@@ -154,7 +171,7 @@ export default function CreateNGO({ createNGO, handleClose }) {
           </Col>
           <Col>
             <Form.Control
-              type="email"
+              type="text"
               {...register("email")}
               isInvalid={errors.email?.message}
             />
@@ -166,9 +183,8 @@ export default function CreateNGO({ createNGO, handleClose }) {
       </Form.Group>
 
       <div className="container-btn" style={{ margin: "30px 0px 0px 0px" }}>
-        <Button variant="success" type="submit">
-          Create
-        </Button>
+        {formAction === "create" && <Button variant="success" type="submit">Create</Button>}
+        {formAction === "update" && <Button variant="warning" type="submit">Update</Button>}
       </div>
     </Form>
   );

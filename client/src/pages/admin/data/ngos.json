@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "service": "Legal Aid",
     "zone": "North",
     "organization": "North District Legal Service",
@@ -9,6 +10,7 @@
     "email": "north-dlsa@nic.in"
   },
   {
+		"id": 2,
 		"service": "Legal Aid",
 		"zone": "East",
 		"organization": "District Legal Services Authority (DLSA)",
@@ -18,6 +20,7 @@
 		"email": ""
 	},
   {
+		"id": 3,
 		"service": "Drug De-Addiction",
 		"zone": "North",
 		"organization": "Shafa Home",
