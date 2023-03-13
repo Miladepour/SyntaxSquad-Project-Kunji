@@ -6,7 +6,7 @@ import { parse, isDate } from "date-fns";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
-import "./UserForm.css";
+import styles from "./UserForm.module.css";
 
 const today = new Date();
 
@@ -56,10 +56,10 @@ export default function UserForm() {
   };
 
   return (
-    <Form className="form" onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group className="form-group" controlId="name">
+    <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <Form.Group className={styles.formGroup} controlId="name">
         <Form.Label>Name</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Control
             type="text"
             {...register("name")}
@@ -71,9 +71,9 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="email">
+      <Form.Group className={styles.formGroup} controlId="email">
         <Form.Label>Email</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Control
             type="email"
             {...register("email")}
@@ -85,9 +85,9 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="gender">
+      <Form.Group className={styles.formGroup} controlId="gender">
         <Form.Label>Gender</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Select
             aria-label="gender"
             {...register("gender")}
@@ -103,9 +103,9 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="dateOfBirth">
+      <Form.Group className={styles.formGroup} controlId="dateOfBirth">
         <Form.Label>Date of Birth</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Control
             type="date"
             {...register("dateOfBirth")}
@@ -117,9 +117,9 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="currentLocation">
+      <Form.Group className={styles.formGroup} controlId="currentLocation">
         <Form.Label>Current Location</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Control
             type="text"
             {...register("currentLocation")}
@@ -131,9 +131,9 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="pinCode">
+      <Form.Group className={styles.formGroup} controlId="pinCode">
         <Form.Label>Pin Code</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Control
             type="text"
             {...register("pinCode")}
@@ -145,9 +145,9 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="phoneNumber">
+      <Form.Group className={styles.formGroup} controlId="phoneNumber">
         <Form.Label>Phone Number</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Control
             type="text"
             {...register("phoneNumber")}
@@ -159,9 +159,9 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="qualification">
+      <Form.Group className={styles.formGroup} controlId="qualification">
         <Form.Label>Qualification</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Control
             type="text"
             {...register("qualification")}
@@ -173,9 +173,9 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="dateOfRelease">
+      <Form.Group className={styles.formGroup} controlId="dateOfRelease">
         <Form.Label>Date of Release</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Control
             type="date"
             {...register("dateOfRelease")}
@@ -187,9 +187,9 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="caseStatus">
+      <Form.Group className={styles.formGroup} controlId="caseStatus">
         <Form.Label>Case Status</Form.Label>
-        <div className="container-input">
+        <div className="w-50">
           <Form.Select
             aria-label="caseStatus"
             {...register("caseStatus")}
@@ -205,7 +205,7 @@ export default function UserForm() {
         </div>
       </Form.Group>
 
-      <div className="container-btn">
+      <div className="text-center mb-4">
         <Button variant="primary" type="submit">
           Next
         </Button>

@@ -3,17 +3,8 @@
   margin: 0 auto;
 }
 
-.form-group {
+.formGroup {
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
-}
-
-.container-input {
-  width: 50%;
-}
-
-.container-btn {
-  text-align: center;
-  margin-bottom: 50px;
 }
