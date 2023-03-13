@@ -48,7 +48,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
   };
 
   return(
-    <Form onSubmit={handleSubmit(onSubmit)} style={{ width: "80%", margin: "0 auto" }}>
+    <Form className="w-75 mx-auto mt-3" onSubmit={handleSubmit(onSubmit)}>
       <Form.Group controlId="service">
         <Row>
           <Col>
@@ -182,7 +182,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         </Row>
       </Form.Group>
 
-      <div className="container-btn" style={{ margin: "30px 0px 0px 0px" }}>
+      <div className="container-btn mt-4 mb-2">
         {formAction === "create" && <Button variant="success" type="submit">Create</Button>}
         {formAction === "update" && <Button variant="warning" type="submit">Update</Button>}
       </div>

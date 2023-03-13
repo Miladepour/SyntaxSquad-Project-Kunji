@@ -61,7 +61,7 @@ export default function NGOs() {
         </Modal.Footer>
       </Modal>
 
-      <Button variant="success" onClick={create} style={{ marginBottom: "30px" }}>
+      <Button variant="success" onClick={create} className="mb-4">
         Create
       </Button>
 
