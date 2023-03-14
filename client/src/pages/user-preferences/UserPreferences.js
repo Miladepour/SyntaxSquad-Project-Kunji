@@ -13,7 +13,7 @@ export default function UserPreferences() {
 		formState: { errors },
 	} = useForm();
   const onSubmit = (data) => {
-    navigate("/result");
+    navigate(`/result?service=${data.service}&location=${data.location}`);
   };
 	return (
 		<Form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -54,7 +54,7 @@ export default function UserPreferences() {
 					{Data.location.map((location) => {
 						return (
 							<option key={location} value={location}>
-								{location}
+								{location} Delhi
 							</option>
 						);
 					})}
