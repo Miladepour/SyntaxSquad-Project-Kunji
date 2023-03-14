@@ -27,8 +27,8 @@ export default function Result() {
       <Form.Group className="select-group" controlId="service">
         <Form.Label>Service</Form.Label>
         <Form.Select aria-label="Service" value={service} onChange={selectService}>
-          {[...new Set(data.map((item) => item.Themes))].map((item,index)=>(
-            <option  key={index}>{item}</option>
+          {[...new Set(data.map((item) => item.Themes))].map((item)=>(
+            <option  key={item}>{item}</option>
           ))}
         </Form.Select>
       </Form.Group>
