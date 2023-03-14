@@ -35,8 +35,8 @@ export default function Result() {
       <Form.Group className="select-group" controlId="location">
         <Form.Label>Location</Form.Label>
         <Form.Select aria-label="Location" value={location} onChange={selectLocation}>
-          {[...new Set(data.map((item) => item.Zone))].map((item,index)=>(
-            <option key={index}>{item}</option>
+          {[...new Set(data.map((item) => item.Zone))].map((item)=>(
+            <option key={item}>{item}</option>
           ))}
         </Form.Select>
       </Form.Group>
