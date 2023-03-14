@@ -15,7 +15,11 @@ const schema = yup.object({
   zone: yup.string().required("Please select zone.").label("Zone"),
   organization: yup.string().min(3).max(100).required().label("Organization"),
   address: yup.string().min(3).max(100).required().label("Address"),
-  contact: yup.string().min(3).max(50).required().label("Contact"),
+  contacts: yup.array().min(1, "Please enter at least one contact.").of(
+    yup.object().shape({
+      contact: yup.string().min(3).max(50).required().label("Contact")
+    })
+  ),
   website: yup.string().min(3).max(50).required().label("Website"),
   email: yup.string().email().min(3).max(50).required().label("Email"),
 }).required();
@@ -38,7 +42,8 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
     //   email: formAction === "update" ? singleNGO[0].email : "",
     // }
     defaultValues: {
-      services: [{ service: "Legal Aid" }, { service: "ss" }]
+      services: [{ service: "Legal Aid" }, { service: "ss" }],
+      contacts: [{ contact: "Legal Aid" }, { contact: "ss" }]
     }
   });
 
@@ -49,6 +54,12 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
     append: serviceAppend,
     remove: serviceRemove
   } = useFieldArray({ control, name: "services" });
+
+  const {
+    fields: contactFields,
+    append: contactAppend,
+    remove: contactRemove
+  } = useFieldArray({ control, name: "contacts" });
 
   const onSubmit = (data) => {
     if (formAction === "create") {
@@ -155,23 +166,32 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         </Row>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="contact">
-        <Row>
-          <Col>
-            <Form.Label>Contact</Form.Label>
-          </Col>
-          <Col>
-            <Form.Control
-              type="text"
-              {...register("contact")}
-              isInvalid={errors.contact?.message}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.contact?.message}
-            </Form.Control.Feedback>
-          </Col>
-        </Row>
-      </Form.Group>
+      <div>
+        <h5>Contacts</h5>
+        <p className="text-danger">{(errors.contacts && errors.contacts.message) && errors.contacts.message}</p>
+        {contactFields.map((field, index) => (
+          <Row key={field.id} className="mb-3">
+            <Col>
+              <Form.Control
+                type="text"
+                {...register(`contacts.${index}.contact`)}
+                isInvalid={(errors.contacts && errors.contacts[index]) ? true : false}
+              />
+              <Form.Control.Feedback type="invalid">
+                {(errors.contacts && errors.contacts[index]) && errors.contacts[index].contact.message}
+              </Form.Control.Feedback>
+            </Col>
+            <Col>
+              <Button variant="danger" onClick={() => contactRemove(index)}>
+                Remove
+              </Button>
+            </Col>
+          </Row>
+        ))}
+        <Button className="mb-3" variant="primary" onClick={() => contactAppend({ contact: "" })}>
+          Create Contact
+        </Button>
+      </div>
 
       <Form.Group className="mb-3" controlId="website">
         <Row>
