@@ -34,13 +34,17 @@ export default function NGOs() {
   }
 
   const createNGO = (data) => {
-    data.services = data.services.map(service => service.service);
-    data.contacts = data.contacts.map(contact => contact.contact);
-    setNGOs([...ngos, data]);
+    setNGOs([...ngos, dynamicFields(data)]);
   }
 
   const updateNGO = (id, data) => {
-    setNGOs(ngos.map(ngo => (ngo.id === id ? data : ngo)));
+    setNGOs(ngos.map(ngo => (ngo.id === id ? dynamicFields(data) : ngo)));
+  }
+
+  const dynamicFields = (data) => {
+    data.services = data.services.map(service => service.service);
+    data.contacts = data.contacts.map(contact => contact.contact);
+    return data;
   }
 
   return(

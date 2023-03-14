@@ -25,6 +25,7 @@ const schema = yup.object({
 }).required();
 
 export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, updateNGO, handleClose }) {
+  console.log(singleNGO);
   const {
     register,
     control,
@@ -32,17 +33,14 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
     formState: { errors }
   } = useForm({
     resolver: yupResolver(schema),
-    // defaultValues: {
-    //   service: formAction === "update" ? singleNGO[0].service : "",
-    //   zone: formAction === "update" ? singleNGO[0].zone : "",
-    //   organization: formAction === "update" ? singleNGO[0].organization : "",
-    //   address: formAction === "update" ? singleNGO[0].address : "",
-    //   contact: formAction === "update" ? singleNGO[0].contact : "",
-    //   website: formAction === "update" ? singleNGO[0].website : "",
-    //   email: formAction === "update" ? singleNGO[0].email : "",
-    // }
     defaultValues: {
-      services: null
+      services: formAction === "update" ? singleNGO[0].services.map(service => { return { service } }) : null,
+      zone: formAction === "update" ? singleNGO[0].zone : "",
+      organization: formAction === "update" ? singleNGO[0].organization : "",
+      address: formAction === "update" ? singleNGO[0].address : "",
+      contacts: formAction === "update" ? singleNGO[0].contacts.map(contact => { return { contact } }) : null,
+      website: formAction === "update" ? singleNGO[0].website : "",
+      email: formAction === "update" ? singleNGO[0].email : "",
     }
   });
 
