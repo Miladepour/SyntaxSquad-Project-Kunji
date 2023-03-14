@@ -24,8 +24,7 @@ const schema = yup.object({
   email: yup.string().email().min(3).max(50).required().label("Email"),
 }).required();
 
-export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, updateNGO, handleClose }) {
-  console.log(singleNGO);
+export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, updateNGO, setShowFormModal}) {
   const {
     register,
     control,
@@ -61,11 +60,11 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
       const id = ngos.length > 1 ? ngos[ngos.length - 1].id + 1 : 1;
 
       createNGO({ ...data, id });
-      handleClose();
+      setShowFormModal(false);
     }
     if (formAction === "update") {
       updateNGO(singleNGO[0].id, data);
-      handleClose();
+      setShowFormModal(false);
     }
   };
 

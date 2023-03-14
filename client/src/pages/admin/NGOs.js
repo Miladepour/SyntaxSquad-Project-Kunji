@@ -8,7 +8,8 @@ import CreateNGO from "./components/CreateNGO";
 export default function NGOs() {
   const [ngos, setNGOs] = useState([]);
   const [singleNGO, setSingleNGO] = useState([]);
-  const [show, setShow] = useState(false);
+  const [showFormModal, setShowFormModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState([false, 0]);
   const [formAction, setFormAction] = useState("");
 
   useEffect(() => {
@@ -19,18 +20,15 @@ export default function NGOs() {
     getNGOs();
   }, []);
 
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-
   const create = () => {
     setFormAction("create");
-    handleShow();
+    setShowFormModal(true);
   }
 
   const update = (id) => {
     setFormAction("update");
     setSingleNGO(ngos.filter(ngo => ngo.id === id));
-    handleShow();
+    setShowFormModal(true);
   }
 
   const createNGO = (data) => {
@@ -41,6 +39,11 @@ export default function NGOs() {
     setNGOs(ngos.map(ngo => (ngo.id === id ? dynamicFields(data) : ngo)));
   }
 
+  const deleteNGO = (id) => {
+    setNGOs(ngos.filter(ngo => ngo.id !== id));
+    setShowDeleteModal([false, 0]);
+  }
+
   const dynamicFields = (data) => {
     data.services = data.services.map(service => service.service);
     data.contacts = data.contacts.map(contact => contact.contact);
@@ -49,7 +52,7 @@ export default function NGOs() {
 
   return(
     <>
-      <Modal size="lg" show={show} onHide={handleClose}>
+      <Modal size="lg" show={showFormModal} onHide={() => setShowFormModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Create NGO</Modal.Title>
         </Modal.Header>
@@ -60,9 +63,21 @@ export default function NGOs() {
             singleNGO={singleNGO}
             createNGO={createNGO}
             updateNGO={updateNGO}
-            handleClose={handleClose} />
+            setShowFormModal={setShowFormModal} />
         </Modal.Body>
         <Modal.Footer>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showDeleteModal[0]} onHide={() => setShowDeleteModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmation</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are You Sure?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={() => deleteNGO(showDeleteModal[1])}>Yes</Button>
         </Modal.Footer>
       </Modal>
 
@@ -99,7 +114,7 @@ export default function NGOs() {
                 <Button variant="warning" onClick={() => update(ngo.id)}>
                   Update
                 </Button>
-                <Button variant="danger">
+                <Button variant="danger" onClick={() => setShowDeleteModal([true, ngo.id])}>
                   Delete
                 </Button>
               </td>
