@@ -42,12 +42,9 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
     //   email: formAction === "update" ? singleNGO[0].email : "",
     // }
     defaultValues: {
-      services: [{ service: "Legal Aid" }, { service: "ss" }],
-      contacts: [{ contact: "Legal Aid" }, { contact: "ss" }]
+      services: null
     }
   });
-
-  console.log(errors);
 
   const {
     fields: serviceFields,
@@ -63,12 +60,10 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
 
   const onSubmit = (data) => {
     if (formAction === "create") {
-      // const id = ngos.length > 1 ? ngos[ngos.length - 1].id + 1 : 1;
+      const id = ngos.length > 1 ? ngos[ngos.length - 1].id + 1 : 1;
 
-      // createNGO({ ...data, id });
-      // handleClose();
-
-      console.log(data);
+      createNGO({ ...data, id });
+      handleClose();
     }
     if (formAction === "update") {
       updateNGO(singleNGO[0].id, data);

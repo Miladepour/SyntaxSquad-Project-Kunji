@@ -34,6 +34,8 @@ export default function NGOs() {
   }
 
   const createNGO = (data) => {
+    data.services = data.services.map(service => service.service);
+    data.contacts = data.contacts.map(contact => contact.contact);
     setNGOs([...ngos, data]);
   }
 
