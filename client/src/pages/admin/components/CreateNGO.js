@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Form from "react-bootstrap/Form";
@@ -7,7 +7,11 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const schema = yup.object({
-  service: yup.string().min(3).max(50).required().label("Service"),
+  services: yup.array().min(1, "Please enter at least one service.").of(
+    yup.object().shape({
+      service: yup.string().min(3).max(50).required().label("Service")
+    })
+  ),
   zone: yup.string().required("Please select zone.").label("Zone"),
   organization: yup.string().min(3).max(100).required().label("Organization"),
   address: yup.string().min(3).max(100).required().label("Address"),
@@ -19,27 +23,41 @@ const schema = yup.object({
 export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, updateNGO, handleClose }) {
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors }
   } = useForm({
     resolver: yupResolver(schema),
+    // defaultValues: {
+    //   service: formAction === "update" ? singleNGO[0].service : "",
+    //   zone: formAction === "update" ? singleNGO[0].zone : "",
+    //   organization: formAction === "update" ? singleNGO[0].organization : "",
+    //   address: formAction === "update" ? singleNGO[0].address : "",
+    //   contact: formAction === "update" ? singleNGO[0].contact : "",
+    //   website: formAction === "update" ? singleNGO[0].website : "",
+    //   email: formAction === "update" ? singleNGO[0].email : "",
+    // }
     defaultValues: {
-      service: formAction === "update" ? singleNGO[0].service : "",
-      zone: formAction === "update" ? singleNGO[0].zone : "",
-      organization: formAction === "update" ? singleNGO[0].organization : "",
-      address: formAction === "update" ? singleNGO[0].address : "",
-      contact: formAction === "update" ? singleNGO[0].contact : "",
-      website: formAction === "update" ? singleNGO[0].website : "",
-      email: formAction === "update" ? singleNGO[0].email : "",
+      services: [{ service: "Legal Aid" }, { service: "ss" }]
     }
   });
 
+  console.log(errors);
+
+  const {
+    fields: serviceFields,
+    append: serviceAppend,
+    remove: serviceRemove
+  } = useFieldArray({ control, name: "services" });
+
   const onSubmit = (data) => {
     if (formAction === "create") {
-      const id = ngos.length > 1 ? ngos[ngos.length - 1].id + 1 : 1;
+      // const id = ngos.length > 1 ? ngos[ngos.length - 1].id + 1 : 1;
 
-      createNGO({ ...data, id });
-      handleClose();
+      // createNGO({ ...data, id });
+      // handleClose();
+
+      console.log(data);
     }
     if (formAction === "update") {
       updateNGO(singleNGO[0].id, data);
@@ -49,25 +67,34 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
 
   return(
     <Form className="w-75 mx-auto mt-3" onSubmit={handleSubmit(onSubmit)}>
-      <Form.Group controlId="service">
-        <Row>
-          <Col>
-            <Form.Label>Service</Form.Label>
-          </Col>
-          <Col>
-            <Form.Control
-              type="text"
-              {...register("service")}
-              isInvalid={errors.service?.message}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.service?.message}
-            </Form.Control.Feedback>
-          </Col>
-        </Row>
-      </Form.Group>
+      <div>
+        <h5>Services</h5>
+        <p className="text-danger">{(errors.services && errors.services.message) && errors.services.message}</p>
+        {serviceFields.map((field, index) => (
+          <Row key={field.id} className="mb-3">
+            <Col>
+              <Form.Control
+                type="text"
+                {...register(`services.${index}.service`)}
+                isInvalid={(errors.services && errors.services[index]) ? true : false}
+              />
+              <Form.Control.Feedback type="invalid">
+                {(errors.services && errors.services[index]) && errors.services[index].service.message}
+              </Form.Control.Feedback>
+            </Col>
+            <Col>
+              <Button variant="danger" onClick={() => serviceRemove(index)}>
+                Remove
+              </Button>
+            </Col>
+          </Row>
+        ))}
+        <Button className="mb-3" variant="primary" onClick={() => serviceAppend({ service: "" })}>
+          Create Service
+        </Button>
+      </div>
 
-      <Form.Group controlId="zone">
+      <Form.Group className="mb-3" controlId="zone">
         <Row>
           <Col>
             <Form.Label>Zone</Form.Label>
@@ -92,7 +119,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         </Row>
       </Form.Group>
 
-      <Form.Group controlId="organization">
+      <Form.Group className="mb-3" controlId="organization">
         <Row>
           <Col>
             <Form.Label>Organization</Form.Label>
@@ -110,7 +137,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         </Row>
       </Form.Group>
 
-      <Form.Group controlId="address">
+      <Form.Group className="mb-3" controlId="address">
         <Row>
           <Col>
             <Form.Label>Address</Form.Label>
@@ -128,7 +155,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         </Row>
       </Form.Group>
 
-      <Form.Group controlId="contact">
+      <Form.Group className="mb-3" controlId="contact">
         <Row>
           <Col>
             <Form.Label>Contact</Form.Label>
@@ -146,7 +173,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         </Row>
       </Form.Group>
 
-      <Form.Group controlId="website">
+      <Form.Group className="mb-3" controlId="website">
         <Row>
           <Col>
             <Form.Label>Website</Form.Label>
@@ -164,7 +191,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         </Row>
       </Form.Group>
 
-      <Form.Group controlId="email">
+      <Form.Group className="mb-3" controlId="email">
         <Row>
           <Col>
             <Form.Label>Email</Form.Label>

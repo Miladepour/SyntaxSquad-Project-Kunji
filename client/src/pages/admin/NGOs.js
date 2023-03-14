@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import fileData from "./data/ngos.json";
-import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
