@@ -3,14 +3,15 @@ const data = {
      "Legal aid",
      "Employment/Life skills",
      "Food/Shelter/Clothing assistance",
+     "Drug De-Addiction",
      "Education",
    ],
    location: [
-      "North Delhi",
-      "South Delhi",
-      "Central Delhi",
-      "West Delhi",
-      "East Delhi",
+      "North",
+      "South",
+      "Central",
+      "West",
+      "East",
     ],
 };
 export default data;

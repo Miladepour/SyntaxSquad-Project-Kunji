@@ -3,9 +3,12 @@ import rawData from "../../data/kujiHelplineSheet.json";
 import Table from "react-bootstrap/Table";
 import  "./Result.css";
 import Form from "react-bootstrap/Form";
+import { useSearchParams } from "react-router-dom";
+
 export default function Result() {
-  const [service,setService]=useState("Legal Aid");
-  const [location,setLocation]=useState("North");
+  let [searchParams, setSearchParams] = useSearchParams();
+  const [service,setService]=useState(searchParams.get("service"));
+  const [location,setLocation]=useState(searchParams.get("location"));
   const [data, setData] = useState([]);
     useEffect(()=>{
         function getData(){
@@ -16,10 +19,18 @@ export default function Result() {
 
     function selectService(e) {
       setService(e.target.value);
+      setSearchParams({
+        service:e.target.value,
+        location:location,
+      });
     }
 
     function selectLocation(e) {
       setLocation(e.target.value);
+      setSearchParams({
+        service:service,
+        location:e.target.value,
+      });
     }
   return (
     <>
