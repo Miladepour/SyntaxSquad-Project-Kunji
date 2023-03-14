@@ -1,0 +1,10 @@
+.form {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.formGroup {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
