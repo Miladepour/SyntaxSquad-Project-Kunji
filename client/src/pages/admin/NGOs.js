@@ -43,7 +43,7 @@ export default function NGOs() {
   }
 
   return(
-    <Container>
+    <>
       <Modal size="lg" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Create NGO</Modal.Title>
@@ -61,9 +61,11 @@ export default function NGOs() {
         </Modal.Footer>
       </Modal>
 
-      <Button variant="success" onClick={create} className="mb-4">
-        Create
-      </Button>
+      <div className="text-center">
+        <Button variant="success" onClick={create} className="mb-4">
+          Create
+        </Button>
+      </div>
 
       <Table striped bordered hover>
         <thead>
@@ -81,11 +83,11 @@ export default function NGOs() {
         <tbody>
           {ngos.map((ngo, i) => (
             <tr key={i}>
-              <td>{ngo.service}</td>
+              <td><ul>{ngo.services.map((service, i) => <li key={i}>{service}</li>)}</ul></td>
               <td>{ngo.zone}</td>
               <td>{ngo.organization}</td>
               <td>{ngo.address}</td>
-              <td>{ngo.contact}</td>
+              <td><ul>{ngo.contacts.map((contact, i) => <li key={i}>{contact}</li>)}</ul></td>
               <td>{ngo.website}</td>
               <td>{ngo.email}</td>
               <td>
@@ -100,6 +102,6 @@ export default function NGOs() {
           ))}
         </tbody>
       </Table>
-    </Container>
+    </>
   );
 }
