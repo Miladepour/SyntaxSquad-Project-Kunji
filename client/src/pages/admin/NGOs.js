@@ -84,7 +84,7 @@ export default function NGOs() {
 
       <div className="text-center">
         <Button variant="success" onClick={create} className="mb-4">
-          Create
+          Add New
         </Button>
       </div>
 

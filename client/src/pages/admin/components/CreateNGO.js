@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const schema = yup.object({
-  services: yup.array().min(1, "Please select at least one service.").of(
+  services: yup.array().min(1, "Please add at least one service.").of(
     yup.object().shape({
       service: yup.string().required("Please select a service.").label("Service")
     })
@@ -15,7 +15,7 @@ const schema = yup.object({
   zone: yup.string().required("Please select zone.").label("Zone"),
   organization: yup.string().min(3).max(100).required().label("Organization"),
   address: yup.string().min(3).max(100).required().label("Address"),
-  contacts: yup.array().min(1, "Please enter at least one contact.").of(
+  contacts: yup.array().min(1, "Please add at least one contact.").of(
     yup.object().shape({
       contact: yup.string().min(3).max(50).required().label("Contact")
     })
@@ -108,7 +108,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
           </Row>
         ))}
         <Button className="mb-3" variant="primary" onClick={() => serviceAppend({ service: "" })}>
-          Create Service
+          Add Service
         </Button>
       </div>
 
@@ -214,7 +214,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
           </Row>
         ))}
         <Button className="mb-3" variant="primary" onClick={() => contactAppend({ contact: "" })}>
-          Create Contact
+          Add Contact
         </Button>
       </div>
 
@@ -255,8 +255,8 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
       </Form.Group>
 
       <div className="container-btn mt-4 mb-2">
-        {formAction === "create" && <Button variant="success" type="submit">Create</Button>}
-        {formAction === "update" && <Button variant="warning" type="submit">Update</Button>}
+        {formAction === "create" && <Button variant="success" type="submit">Add</Button>}
+        {formAction === "update" && <Button variant="warning" type="submit">Save</Button>}
       </div>
     </Form>
   );
