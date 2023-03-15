@@ -3,7 +3,7 @@ import fileData from "./data/ngos.json";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Stack from 'react-bootstrap/Stack';
+import Stack from "react-bootstrap/Stack";
 import CreateNGO from "./components/CreateNGO";
 
 export default function NGOs() {
@@ -15,7 +15,7 @@ export default function NGOs() {
 
   useEffect(() => {
     const getNGOs = () => {
-      setNGOs(fileData);
+      setNGOs(fileData.sort((a, b) => a.organization.localeCompare(b.organization)));
     }
 
     getNGOs();
