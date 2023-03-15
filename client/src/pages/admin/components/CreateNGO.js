@@ -33,11 +33,11 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      services: formAction === "update" ? singleNGO[0].services.map(service => { return { service } }) : null,
+      services: formAction === "update" ? singleNGO[0].services.map(service => { return { service } }) : [{ service: "" }],
       zone: formAction === "update" ? singleNGO[0].zone : "",
       organization: formAction === "update" ? singleNGO[0].organization : "",
       address: formAction === "update" ? singleNGO[0].address : "",
-      contacts: formAction === "update" ? singleNGO[0].contacts.map(contact => { return { contact } }) : null,
+      contacts: formAction === "update" ? singleNGO[0].contacts.map(contact => { return { contact } }) : [{ contact: "" }],
       website: formAction === "update" ? singleNGO[0].website : "",
       email: formAction === "update" ? singleNGO[0].email : "",
     }
@@ -78,14 +78,6 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         {serviceFields.map((field, index) => (
           <Row key={field.id} className="mb-3">
             <Col>
-              {/* <Form.Control
-                type="text"
-                {...register(`services.${index}.service`)}
-                isInvalid={(errors.services && errors.services[index]) ? true : false}
-              />
-              <Form.Control.Feedback type="invalid">
-                {(errors.services && errors.services[index]) && errors.services[index].service.message}
-              </Form.Control.Feedback> */}
               <Form.Select
                 aria-label="gender"
                 {...register(`services.${index}.service`)}
@@ -101,34 +93,41 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
               </Form.Control.Feedback>
             </Col>
             <Col>
-              <Button variant="danger" onClick={() => serviceRemove(index)}>
-                Remove
-              </Button>
+              <svg
+                onClick={() => serviceRemove(index)}
+                viewBox="0 0 1024 1024"
+                fill="#dc3545"
+                height="2em"
+                width="2em"
+                style={{ cursor: "pointer" }}
+              >
+                <path d="M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-200 0H360v-72h304v72z" />
+              </svg>
             </Col>
           </Row>
         ))}
-        <Button className="mb-3" variant="primary" onClick={() => serviceAppend({ service: "" })}>
-          Add Service
-        </Button>
+        <Row>
+          <Col className="mb-3" style={{ textAlign: "right" }}>
+            <Button variant="outline-primary" size="sm" onClick={() => serviceAppend({ service: "" })}>
+              <svg
+                viewBox="0 0 1024 1024"
+                fill="#0d6efd"
+                height="1em"
+                width="1em"
+                className="me-1"
+              >
+                <defs>
+                  <style />
+                </defs>
+                <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
+                <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" />
+              </svg>
+              Add New
+            </Button>
+          </Col>
+          <Col></Col>
+        </Row>
       </div>
-
-      {/* <Form.Group className={styles.formGroup} controlId="gender">
-        <Form.Label>Gender</Form.Label>
-        <div className="w-50">
-          <Form.Select
-            aria-label="gender"
-            {...register("gender")}
-            isInvalid={errors?.gender}
-          >
-            <option value="">Select...</option>
-            <option value="male">Male</option>
-            <option value="Female">Female</option>
-          </Form.Select>
-          <Form.Control.Feedback type="invalid">
-            {errors.gender?.message}
-          </Form.Control.Feedback>
-        </div>
-      </Form.Group> */}
 
       <Form.Group className="mb-3" controlId="zone">
         <Row>
@@ -207,15 +206,40 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
               </Form.Control.Feedback>
             </Col>
             <Col>
-              <Button variant="danger" onClick={() => contactRemove(index)}>
-                Remove
-              </Button>
+              <svg
+                onClick={() => contactRemove(index)}
+                viewBox="0 0 1024 1024"
+                fill="#dc3545"
+                height="2em"
+                width="2em"
+                className="me-1"
+              >
+                <path d="M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-200 0H360v-72h304v72z" />
+              </svg>
             </Col>
           </Row>
         ))}
-        <Button className="mb-3" variant="primary" onClick={() => contactAppend({ contact: "" })}>
-          Add Contact
-        </Button>
+        <Row>
+          <Col className="mb-3" style={{ textAlign: "right" }}>
+            <Button variant="outline-primary" size="sm" onClick={() => contactAppend({ contact: "" })}>
+              <svg
+                viewBox="0 0 1024 1024"
+                fill="#0d6efd"
+                height="1em"
+                width="1em"
+                style={{ marginRight: "5px" }}
+              >
+                <defs>
+                  <style />
+                </defs>
+                <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
+                <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" />
+              </svg>
+              Add New
+            </Button>
+          </Col>
+          <Col></Col>
+        </Row>
       </div>
 
       <Form.Group className="mb-3" controlId="website">
