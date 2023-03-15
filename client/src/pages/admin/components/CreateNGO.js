@@ -7,9 +7,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const schema = yup.object({
-  services: yup.array().min(1, "Please enter at least one service.").of(
+  services: yup.array().min(1, "Please select at least one service.").of(
     yup.object().shape({
-      service: yup.string().min(3).max(50).required().label("Service")
+      service: yup.string().required("Please select a service.").label("Service")
     })
   ),
   zone: yup.string().required("Please select zone.").label("Zone"),
@@ -42,6 +42,8 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
       email: formAction === "update" ? singleNGO[0].email : "",
     }
   });
+
+  console.log(errors);
 
   const {
     fields: serviceFields,
@@ -76,11 +78,24 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         {serviceFields.map((field, index) => (
           <Row key={field.id} className="mb-3">
             <Col>
-              <Form.Control
+              {/* <Form.Control
                 type="text"
                 {...register(`services.${index}.service`)}
                 isInvalid={(errors.services && errors.services[index]) ? true : false}
               />
+              <Form.Control.Feedback type="invalid">
+                {(errors.services && errors.services[index]) && errors.services[index].service.message}
+              </Form.Control.Feedback> */}
+              <Form.Select
+                aria-label="gender"
+                {...register(`services.${index}.service`)}
+                isInvalid={(errors.services && errors.services[index]) ? true : false}
+              >
+                <option value="">Select...</option>
+                <option value="Legal Aid">Legal Aid</option>
+                <option value="Employment & Life Skills">Employment & Life Skills</option>
+                <option value="Drug De-Addiction">Drug De-Addiction</option>
+              </Form.Select>
               <Form.Control.Feedback type="invalid">
                 {(errors.services && errors.services[index]) && errors.services[index].service.message}
               </Form.Control.Feedback>
@@ -96,6 +111,24 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
           Create Service
         </Button>
       </div>
+
+      {/* <Form.Group className={styles.formGroup} controlId="gender">
+        <Form.Label>Gender</Form.Label>
+        <div className="w-50">
+          <Form.Select
+            aria-label="gender"
+            {...register("gender")}
+            isInvalid={errors?.gender}
+          >
+            <option value="">Select...</option>
+            <option value="male">Male</option>
+            <option value="Female">Female</option>
+          </Form.Select>
+          <Form.Control.Feedback type="invalid">
+            {errors.gender?.message}
+          </Form.Control.Feedback>
+        </div>
+      </Form.Group> */}
 
       <Form.Group className="mb-3" controlId="zone">
         <Row>
