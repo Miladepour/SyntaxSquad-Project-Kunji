@@ -117,7 +117,7 @@ export default function NGOs() {
               <td>
                 <Stack gap={3}>
                   {ngo.contacts.map((contact, i) => (
-                    <div key={i} className="border">{contact}</div>
+                    <div key={i} className="border">{contact.contact} {contact.description}</div>
                   ))}
                 </Stack>
               </td>
