@@ -1,12 +1,15 @@
 import db from "../db";
 const express = require("express");
 const router = express.Router();
+const validation = require("../middlewares/validationMiddleware");
+const ngoSchema = require("../validations/NgoValidation");
+
 
 async function getNgo() {
   const { rows } = await db.query("SELECT * FROM ngo");
   return rows;
 }
-router.post("/", async (req, res) => {
+router.post("/", validation(ngoSchema) ,async (req, res) => {
   const { body } = req;
 
   try {
