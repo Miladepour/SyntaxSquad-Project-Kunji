@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Home from "./pages/home/Home";
 import UserPreferences from "./pages/user-preferences/UserPreferences";
 import Result from "./pages/result/Result";
+import UserView from "./pages/admin/UserView";
 
 const App = () => (
 	<div>
@@ -14,6 +15,7 @@ const App = () => (
 			<Route path="/UserPreferences" element={<UserPreferences />} />
 			<Route path="/about/this/site" element={<About />} />
       <Route path="/result" element={<Result />} />
+	  <Route path="/UserView" element={<UserView />} />
 		</Routes>
 	</div>
 );

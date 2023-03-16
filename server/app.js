@@ -1,5 +1,5 @@
 import express from "express";
-
+import cors from "cors";
 import apiRouter from "./api";
 import config from "./utils/config";
 import {
@@ -17,7 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(configuredHelmet());
 app.use(configuredMorgan());
-
+app.use(cors())
 if (config.production) {
 	app.enable("trust proxy");
 	app.use(httpsOnly());

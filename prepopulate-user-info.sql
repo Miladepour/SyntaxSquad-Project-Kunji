@@ -1,7 +1,7 @@
 
 
 CREATE TABLE public."user-informations" (
-    id serial PRIMARY KEY,
+    user_id serial PRIMARY KEY,
     name VARCHAR ( 50 ) NOT NULL,
     email VARCHAR,
     gender VARCHAR (20) NOT NULL,

@@ -17,15 +17,15 @@ router.get("/admin/users",(req,res) => {
 			arr.push({
 				id:faker.random.numeric(5),
 				name:faker.name.fullName(),
+				email:faker.internet.email(),
 				gender:faker.name.sex(),
 				dateOfBirth:faker.date.birthdate({ min: 18, max: 65, mode: 'age' }),
 				currentLocation:faker.address.cityName(),
-				pincode:faker.random.numeric(5),
+				pincode:faker.random.numeric(7),
 				phoneNumber:faker.phone.number('+44 91 ### ## ##'),
 				educationalQualification:faker.name.jobArea(),
 				dateOfRelease:faker.date.between('2020-01-01T00:00:00.000Z', '2023-01-01T00:00:00.000Z'),
-				caseStatus:faker.random.numeric(1)
-	
+				caseStatus:`${faker.datatype.boolean()}`
 			})
 		}
 		return arr
