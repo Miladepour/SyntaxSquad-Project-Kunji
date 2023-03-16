@@ -1,7 +1,7 @@
 const data = {
    services: [
-     "Legal aid",
-     "Employment/Life skills",
+     "Legal Aid",
+     "Employment & Life Skills",
      "Food/Shelter/Clothing assistance",
      "Drug De-Addiction",
      "Education",
