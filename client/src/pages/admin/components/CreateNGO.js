@@ -5,6 +5,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import BinIcon from "./BinIcon";
+import PlusIcon from "./PlusIcon";
 
 const schema = yup.object({
   services: yup.array().min(1, "Please add at least one service.").of(
@@ -17,7 +19,7 @@ const schema = yup.object({
   address: yup.string().min(3).max(100).required().label("Address"),
   contacts: yup.array().min(1, "Please add at least one contact.").of(
     yup.object().shape({
-      contact: yup.string().min(3).max(50).required().label("Contact")
+      contact: yup.string().min(3).max(50).required().label("Contact"),
     })
   ),
   website: yup.string().min(3).max(50).required().label("Website"),
@@ -37,13 +39,11 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
       zone: formAction === "update" ? singleNGO[0].zone : "",
       organization: formAction === "update" ? singleNGO[0].organization : "",
       address: formAction === "update" ? singleNGO[0].address : "",
-      contacts: formAction === "update" ? singleNGO[0].contacts.map(contact => { return { contact } }) : [{ contact: "" }],
+      contacts: formAction === "update" ? singleNGO[0].contacts.map(contact => { return { contact: contact.contact, description: contact.description } }) : [{ contact: "", description: "" }],
       website: formAction === "update" ? singleNGO[0].website : "",
       email: formAction === "update" ? singleNGO[0].email : "",
     }
   });
-
-  console.log(errors);
 
   const {
     fields: serviceFields,
@@ -93,35 +93,14 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
               </Form.Control.Feedback>
             </Col>
             <Col>
-              <svg
-                onClick={() => serviceRemove(index)}
-                viewBox="0 0 1024 1024"
-                fill="#dc3545"
-                height="2em"
-                width="2em"
-                style={{ cursor: "pointer" }}
-              >
-                <path d="M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-200 0H360v-72h304v72z" />
-              </svg>
+              <BinIcon onClick={() => serviceRemove(index)} />
             </Col>
           </Row>
         ))}
         <Row>
           <Col className="mb-3" style={{ textAlign: "right" }}>
             <Button variant="outline-primary" size="sm" onClick={() => serviceAppend({ service: "" })}>
-              <svg
-                viewBox="0 0 1024 1024"
-                fill="#0d6efd"
-                height="1em"
-                width="1em"
-                className="me-1"
-              >
-                <defs>
-                  <style />
-                </defs>
-                <path d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z" />
-                <path d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z" />
-              </svg>
+              <PlusIcon />
               Add New
             </Button>
           </Col>
@@ -198,12 +177,20 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
             <Col>
               <Form.Control
                 type="text"
+                placeholder="Contact"
                 {...register(`contacts.${index}.contact`)}
                 isInvalid={(errors.contacts && errors.contacts[index]) ? true : false}
               />
               <Form.Control.Feedback type="invalid">
                 {(errors.contacts && errors.contacts[index]) && errors.contacts[index].contact.message}
               </Form.Control.Feedback>
+            </Col>
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="Description"
+                {...register(`contacts.${index}.description`)}
+              />
             </Col>
             <Col>
               <svg
@@ -213,6 +200,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
                 height="2em"
                 width="2em"
                 className="me-1"
+                style={{ cursor: "pointer" }}
               >
                 <path d="M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-200 0H360v-72h304v72z" />
               </svg>
@@ -221,7 +209,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         ))}
         <Row>
           <Col className="mb-3" style={{ textAlign: "right" }}>
-            <Button variant="outline-primary" size="sm" onClick={() => contactAppend({ contact: "" })}>
+            <Button variant="outline-primary" size="sm" onClick={() => contactAppend({ contact: "", description: "" })}>
               <svg
                 viewBox="0 0 1024 1024"
                 fill="#0d6efd"
