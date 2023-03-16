@@ -1,120 +1,214 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { parse, isDate } from "date-fns";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
-import "./UserForm.css";
+import styles from "./UserForm.module.css";
+
+const today = new Date();
+
+function parseDateString(value, originalValue) {
+  const parsedDate = isDate(originalValue)
+    ? originalValue
+    : parse(originalValue, "yyyy-MM-dd", new Date());
+
+  return parsedDate;
+}
+
+const schema = yup.object({
+  name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, "Name must be letters only.").required().label("Name"),
+
+  email: yup.string().email().required().label("Email"),
+
+  gender: yup.string().required("Please select a gender.").label("Gender"),
+
+  dateOfBirth: yup.date().transform(parseDateString).max(today).label("Date of Birth"),
+
+  currentLocation: yup.string().min(3).max(50).required().label("Current Location"),
+
+  pinCode: yup.number().typeError("Pin code must be a number.").min(100000).max(999999).required().label("Pin Code"),
+
+  phoneNumber: yup.string().min(5).max(20).required().label("Phone Number"),
+
+  qualification: yup.string().min(3).max(50).required().label("Qualification"),
+
+  dateOfRelease: yup.date().transform(parseDateString).max(today).label("Date of Release"),
+
+  caseStatus: yup.string().required("Please select a case status.").label("Case Status"),
+}).required();
 
 export default function UserForm() {
-  const [input, setInput] = useState({
-    name: "",
-    gender: "",
-    dateOfBirth: "",
-    currentLocation: "",
-    pinCode: "",
-    phoneNumber: "",
-    qualification: "",
-    dateOfRelease: "",
-    caseStatus: "",
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
   });
 
-  const handleChange = (e) => {
-    setInput({ ...input, [e.target.name]: e.target.value });
+  const onSubmit = (data) => {
+    navigate("/user-preferences");
   };
 
   return (
-    <Form className="form">
-      <Form.Group className="form-group" controlId="name">
+    <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <Form.Group className={styles.formGroup} controlId="name">
         <Form.Label>Name</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="name"
-          value={input.name}
-          onChange={handleChange} />
+        <div className="w-50">
+          <Form.Control
+            type="text"
+            {...register("name")}
+            isInvalid={errors.name?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.name?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="gender">
+      <Form.Group className={styles.formGroup} controlId="email">
+        <Form.Label>Email</Form.Label>
+        <div className="w-50">
+          <Form.Control
+            type="email"
+            {...register("email")}
+            isInvalid={errors.email?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.email?.message}
+          </Form.Control.Feedback>
+        </div>
+      </Form.Group>
+
+      <Form.Group className={styles.formGroup} controlId="gender">
         <Form.Label>Gender</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="gender"
-          value={input.gender}
-          onChange={handleChange} />
+        <div className="w-50">
+          <Form.Select
+            aria-label="gender"
+            {...register("gender")}
+            isInvalid={errors?.gender}
+          >
+            <option value="">Select...</option>
+            <option value="male">Male</option>
+            <option value="Female">Female</option>
+          </Form.Select>
+          <Form.Control.Feedback type="invalid">
+            {errors.gender?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="dateOfBirth">
+      <Form.Group className={styles.formGroup} controlId="dateOfBirth">
         <Form.Label>Date of Birth</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="dateOfBirth"
-          value={input.dateOfBirth}
-          onChange={handleChange} />
+        <div className="w-50">
+          <Form.Control
+            type="date"
+            {...register("dateOfBirth")}
+            isInvalid={errors?.dateOfBirth}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.dateOfBirth?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="currentLocation">
+      <Form.Group className={styles.formGroup} controlId="currentLocation">
         <Form.Label>Current Location</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="currentLocation"
-          value={input.currentLocation}
-          onChange={handleChange} />
+        <div className="w-50">
+          <Form.Control
+            type="text"
+            {...register("currentLocation")}
+            isInvalid={errors.currentLocation?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.currentLocation?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="pinCode">
+      <Form.Group className={styles.formGroup} controlId="pinCode">
         <Form.Label>Pin Code</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="pinCode"
-          value={input.pinCode}
-          onChange={handleChange} />
+        <div className="w-50">
+          <Form.Control
+            type="text"
+            {...register("pinCode")}
+            isInvalid={errors.pinCode?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.pinCode?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="phoneNumber">
+      <Form.Group className={styles.formGroup} controlId="phoneNumber">
         <Form.Label>Phone Number</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="phoneNumber"
-          value={input.phoneNumber}
-          onChange={handleChange} />
+        <div className="w-50">
+          <Form.Control
+            type="text"
+            {...register("phoneNumber")}
+            isInvalid={errors.phoneNumber?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.phoneNumber?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="qualification">
-        <Form.Label>Educational Qualification</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="qualification"
-          value={input.qualification}
-          onChange={handleChange} />
+      <Form.Group className={styles.formGroup} controlId="qualification">
+        <Form.Label>Qualification</Form.Label>
+        <div className="w-50">
+          <Form.Control
+            type="text"
+            {...register("qualification")}
+            isInvalid={errors.qualification?.message}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.qualification?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="dateOfRelease">
-        <Form.Label>Date of release</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="dateOfRelease"
-          value={input.dateOfRelease}
-          onChange={handleChange} />
+      <Form.Group className={styles.formGroup} controlId="dateOfRelease">
+        <Form.Label>Date of Release</Form.Label>
+        <div className="w-50">
+          <Form.Control
+            type="date"
+            {...register("dateOfRelease")}
+            isInvalid={errors?.dateOfRelease}
+          />
+          <Form.Control.Feedback type="invalid">
+            {errors.dateOfRelease?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
-      <Form.Group className="form-group" controlId="caseStatus">
+      <Form.Group className={styles.formGroup} controlId="caseStatus">
         <Form.Label>Case Status</Form.Label>
-        <Form.Control
-          className="w-50"
-          type="text"
-          name="caseStatus"
-          value={input.caseStatus}
-          onChange={handleChange} />
+        <div className="w-50">
+          <Form.Select
+            aria-label="caseStatus"
+            {...register("caseStatus")}
+            isInvalid={errors?.caseStatus}
+          >
+            <option value="">Select...</option>
+            <option value="ongoing">Ongoing</option>
+            <option value="complete">Complete</option>
+          </Form.Select>
+          <Form.Control.Feedback type="invalid">
+            {errors.caseStatus?.message}
+          </Form.Control.Feedback>
+        </div>
       </Form.Group>
 
-      <div className="container-btn">
-        <Link className="btn btn-primary" to="/UserPreferences">Next</Link>
+      <div className="text-center mb-4">
+        <Button variant="primary" type="submit">
+          Next
+        </Button>
       </div>
     </Form>
   );

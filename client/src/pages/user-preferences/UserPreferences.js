@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
@@ -5,13 +6,15 @@ import Data from "../../components/form-data/formdata";
 import "./UserPreferences.css";
 
 export default function UserPreferences() {
+	const navigate = useNavigate();
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-	const onSubmit = (data) => {
-	};
+  const onSubmit = (data) => {
+    navigate(`/result?service=${data.service}&location=${data.location}`);
+  };
 	return (
 		<Form className="form" onSubmit={handleSubmit(onSubmit)}>
 			<Form.Group className="form-group" controlId="service">
@@ -51,7 +54,7 @@ export default function UserPreferences() {
 					{Data.location.map((location) => {
 						return (
 							<option key={location} value={location}>
-								{location}
+								{location} Delhi
 							</option>
 						);
 					})}
