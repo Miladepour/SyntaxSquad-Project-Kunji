@@ -31,6 +31,37 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { body } = req;
+
+  try {
+    const result = await db.query(
+      "UPDATE ngo SET service=$1, zone=$2, organization=$3, address=$4, contact=$5, website=$6, email=$7, email_status=$8, call_response=$9 WHERE id=$10 RETURNING *",
+      [
+        body.service || undefined,
+        body.zone || undefined,
+        body.organization || undefined,
+        body.address || undefined,
+        body.contact ? JSON.stringify(body.contact) : undefined,
+        body.website || undefined,
+        body.email || undefined,
+        body.email_status || undefined,
+        body.call_response || undefined,
+        id,
+      ]
+    );
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: "NGO not found" });
+    }
+    res.json(`${id} has been updated!`);
+  } catch (err) {
+    console.error("Failed to update NGO in database:", err);
+    res.status(500).json({ error: "Failed to update NGO" });
+  }
+});
+
+
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
 
