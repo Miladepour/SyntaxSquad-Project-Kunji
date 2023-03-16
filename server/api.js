@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { faker } from '@faker-js/faker';
 import logger from "./utils/logger";
-import { numeric } from "tar";
+
 
 const router = Router();
 
