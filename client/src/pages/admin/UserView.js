@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 export default function UserView() {
     const [datas,setDatas] = useState([]);
     useEffect(()=>{
-        fetch("http://localhost:3100/api/admin/users")
+        fetch("http://localhost:3100/admin/users")
         .then((res) => res.json())
         .then((data)=> setDatas(data))
         
@@ -37,17 +37,17 @@ console.log(datas)
           <tbody>
             {datas.map(val=>{
                 return <tr>
-                <td>{val.id}</td>
+                <td>{val.user_id}</td>
                 <td>{val.name}</td>
                 <td>{val.email}</td>
                 <td>{val.gender}</td>
-                <td>{val.dateOfBirth}</td>
-                <td>{val.currentLocation}</td>
-                <td>{val.pincode}</td>
-                <td>{val.phoneNumber}</td>
-                <td>{val.educationalQualification}</td>
-                <td>{val.dateOfRelease}</td>
-                <td>{val.caseStatus}</td>
+                <td>{val.date_of_birth}</td>
+                <td>{val.current_location}</td>
+                <td>{val.pin_code}</td>
+                <td>{val.phone_number}</td>
+                <td>{val.qualification}</td>
+                <td>{val.date_of_release}</td>
+                <td>{val.case_status}</td>
                </tr>
             })}
                 

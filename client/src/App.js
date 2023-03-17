@@ -15,7 +15,7 @@ const App = () => (
 			<Route path="/UserPreferences" element={<UserPreferences />} />
 			<Route path="/about/this/site" element={<About />} />
       <Route path="/result" element={<Result />} />
-	  <Route path="/UserView" element={<UserView />} />
+	  <Route path="/admin/user-view" element={<UserView />} />
 		</Routes>
 	</div>
 );

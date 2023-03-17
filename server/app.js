@@ -10,7 +10,7 @@ import {
 	logErrors,
 } from "./utils/middleware";
 
-const apiRoot = "/api";
+
 
 const app = express();
 
@@ -23,9 +23,9 @@ if (config.production) {
 	app.use(httpsOnly());
 }
 
-app.use(apiRoot, apiRouter);
+app.use("/", apiRouter);
 app.use("/health", (_, res) => res.sendStatus(200));
-app.use(clientRouter(apiRoot));
+app.use(clientRouter("/"));
 
 app.use(logErrors());
 
