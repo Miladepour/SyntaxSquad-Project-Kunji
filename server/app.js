@@ -12,6 +12,7 @@ import {
 
 const apiRoot = "/api";
 
+const users = require("./routes/user");
 const app = express();
 
 app.use(express.json());
@@ -27,6 +28,7 @@ app.use(apiRoot, apiRouter);
 app.use("/health", (_, res) => res.sendStatus(200));
 const ngo = require("./routes/ngo");
 app.use("/ngo", ngo);
+app.use("/users", users);
 app.use(clientRouter(apiRoot));
 app.use(logErrors());
 
