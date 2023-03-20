@@ -36,7 +36,7 @@ console.log(datas)
           </thead>
           <tbody>
             {datas.map(val=>{
-                return <tr>
+                return <tr key={user_id}>
                 <td>{val.user_id}</td>
                 <td>{val.name}</td>
                 <td>{val.email}</td>
