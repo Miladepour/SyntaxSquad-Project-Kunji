@@ -72,6 +72,7 @@
 		"webpack-merge": "^5.8.0"
 	},
 	"dependencies": {
+		"@auth0/auth0-react": "^2.0.1",
 		"@babel/runtime": "^7.21.0",
 		"@hookform/resolvers": "^2.9.11",
 		"bootstrap": "^5.2.3",

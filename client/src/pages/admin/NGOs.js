@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import fileData from "./data/ngos.json";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
@@ -8,7 +9,7 @@ import CreateNGO from "./components/CreateNGO";
 import BinIcon from "./components/BinIcon";
 import PenPaperIcon from "./components/PenPaperIcon";
 
-export default function NGOs() {
+export function NGOs() {
   const [ngos, setNGOs] = useState([]);
   const [singleNGO, setSingleNGO] = useState([]);
   const [showFormModal, setShowFormModal] = useState(false);
@@ -137,3 +138,5 @@ export default function NGOs() {
     </>
   );
 }
+
+export default withAuthenticationRequired(NGOs);
