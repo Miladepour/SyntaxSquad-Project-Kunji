@@ -11,7 +11,7 @@ import {
 } from "./utils/middleware";
 
 
-
+const apiRoot = "/api";
 const app = express();
 
 app.use(express.json());
@@ -23,9 +23,9 @@ if (config.production) {
 	app.use(httpsOnly());
 }
 
-app.use("/", apiRouter);
+app.use(apiRoot, apiRouter);
 app.use("/health", (_, res) => res.sendStatus(200));
-app.use(clientRouter("/"));
+app.use(clientRouter(apiRoot));
 
 app.use(logErrors());
 
