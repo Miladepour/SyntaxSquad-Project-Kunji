@@ -23,7 +23,7 @@ export default function WrapperAdmin() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link as={Link} to="/admin" >Users</Nav.Link>
+              <Nav.Link as={Link} to="/admin/users" >Users</Nav.Link>
               <Nav.Link as={Link} to="/admin/ngos" >NGOs</Nav.Link>
               {isAuthenticated && <Button variant="light" size="sm" onClick={() => logout({ returnTo: window.location.origin })}>Logout</Button>}
             </Nav>

@@ -7,6 +7,7 @@ import UserView from "./pages/admin/UserView";
 import NGOs from "./pages/admin/NGOs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import WrapperAdmin from "./components/wrappers/WrapperAdmin";
+import Admin from "./pages/admin/Admin";
 
 const App = () => (
 	<div>
@@ -17,7 +18,8 @@ const App = () => (
 				<Route path="/result" element={<Result />} />
 			</Route>
 			<Route path="/admin" element={<WrapperAdmin />}>
-				<Route path="/admin" element={<UserView />} />
+				<Route path="/admin" element={<Admin />} />
+				<Route path="/admin/users" element={<UserView />} />
 				<Route path="/admin/ngos" element={<NGOs />} />
 			</Route>
 		</Routes>
