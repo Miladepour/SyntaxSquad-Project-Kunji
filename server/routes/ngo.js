@@ -3,13 +3,19 @@ const express = require("express");
 const router = express.Router();
 const validation = require("../middlewares/validationMiddleware");
 const ngoSchema = require("../validations/NgoValidation");
+const { auth } = require('express-oauth2-jwt-bearer');
 
+const jwtCheck = auth({
+  audience: 'http://localhost:3000/api/',
+  issuerBaseURL: 'https://dev-smy0lct7oni31spt.us.auth0.com/',
+  tokenSigningAlg: 'RS256'
+});
 
 async function getNgo() {
   const { rows } = await db.query("SELECT * FROM ngo");
   return rows;
 }
-router.post("/", validation(ngoSchema) ,async (req, res) => {
+router.post("/", jwtCheck, validation(ngoSchema) ,async (req, res) => {
   const { body } = req;
 
   try {

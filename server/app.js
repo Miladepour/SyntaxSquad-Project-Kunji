@@ -26,7 +26,7 @@ if (config.production) {
 app.use(apiRoot, apiRouter);
 app.use("/health", (_, res) => res.sendStatus(200));
 const ngo = require("./routes/ngo");
-app.use("/ngo", ngo);
+app.use("/api/ngo", ngo);
 app.use(clientRouter(apiRoot));
 app.use(logErrors());
 

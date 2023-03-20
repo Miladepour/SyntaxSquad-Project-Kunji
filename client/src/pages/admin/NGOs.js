@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-import fileData from "./data/ngos.json";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 import Table from "react-bootstrap/Table";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -10,6 +9,7 @@ import BinIcon from "./components/BinIcon";
 import PenPaperIcon from "./components/PenPaperIcon";
 
 export function NGOs() {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [ngos, setNGOs] = useState([]);
   const [singleNGO, setSingleNGO] = useState([]);
   const [showFormModal, setShowFormModal] = useState(false);
@@ -17,8 +17,17 @@ export function NGOs() {
   const [formAction, setFormAction] = useState("");
 
   useEffect(() => {
-    const getNGOs = () => {
-      setNGOs(fileData.sort((a, b) => a.organization.localeCompare(b.organization)));
+    async function getNGOs() {
+      try {
+        const res = await fetch("http://localhost:3000/api/ngo");
+
+        const ngos = await res.json();
+        // setNGOs(ngos.sort((a, b) => a.organization.localeCompare(b.organization)));
+        setNGOs(ngos);
+
+      } catch (e) {
+        console.log(e.message);
+      }
     }
 
     getNGOs();
@@ -36,21 +45,16 @@ export function NGOs() {
   }
 
   const createNGO = (data) => {
-    setNGOs([...ngos, dynamicFields(data)]);
+    setNGOs([...ngos, data]);
   }
 
   const updateNGO = (id, data) => {
-    setNGOs(ngos.map(ngo => (ngo.id === id ? dynamicFields(data) : ngo)));
+    setNGOs(ngos.map(ngo => (ngo.id === id ? data : ngo)));
   }
 
   const deleteNGO = (id) => {
     setNGOs(ngos.filter(ngo => ngo.id !== id));
     setShowDeleteModal([false, 0]);
-  }
-
-  const dynamicFields = (data) => {
-    data.services = data.services.map(service => service.service);
-    return data;
   }
 
   return(
@@ -62,7 +66,6 @@ export function NGOs() {
         <Modal.Body>
           <CreateNGO
             formAction={formAction}
-            ngos={ngos}
             singleNGO={singleNGO}
             createNGO={createNGO}
             updateNGO={updateNGO}
@@ -90,7 +93,7 @@ export function NGOs() {
         </Button>
       </div>
 
-      <Table striped bordered hover>
+      <Table striped bordered hover className="table-responsive">
         <thead>
           <tr>
             <th>Service</th>
@@ -108,7 +111,7 @@ export function NGOs() {
             <tr key={i}>
               <td>
                 <Stack gap={3}>
-                  {ngo.services.map((service, i) => (
+                  {ngo.service.map((service, i) => (
                     <div key={i} className="border">{service}</div>
                   ))}
                 </Stack>
@@ -118,8 +121,8 @@ export function NGOs() {
               <td>{ngo.address}</td>
               <td>
                 <Stack gap={3}>
-                  {ngo.contacts.map((contact, i) => (
-                    <div key={i} className="border">{contact.contact} {contact.description}</div>
+                  {ngo.contact && ngo.contact.map((contact, i) => (
+                    <div key={i} className="border">{contact.phone_number} {contact.description}</div>
                   ))}
                 </Stack>
               </td>
