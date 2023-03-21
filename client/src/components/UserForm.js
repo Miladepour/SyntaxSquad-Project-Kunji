@@ -51,7 +51,7 @@ export default function UserForm() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     navigate("/user-preferences");
   };
 
