@@ -1,5 +1,5 @@
 import express from "express";
-import cors from "cors";
+const cors = require("cors");
 import apiRouter from "./api";
 import config from "./utils/config";
 const sendMail = require("./routes/sendMail");
@@ -14,13 +14,13 @@ import {
 	logErrors,
 } from "./utils/middleware";
 
-
 const apiRoot = "/api";
 const app = express();
 
 app.use(express.json());
 app.use(configuredHelmet());
 app.use(configuredMorgan());
+app.use(cors());
 app.use(cors());
 if (config.production) {
 	app.enable("trust proxy");
