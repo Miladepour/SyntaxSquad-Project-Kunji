@@ -74,6 +74,7 @@
 	"dependencies": {
 		"@babel/runtime": "^7.21.0",
 		"@hookform/resolvers": "^2.9.11",
+		"@sendgrid/mail": "^7.7.0",
 		"bootstrap": "^5.2.3",
 		"cors": "^2.8.5",
 		"date-fns": "^2.29.3",
@@ -84,6 +85,7 @@
 		"pg": "^8.9.0",
 		"react-bootstrap": "^2.7.2",
 		"react-hook-form": "^7.43.5",
+		"twilio": "^4.8.0",
 		"winston": "^3.8.2",
 		"yup": "^1.0.2"
 	},
