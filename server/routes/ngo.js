@@ -33,7 +33,7 @@ router.post("/", jwtCheck, validation(ngoSchema) ,async (req, res) => {
         body.call_response,
       ]
     );
-    res.status(201).json(result.rows[0]);
+    res.json(result.rows[0]);
   } catch (err) {
     res.status(500).json({ error: "Failed to create NGO" });
   }
@@ -69,7 +69,7 @@ router.put("/:id", jwtCheck, validation(ngoSchema) , async (req, res) => {
 });
 
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", jwtCheck, async (req, res) => {
   const { id } = req.params;
 
   try {

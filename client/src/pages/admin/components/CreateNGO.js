@@ -85,10 +85,11 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
           body: JSON.stringify(data)
         });
 
-        await res.json();
-        createNGO(data);
-        setShowFormModal(false);
-
+        if (res.status === 200) {
+          await res.json();
+          createNGO(data);
+          setShowFormModal(false);
+        }
       } catch (e) {
         console.log(e.message);
       }
@@ -110,10 +111,11 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
           body: JSON.stringify(data)
         });
 
-        await res.json();
-        updateNGO(singleNGO[0].id, data);
-        setShowFormModal(false);
-
+        if (res.status === 200) {
+          await res.json();
+          updateNGO(singleNGO[0].id, data);
+          setShowFormModal(false);
+        }
       } catch (e) {
         console.log(e.message);
       }

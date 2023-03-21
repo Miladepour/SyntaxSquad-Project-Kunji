@@ -22,7 +22,6 @@ export function NGOs() {
         const res = await fetch("http://localhost:3000/api/ngo");
 
         const ngos = await res.json();
-        // setNGOs(ngos.sort((a, b) => a.organization.localeCompare(b.organization)));
         setNGOs(ngos);
 
       } catch (e) {
@@ -52,93 +51,119 @@ export function NGOs() {
     setNGOs(ngos.map(ngo => (ngo.id === id ? data : ngo)));
   }
 
-  const deleteNGO = (id) => {
-    setNGOs(ngos.filter(ngo => ngo.id !== id));
-    setShowDeleteModal([false, 0]);
+  const deleteNGO = async (id) => {
+    try {
+      const accessToken = await getAccessTokenSilently({
+        authorizationParams: {
+          audience: `http://localhost:3000/api/`
+        },
+      });
+
+      const res = await fetch(`http://localhost:3000/api/ngo/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        }
+      });
+
+      if (res.status === 200) {
+        await res.json();
+        setNGOs(ngos.filter(ngo => ngo.id !== id));
+        setShowDeleteModal([false, 0]);
+
+      }
+    } catch (e) {
+      console.log(e.message);
+    }
   }
 
   return(
-    <>
-      <Modal size="lg" show={showFormModal} onHide={() => setShowFormModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>{formAction === "create" ? "Create NGO" : "Edit NGO"}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <CreateNGO
-            formAction={formAction}
-            singleNGO={singleNGO}
-            createNGO={createNGO}
-            updateNGO={updateNGO}
-            setShowFormModal={setShowFormModal} />
-        </Modal.Body>
-        <Modal.Footer>
-        </Modal.Footer>
-      </Modal>
+    <div>
+      {isAuthenticated && 
+        <>
+          <Modal size="lg" show={showFormModal} onHide={() => setShowFormModal(false)}>
+            <Modal.Header closeButton>
+              <Modal.Title>{formAction === "create" ? "Create NGO" : "Edit NGO"}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <CreateNGO
+                formAction={formAction}
+                singleNGO={singleNGO}
+                createNGO={createNGO}
+                updateNGO={updateNGO}
+                setShowFormModal={setShowFormModal} />
+            </Modal.Body>
+            <Modal.Footer>
+            </Modal.Footer>
+          </Modal>
 
-      <Modal show={showDeleteModal[0]} onHide={() => setShowDeleteModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are You Sure?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="danger" onClick={() => deleteNGO(showDeleteModal[1])}>Yes</Button>
-        </Modal.Footer>
-      </Modal>
+          <Modal show={showDeleteModal[0]} onHide={() => setShowDeleteModal(false)}>
+            <Modal.Header closeButton>
+              <Modal.Title>Confirmation</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              Are You Sure?
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={() => deleteNGO(showDeleteModal[1])}>Yes</Button>
+            </Modal.Footer>
+          </Modal>
 
-      <div className="text-center">
-        <Button variant="success" onClick={create} className="mb-4">
-          Add New
-        </Button>
-      </div>
+          <div className="text-center">
+            <Button variant="success" onClick={create} className="mb-4">
+              Add New
+            </Button>
+          </div>
 
-      <Table striped bordered hover className="table-responsive">
-        <thead>
-          <tr>
-            <th>Service</th>
-            <th>Zone</th>
-            <th>Organization</th>
-            <th>Address</th>
-            <th>Contact</th>
-            <th>Website</th>
-            <th>Email</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {ngos.map((ngo, i) => (
-            <tr key={i}>
-              <td>
-                <Stack gap={3}>
-                  {ngo.service.map((service, i) => (
-                    <div key={i} className="border">{service}</div>
-                  ))}
-                </Stack>
-              </td>
-              <td>{ngo.zone}</td>
-              <td>{ngo.organization}</td>
-              <td>{ngo.address}</td>
-              <td>
-                <Stack gap={3}>
-                  {ngo.contact && ngo.contact.map((contact, i) => (
-                    <div key={i} className="border">{contact.phone_number} {contact.description}</div>
-                  ))}
-                </Stack>
-              </td>
-              <td>{ngo.website}</td>
-              <td>{ngo.email}</td>
-              <td>
-                <Stack direction="horizontal" gap={3}>
-                  <PenPaperIcon onClick={() => update(ngo.id)} />
-                  <BinIcon onClick={() => setShowDeleteModal([true, ngo.id])} />
-                </Stack>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </>
+          <Table striped bordered hover className="table-responsive">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Zone</th>
+                <th>Organization</th>
+                <th>Address</th>
+                <th>Contact</th>
+                <th>Website</th>
+                <th>Email</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ngos.map((ngo, i) => (
+                <tr key={i}>
+                  <td>
+                    <Stack gap={3}>
+                      {ngo.service.map((service, i) => (
+                        <div key={i} className="border">{service}</div>
+                      ))}
+                    </Stack>
+                  </td>
+                  <td>{ngo.zone}</td>
+                  <td>{ngo.organization}</td>
+                  <td>{ngo.address}</td>
+                  <td>
+                    <Stack gap={3}>
+                      {ngo.contact && ngo.contact.map((contact, i) => (
+                        <div key={i} className="border">{contact.phone_number} {contact.description}</div>
+                      ))}
+                    </Stack>
+                  </td>
+                  <td>{ngo.website}</td>
+                  <td>{ngo.email}</td>
+                  <td>
+                    <Stack direction="horizontal" gap={3}>
+                      <PenPaperIcon onClick={() => update(ngo.id)} />
+                      <BinIcon onClick={() => setShowDeleteModal([true, ngo.id])} />
+                    </Stack>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </>
+      }
+    </div>
   );
 }
 
