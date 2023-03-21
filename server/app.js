@@ -3,6 +3,7 @@ import cors from "cors";
 import apiRouter from "./api";
 import config from "./utils/config";
 const sendMail = require("./routes/sendMail");
+const sendSms = require("./routes/sendSms");
 const ngo = require("./routes/ngo");
 
 import {
@@ -30,6 +31,7 @@ app.use(apiRoot, apiRouter);
 app.use("/health", (_, res) => res.sendStatus(200));
 app.use("/api/ngo", ngo);
 app.use("/api/sendmail", sendMail);
+app.use("/api/sendsms", sendSms);
 app.use(clientRouter(apiRoot));
 app.use(logErrors());
 
