@@ -39,7 +39,7 @@ router.post("/", jwtCheck, validation(ngoSchema) ,async (req, res) => {
   }
 });
 
-router.put("/:id", validation(ngoSchema) , async (req, res) => {
+router.put("/:id", jwtCheck, validation(ngoSchema) , async (req, res) => {
   const { id } = req.params;
   const { body } = req;
 

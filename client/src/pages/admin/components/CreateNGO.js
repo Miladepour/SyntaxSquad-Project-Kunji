@@ -94,8 +94,29 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
       }
     }
     if (formAction === "update") {
-      updateNGO(singleNGO[0].id, data);
-      setShowFormModal(false);
+      try {
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: `http://localhost:3000/api/`
+          },
+        });
+
+        const res = await fetch(`http://localhost:3000/api/ngo/${singleNGO[0].id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(data)
+        });
+
+        await res.json();
+        updateNGO(singleNGO[0].id, data);
+        setShowFormModal(false);
+
+      } catch (e) {
+        console.log(e.message);
+      }
     }
   };
 
