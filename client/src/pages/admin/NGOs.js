@@ -18,39 +18,38 @@ export default function NGOs() {
   useEffect(() => {
     const getNGOs = () => {
       setNGOs(fileData.sort((a, b) => a.organization.localeCompare(b.organization)));
-    }
-
+    };
     getNGOs();
   }, []);
 
   const create = () => {
     setFormAction("create");
     setShowFormModal(true);
-  }
+  };
 
   const update = (id) => {
     setFormAction("update");
     setSingleNGO(ngos.filter(ngo => ngo.id === id));
     setShowFormModal(true);
-  }
+  };
 
   const createNGO = (data) => {
     setNGOs([...ngos, dynamicFields(data)]);
-  }
+  };
 
   const updateNGO = (id, data) => {
     setNGOs(ngos.map(ngo => (ngo.id === id ? dynamicFields(data) : ngo)));
-  }
+  };
 
   const deleteNGO = (id) => {
     setNGOs(ngos.filter(ngo => ngo.id !== id));
     setShowDeleteModal([false, 0]);
-  }
+  };
 
   const dynamicFields = (data) => {
     data.services = data.services.map(service => service.service);
     return data;
-  }
+  };
 
   return(
     <>

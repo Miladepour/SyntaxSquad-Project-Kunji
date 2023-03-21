@@ -4,7 +4,6 @@ const router = express.Router();
 const validation = require("../middlewares/validationMiddleware");
 const ngoSchema = require("../validations/NgoValidation");
 
-
 async function getNgo() {
   const { rows } = await db.query("SELECT * FROM ngo");
   return rows;
