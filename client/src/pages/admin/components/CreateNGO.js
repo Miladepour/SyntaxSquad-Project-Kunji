@@ -114,8 +114,14 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
               >
                 <option value="">Select...</option>
                 <option value="Legal Aid">Legal Aid</option>
-                <option value="Employment & Life Skills">Employment & Life Skills</option>
                 <option value="Drug De-Addiction">Drug De-Addiction</option>
+                <option value="Education">Education</option>
+                <option value="Employment & Life Skills">Employment & Life Skills</option>
+                <option value="Education for children">Education for children</option>
+                <option value="Health Care">Health Care</option>
+                <option value="Mental Health">Mental Health</option>
+                <option value="Food/Shelter/Clothing assistance">Food/Shelter/Clothing assistance</option>
+                <option value="Important Documents">Important Documents</option>
               </Form.Select>
               <Form.Control.Feedback type="invalid">
                 {(errors.service && errors.service[index]) && errors.service[index].service.message}
