@@ -8,8 +8,6 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./UserForm.module.css";
-import dotenv from "dotenv";
-dotenv.config();
 const today = new Date();
 
 function parseDateString(value, originalValue) {
@@ -224,7 +222,7 @@ export default function UserForm() {
       </Form.Group>
       <div className="w-50">
       <ReCAPTCHA
-       sitekey={process.env.REACT_APP_SITE_KEY}
+       sitekey="6LfUTRElAAAAAGygougsf9-TgpDcXrONCKzZGqJP"
       onChange={handleCaptchaChange}
       onExpired={handleCaptchaExpired}
       onError={handleCaptchaError}
