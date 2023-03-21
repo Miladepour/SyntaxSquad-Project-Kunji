@@ -5,10 +5,7 @@ const validation = require("../middlewares/validationMiddleware");
 const ngoSchema = require("../validations/NgoValidation");
 
 
-async function getNgo() {
-  const { rows } = await db.query("SELECT * FROM ngo");
-  return rows;
-}
+
 router.post("/", validation(ngoSchema) ,async (req, res) => {
   const { body } = req;
 
@@ -79,8 +76,31 @@ router.delete("/:id", async (req, res) => {
 
 
 router.get("/", async (req, res) => {
-  const ngos = await getNgo();
-  res.json(ngos);
+  const { service, location } = req.query;
+  let query = "SELECT * FROM ngo";
+  let params = [];
+
+  if (service && location) {
+    query += " WHERE service @> $1 AND zone = $2";
+    params = [[service], location];
+  } else if (service) {
+    query += " WHERE service @> $1";
+    params = [[service]];
+  } else if (location) {
+    query += " WHERE zone = $1";
+    params = [location];
+  }
+
+  try {
+    const { rows } = await db.query(query, params);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to get NGO data" });
+  }
 });
+
+
+
+
 
 module.exports = router;

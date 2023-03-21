@@ -54,7 +54,7 @@ export default function UserPreferences() {
 					{Data.location.map((location) => {
 						return (
 							<option key={location} value={location}>
-								{location} Delhi
+								{location}
 							</option>
 						);
 					})}
