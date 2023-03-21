@@ -116,7 +116,7 @@ export function NGOs() {
             </Button>
           </div>
 
-          <Table striped bordered hover className="table-responsive">
+          <Table striped bordered hover style={{ tableLayout: "fixed", wordWrap: "break-word" }}>
             <thead>
               <tr>
                 <th>Service</th>
