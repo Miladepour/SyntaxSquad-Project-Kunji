@@ -4,12 +4,14 @@ import "./Result.css";
 import Form from "react-bootstrap/Form";
 import { useSearchParams } from "react-router-dom";
 import Stack from "react-bootstrap/Stack";
+import SendEmailButton from "./button/sendEmailButton";
 
 export default function Result() {
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [service, setService] = useState(searchParams.get("service"));
 	const [location, setLocation] = useState(searchParams.get("location"));
 	const [data, setData] = useState([]);
+  const [emailSent, setEmailSent] = useState(false);
 	useEffect(() => {
 		fetch(`/api/ngo?service=${service}&location=${location}`)
 			.then((response) => response.json())
@@ -34,6 +36,26 @@ export default function Result() {
 			service: service,
 			location: e.target.value,
 		});
+	}
+	function sendEmail(email) {
+		if (!email) {
+			return;
+		}
+		fetch("/api/sendmail", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({ to: email, data: data, service: service, location: location }),
+		})
+			.then((response) => {
+				if (response.ok) {
+					setEmailSent(true);
+				} else {
+					throw new Error("Failed to send email");
+				}
+			})
+			.catch((error) => console.error(error));
 	}
 	return (
 		<>
@@ -73,6 +95,7 @@ export default function Result() {
 			</Form>
 			<br></br>
 			<h3 className="bg-primary header-list">List of NGOs</h3>
+			<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
 			<Table striped bordered hover>
 				<thead>
 					<tr>
