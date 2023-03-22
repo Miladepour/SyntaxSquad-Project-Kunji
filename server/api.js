@@ -10,12 +10,10 @@ router.get("/", (_, res) => {
 });
 
 router.get("/admin/users", async (req, res) => {
-	
 	try {
 		const dbData = await db.query("SELECT * FROM user_informations");
-		res.status(200).json(dbData.rows)
+		res.status(200).json(dbData.rows);
 	} catch (error) {
-		console.log(error);
 		res.status(500);
 	}
 

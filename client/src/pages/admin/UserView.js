@@ -1,19 +1,16 @@
 
-import Table from 'react-bootstrap/Table';
-import "./UserView.css"
+import Table from "react-bootstrap/Table";
+import "./UserView.css";
 import React, { useEffect, useState } from "react";
 
 export default function UserView() {
     const [datas,setDatas] = useState([]);
     useEffect(()=>{
-        
-        fetch(`http://localhost:3100/api/admin/users`)
+        fetch("/api/admin/users")
         .then((res) => res.json())
-        .then((data)=> setDatas(data))
+        .then((data)=> setDatas(data));
     },[]);
-    
       return (
-        
         <Table className='resize' striped bordered responsive="lg" size="xl">
           <thead>
             <tr>
@@ -31,7 +28,7 @@ export default function UserView() {
             </tr>
           </thead>
           <tbody>
-            {datas.map(val=>{
+            {datas.map((val)=>{
                 return <tr key={val.user_id}>
                 <td>{val.user_id}</td>
                 <td>{val.name}</td>
@@ -44,16 +41,9 @@ export default function UserView() {
                 <td>{val.qualification}</td>
                 <td>{val.date_of_release}</td>
                 <td>{val.case_status}</td>
-               </tr>
+               </tr>;
             })}
-                
-           
-             
-            
-            
           </tbody>
         </Table>
-        
       );
     }
-    
