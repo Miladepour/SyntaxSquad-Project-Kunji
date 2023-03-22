@@ -50,9 +50,25 @@ export default function UserForm() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = () => {
+  const onSubmit = async (formData) => {
     if (isCaptchaVerified) {
-      navigate("/user-preferences");
+      try {
+        const response = await fetch("http://localhost:3000/api/user", {
+          method:"POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.status === 200) {
+          navigate("/user-preferences");
+        } else {
+          alert("Failed to insert data");
+        }
+      } catch (error) {
+        alert("Failed to insert data");
+      }
     } else {
       alert("Please complete the reCAPTCHA challenge.");
     }
