@@ -2,11 +2,15 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
+import * as yup from "yup";
+
+const emailSchema = yup.string().email().required();
 
 export default function SendEmailButton({ sendEmail }) {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
   const [messageSent, setMessageSent] = useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
 
   function handleClose() {
     setShowModal(false);
@@ -20,10 +24,29 @@ export default function SendEmailButton({ sendEmail }) {
     setMessageSent(false);
   }
 
-  function handleSendEmail() {
-    sendEmail(email);
-    setMessageSent(true);
+  async function handleSendEmail() {
+    try {
+      await emailSchema.validate(email);
+      setIsValidEmail(true);
+      sendEmail(email);
+      setMessageSent(true);
+    } catch (error) {
+      setIsValidEmail(false);
+    }
   }
+
+  async function handleEmailChange(e) {
+    const newEmail = e.target.value;
+    setEmail(newEmail);
+
+    try {
+      await emailSchema.validate(newEmail);
+      setIsValidEmail(true);
+    } catch (error) {
+      setIsValidEmail(false);
+    }
+  }
+
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -38,11 +61,17 @@ export default function SendEmailButton({ sendEmail }) {
           {messageSent ? (
             <p>Email sent successfully.</p>
           ) : (
-            <FormControl
-              placeholder="Enter your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
+            <>
+              <FormControl
+                placeholder="Enter your email address"
+                value={email}
+                onChange={handleEmailChange}
+                isInvalid={!isValidEmail}
+              />
+              {!isValidEmail && (
+                <div className="invalid-feedback">Please enter a valid email address.</div>
+              )}
+            </>
           )}
         </Modal.Body>
         <Modal.Footer>
@@ -50,7 +79,7 @@ export default function SendEmailButton({ sendEmail }) {
             Close
           </Button>
           {!messageSent && (
-            <Button variant="primary" onClick={handleSendEmail}>
+            <Button variant="primary" onClick={handleSendEmail} disabled={!isValidEmail}>
               Send Email
             </Button>
           )}
