@@ -42,6 +42,7 @@ const schema = yup.object({
 export default function UserForm() {
   const navigate = useNavigate();
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
+  const [showForm, setShowForm] = useState(true);
   const {
     register,
     handleSubmit,
@@ -49,7 +50,9 @@ export default function UserForm() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
+  function handleShowRecaptcha(){
+   setShowForm(false);
+  }
   const onSubmit = async (formData) => {
     if (isCaptchaVerified) {
       try {
@@ -64,10 +67,11 @@ export default function UserForm() {
         if (response.status === 200) {
           navigate("/user-preferences");
         } else {
-          alert("Failed to insert data");
+          const data=await response.json();
+          console.log(data);
         }
       } catch (error) {
-        alert("Failed to insert data");
+        alert(error.message);
       }
     } else {
       alert("Please complete the reCAPTCHA challenge.");
@@ -88,7 +92,10 @@ export default function UserForm() {
   };
 
   return (
-    <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+    <div>
+     {showForm && (
+   /* <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}> */
+      <Form className={styles.form} onSubmit={handleShowRecaptcha}>
       <Form.Group className={styles.formGroup} controlId="name">
         <Form.Label>Name</Form.Label>
         <div className="w-50">
@@ -236,19 +243,30 @@ export default function UserForm() {
           </Form.Control.Feedback>
         </div>
       </Form.Group>
-      <div className="w-50">
-      <ReCAPTCHA
-       sitekey="6LfUTRElAAAAAGygougsf9-TgpDcXrONCKzZGqJP"
-      onChange={handleCaptchaChange}
-      onExpired={handleCaptchaExpired}
-      onError={handleCaptchaError}
-        />
-      </div>
       <div className="text-center mb-4">
         <Button variant="primary" type="submit">
           Next
         </Button>
       </div>
     </Form>
+    )}
+    {!showForm && (
+       <div className="w-50">
+       <ReCAPTCHA
+        sitekey="6LfUTRElAAAAAGygougsf9-TgpDcXrONCKzZGqJP"
+       onChange={handleCaptchaChange}
+       onExpired={handleCaptchaExpired}
+       onError={handleCaptchaError}
+         />
+         <div className="text-center mb-4">
+        <Button variant="primary" onClick={onSubmit(handleSubmit)}>
+          Next
+        </Button>
+      </div>
+       </div>
+    )
+
+    }
+    </div>
   );
 }
