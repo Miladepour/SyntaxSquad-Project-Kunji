@@ -1,3 +1,4 @@
+
 .table{
     width: 60%;
     margin: 0 auto; 
@@ -7,8 +8,7 @@
     width: 70%;
 }
 .header-list{
-    width: 60%;
-    margin-left: 20%;
+    width: 30%;
     text-align: center;
     color: white;
 }
@@ -16,5 +16,13 @@
     margin-top: 10px;
     margin-left: 20%;
     width: 60%;
+}
+
+.primary-color {
+    background-color: #004e87 !important;
+}
+
+.bolder {
+    font-weight:700;
 }
 

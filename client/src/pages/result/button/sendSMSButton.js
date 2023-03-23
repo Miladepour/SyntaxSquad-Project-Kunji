@@ -4,72 +4,73 @@ import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import * as yup from "yup";
 
-const emailSchema = yup.string().email().required();
+const smsSchema = yup.string().min(5).max(20).required();
 
-export default function SendEmailButton({ sendEmail }) {
+export default function SendSmsButton({ sendSms }) {
   const [showModal, setShowModal] = useState(false);
-  const [email, setEmail] = useState("");
+  const [sms, setSms] = useState("");
   const [messageSent, setMessageSent] = useState(false);
-  const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValidSms, setIsValidSms] = useState(true);
 
   function handleClose() {
     setShowModal(false);
-    setEmail("");
+    setSms("");
     setMessageSent(false);
   }
 
   function handleShow() {
     setShowModal(true);
-    setEmail("");
+    setSms("");
     setMessageSent(false);
   }
 
-  async function handleSendEmail() {
+  async function handleSendSms() {
     try {
-      await emailSchema.validate(email);
-      setIsValidEmail(true);
-      sendEmail(email);
+      await smsSchema.validate(sms);
+      setIsValidSms(true);
+      sendSms(sms);
       setMessageSent(true);
     } catch (error) {
-      setIsValidEmail(false);
+      setIsValidSms(false);
     }
   }
 
-  async function handleEmailChange(e) {
-    const newEmail = e.target.value;
-    setEmail(newEmail);
+  async function handleSmsChange(e) {
+    const newSms = e.target.value;
+    setSms(newSms);
 
     try {
-      await emailSchema.validate(newEmail);
-      setIsValidEmail(true);
+      await smsSchema.validate(newSms);
+      setIsValidSms(true);
     } catch (error) {
-      setIsValidEmail(false);
+      setIsValidSms(false);
     }
   }
 
   return (
     <>
       <button className="btn text-white m-2" type="button" style={{backgroundColor: "#004e87"}} onClick={handleShow}>
-        Send Email
+        Send SMS
       </button>
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Enter your email address</Modal.Title>
+          <Modal.Title>Enter your telephone number..</Modal.Title>
+          <Modal.Body></Modal.Body>
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
-            <p>Email sent successfully.</p>
+            <p>SMS sent successfully.</p>
           ) : (
             <>
               <FormControl
-                placeholder="Enter your email address"
-                value={email}
-                onChange={handleEmailChange}
-                isInvalid={!isValidEmail}
+                placeholder="Enter your telephone number"
+                value={sms}
+                onChange={handleSmsChange}
+                isInvalid={!isValidSms}
               />
-              {!isValidEmail && (
-                <div className="invalid-feedback">Please enter a valid email address.</div>
+              {!isValidSms && (
+                <div className="invalid-feedback">Please enter a valid telephone number.</div>
               )}
             </>
           )}
@@ -79,8 +80,8 @@ export default function SendEmailButton({ sendEmail }) {
             Close
           </Button>
           {!messageSent && (
-            <Button variant="primary" onClick={handleSendEmail} disabled={!isValidEmail}>
-              Send Email
+            <Button variant="primary" onClick={handleSendSms} disabled={!isValidSms}>
+              Send SMS
             </Button>
           )}
         </Modal.Footer>

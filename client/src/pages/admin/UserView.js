@@ -7,7 +7,7 @@ export default function UserView() {
     const [datas,setDatas] = useState([]);
     useEffect(()=>{
         
-        fetch(`http://localhost:3100/api/admin/users`)
+        fetch(`/api/admin/users`)
         .then((res) => res.json())
         .then((data)=> setDatas(data))
     },[]);
