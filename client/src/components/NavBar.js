@@ -1,32 +1,26 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-
-
+import { Image } from "react-bootstrap";
+import logo from "../assest/kunji-logo2.svg";
+import styles from "./NavBar.module.css";
 function NavBar() {
-  function handleClick() {
-    fetch("https://your-api/help-line")
-      .then((response) => response.json())
-      .then((data )=> {
-        console.log(data); // do something with the data
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }
+
   return (
-    <Navbar bg="light" expand="lg">
-      <Container>
-        <Navbar.Brand href="#home">KUNJI</Navbar.Brand>
+    <Navbar  className={styles.navbar}bg="bg-transparent" expand="lg">
+      <Container >
+        <Navbar.Brand href="/">
+          <Image src={logo} alt="Logo" height={70} />
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Go to Form</Nav.Link>
+          <Nav className="justify-content-end flex-grow-1 pe-3" >
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/userform">Go to Form</Nav.Link>
           </Nav>
         </Navbar.Collapse>
           <div>
-          <button onClick={handleClick}>Call Help Line</button>
+          <button className={styles.button} >Call Help Line</button>
           </div>
       </Container>
     </Navbar>
