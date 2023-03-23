@@ -25,6 +25,7 @@ button:hover::after, button:hover::before {
   width: 100%;
 }
 .navbar{
-  background-color: #e3edf5;
+  background-color: #FA4F3D;
+  color: white;
   margin-bottom: 3em;
 }
