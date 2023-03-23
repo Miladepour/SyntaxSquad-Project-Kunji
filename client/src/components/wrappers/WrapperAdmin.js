@@ -25,7 +25,7 @@ export default function WrapperAdmin() {
             <Nav className="ms-auto">
               <Nav.Link as={Link} to="/admin/users" >Users</Nav.Link>
               <Nav.Link as={Link} to="/admin/ngos" >NGOs</Nav.Link>
-              {isAuthenticated && <Button variant="light" size="sm" onClick={() => logout({ returnTo: "http://localhost:3000/admin" })}>Logout</Button>}
+              {isAuthenticated && <Button variant="light" size="sm" onClick={() => logout({ returnTo: window.location.origin + "/admin" })}>Logout</Button>}
             </Nav>
           </Navbar.Collapse>
         </Container>
