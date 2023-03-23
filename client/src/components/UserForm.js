@@ -52,6 +52,8 @@ export default function UserForm() {
 
   const onSubmit = async (formData) => {
     if (isCaptchaVerified) {
+      formData.dateOfBirth=new Date(formData.dateOfBirth).toISOString().split("T")[0];
+      formData.dateOfRelease=new Date(formData.dateOfRelease).toISOString().split("T")[0];
       try {
         const response = await fetch("/api/user", {
           method:"POST",
@@ -64,10 +66,11 @@ export default function UserForm() {
         if (response.status === 200) {
           navigate("/user-preferences");
         } else {
-          alert("Failed to insert data");
+          const data=await response.json();
+          console.log(data);
         }
       } catch (error) {
-        alert("Failed to insert data");
+       console.log(error.message);
       }
     } else {
       alert("Please complete the reCAPTCHA challenge.");

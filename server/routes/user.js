@@ -17,16 +17,16 @@ const userSchema = require("../validations/UserValidation");
           body.name,
           body.email,
           body.gender,
-          body.date_of_birth,
-          body.current_location,
-          body.pin_code,
-          body.phone_number,
+          body.dateOfBirth,
+          body.currentLocation,
+          body.pinCode,
+          body.phoneNumber,
           body.qualification,
-          body.date_of_release,
-          body.case_status,
+          body.dateOfRelease,
+          body.caseStatus,
         ]
       );
-      res.status(201).json(result.rows[0]);
+      res.json(result.rows[0]);
     } catch (err) {
       res.status(500).json({ error: "Failed to create user" });
     }
