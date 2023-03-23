@@ -1,10 +1,14 @@
 const data = {
    services: [
      "Legal Aid",
-     "Employment & Life Skills",
-     "Food/Shelter/Clothing assistance",
      "Drug De-Addiction",
      "Education",
+     "Employment & Life Skills",
+     "Education for children",
+     "Health Care",
+     "Mental Health",
+     "Food/Shelter/Clothing assistance",
+     "Important Documents",
    ],
    location: [
       "North",
