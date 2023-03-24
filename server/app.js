@@ -21,7 +21,6 @@ app.use(express.json());
 app.use(configuredHelmet());
 app.use(configuredMorgan());
 app.use(cors());
-app.use(cors());
 if (config.production) {
 	app.enable("trust proxy");
 	app.use(httpsOnly());

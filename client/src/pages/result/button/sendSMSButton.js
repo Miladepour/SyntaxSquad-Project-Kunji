@@ -8,27 +8,27 @@ const smsSchema = yup.string().min(5).max(20).required();
 
 export default function SendSmsButton({ sendSms }) {
   const [showModal, setShowModal] = useState(false);
-  const [sms, setSms] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const [isValidSms, setIsValidSms] = useState(true);
 
   function handleClose() {
     setShowModal(false);
-    setSms("");
+    setPhoneNumber("");
     setMessageSent(false);
   }
 
   function handleShow() {
     setShowModal(true);
-    setSms("");
+    setPhoneNumber("");
     setMessageSent(false);
   }
 
   async function handleSendSms() {
     try {
-      await smsSchema.validate(sms);
+      await smsSchema.validate(phoneNumber);
       setIsValidSms(true);
-      sendSms(sms);
+      sendSms(phoneNumber);
       setMessageSent(true);
     } catch (error) {
       setIsValidSms(false);
@@ -37,7 +37,7 @@ export default function SendSmsButton({ sendSms }) {
 
   async function handleSmsChange(e) {
     const newSms = e.target.value;
-    setSms(newSms);
+    setPhoneNumber(newSms);
 
     try {
       await smsSchema.validate(newSms);
@@ -65,7 +65,7 @@ export default function SendSmsButton({ sendSms }) {
             <>
               <FormControl
                 placeholder="Enter your telephone number"
-                value={sms}
+                value={phoneNumber}
                 onChange={handleSmsChange}
                 isInvalid={!isValidSms}
               />

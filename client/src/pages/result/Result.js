@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import "./Result.css";
 import Form from "react-bootstrap/Form";
 import { useSearchParams } from "react-router-dom";
-import SendSmsButton from "./button/sendSMSButton";
-import SendEmailButton from "./button/sendEmailButton";
+import SendSmsButton from "./button/SendSMSButton";
+import SendEmailButton from "./button/SendEmailButton";
 import LocationIcon from "../../components/LocationIcon";
 
 export default function Result() {
@@ -100,7 +100,7 @@ export default function Result() {
 						style={{ color: "#004e87" }}
 						controlId="service"
 					>
-						<Form.Label className="bolder">Service :</Form.Label>
+						<Form.Label className="fw-bolder">Service :</Form.Label>
 						{[
 							"Legal Aid",
 							"Drug De-Addiction",
