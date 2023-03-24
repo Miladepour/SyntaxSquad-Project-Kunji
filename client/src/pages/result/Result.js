@@ -129,7 +129,7 @@ export default function Result() {
 						style={{ color: "#004e87" }}
 						controlId="location"
 					>
-						<Form.Label className="bolder">Location :</Form.Label>
+						<Form.Label className="fw-bolder">Location :</Form.Label>
 						{["North", "East", "West", "Central", "South"].map((type) => (
 							<div key={`${type}`} className="mb-3">
 								<Form.Check
