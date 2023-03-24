@@ -5,6 +5,7 @@ import config from "./utils/config";
 const sendMail = require("./routes/sendMail");
 const sendSms = require("./routes/sendSms");
 const ngo = require("./routes/ngo");
+const user= require ("./routes/user");
 
 import {
 	clientRouter,
@@ -16,7 +17,6 @@ import {
 
 const apiRoot = "/api";
 const app = express();
-
 app.use(express.json());
 app.use(configuredHelmet());
 app.use(configuredMorgan());
@@ -29,6 +29,7 @@ if (config.production) {
 
 app.use(apiRoot, apiRouter);
 app.use("/health", (_, res) => res.sendStatus(200));
+app.use("/api/user", user);
 app.use("/api/ngo", ngo);
 app.use("/api/sendmail", sendMail);
 app.use("/api/sendsms", sendSms);

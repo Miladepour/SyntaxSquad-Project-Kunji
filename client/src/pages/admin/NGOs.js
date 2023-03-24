@@ -19,7 +19,7 @@ export function NGOs() {
   useEffect(() => {
     async function getNGOs() {
       try {
-        const res = await fetch("http://localhost:3000/api/ngo");
+        const res = await fetch("/api/ngo");
 
         const ngos = await res.json();
         setNGOs(ngos);
@@ -35,13 +35,13 @@ export function NGOs() {
   const create = () => {
     setFormAction("create");
     setShowFormModal(true);
-  }
+  };
 
   const update = (id) => {
     setFormAction("update");
     setSingleNGO(ngos.filter(ngo => ngo.id === id));
     setShowFormModal(true);
-  }
+  };
 
   const createNGO = (data) => {
     setNGOs([...ngos, data]);
