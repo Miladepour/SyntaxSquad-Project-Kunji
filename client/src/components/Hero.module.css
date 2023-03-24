@@ -1,0 +1,16 @@
+.heroImages{
+    border-radius: 69% 31% 77% 23% / 26% 37% 63% 74%;
+    width: 400px;
+    height: 400px;
+    box-shadow:  26px 26px 47px #00416f31,
+    -26px -26px 47px #005d9f2a;
+  }
+.rowMain{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    
+ }
+.titleMain{
+    color: #004E87;
+ }

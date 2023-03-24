@@ -1,10 +1,9 @@
 import { Link, Outlet } from "react-router-dom";
-import { useAuth0 } from '@auth0/auth0-react';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-
+import { useAuth0 } from "@auth0/auth0-react";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
 
 export default function WrapperAdmin() {
   const { isLoading, error, isAuthenticated, logout } = useAuth0();

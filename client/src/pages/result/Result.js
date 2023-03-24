@@ -29,7 +29,6 @@ export default function Result() {
 			location: location,
 		});
 	}
-
 	function selectLocation(e) {
 		setLocation(e.target.value);
 		setSearchParams({

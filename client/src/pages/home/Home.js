@@ -1,15 +1,9 @@
-import UserForm from "../../components/UserForm";
-
-import "./Home.css";
+import Hero from "../../components/Hero";
 
 export function Home() {
-
-
 	return (
 		<main role="main">
-			<section>
-				<UserForm />
-			</section>
+            <Hero />
 		</main>
 	);
 }

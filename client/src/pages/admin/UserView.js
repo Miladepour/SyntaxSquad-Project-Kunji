@@ -74,5 +74,4 @@ export function UserView() {
     </div>
   );
 }
-
 export default withAuthenticationRequired(UserView);

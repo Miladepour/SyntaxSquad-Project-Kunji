@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import WrapperUser from "./components/wrappers/WrapperUser";
 import Home from "./pages/home/Home";
+import UserForm from "./components/UserForm";
 import UserPreferences from "./pages/user-preferences/UserPreferences";
 import Result from "./pages/result/Result";
 import UserView from "./pages/admin/UserView";
@@ -9,11 +10,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import WrapperAdmin from "./components/wrappers/WrapperAdmin";
 import Admin from "./pages/admin/Admin";
 
+import "./app.css";
+
 const App = () => (
-	<div>
+	<div className="App">
 		<Routes>
 			<Route path="/" element={<WrapperUser />}>
 				<Route path="/" element={<Home />} />
+				<Route path="/userform" element={<UserForm />} />
 				<Route path="/user-preferences" element={<UserPreferences />} />
 				<Route path="/result" element={<Result />} />
 			</Route>
