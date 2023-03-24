@@ -1,3 +1,4 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -9,7 +10,7 @@ import BinIcon from "./BinIcon";
 import PlusIcon from "./PlusIcon";
 
 const schema = yup.object({
-  services: yup.array().min(1, "Please add at least one service.").of(
+  service: yup.array().min(1, "Please add at least one service.").of(
     yup.object().shape({
       service: yup.string().required("Please select a service.").label("Service")
     })
@@ -17,16 +18,20 @@ const schema = yup.object({
   zone: yup.string().required("Please select zone.").label("Zone"),
   organization: yup.string().min(3).max(100).required().label("Organization"),
   address: yup.string().min(3).max(100).required().label("Address"),
-  contacts: yup.array().min(1, "Please add at least one contact.").of(
+  contact: yup.array().min(1, "Please add at least one contact.").of(
     yup.object().shape({
-      contact: yup.string().min(3).max(50).required().label("Contact"),
+      phone_number: yup.string().min(3).max(50).required().label("Phone Number"),
     })
   ),
   website: yup.string().min(3).max(50).required().label("Website"),
   email: yup.string().email().min(3).max(50).required().label("Email"),
+  email_status: yup.string().required().label("Email Status"),
+  call_response: yup.string().required().label("Call Response"),
 }).required();
 
-export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, updateNGO, setShowFormModal}) {
+export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal}) {
+  const { getAccessTokenSilently } = useAuth0();
+
   const {
     register,
     control,
@@ -35,13 +40,15 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      services: formAction === "update" ? singleNGO[0].services.map(service => { return { service } }) : [{ service: "" }],
+      service: formAction === "update" ? singleNGO[0].service.map(service => { return { service } }) : [{ service: "" }],
       zone: formAction === "update" ? singleNGO[0].zone : "",
       organization: formAction === "update" ? singleNGO[0].organization : "",
       address: formAction === "update" ? singleNGO[0].address : "",
-      contacts: formAction === "update" ? singleNGO[0].contacts.map(contact => { return { contact: contact.contact, description: contact.description } }) : [{ contact: "", description: "" }],
+      contact: formAction === "update" ? singleNGO[0].contact.map(contact => { return { phone_number: contact.phone_number, description: contact.description } }) : [{ phone_number: "", description: "" }],
       website: formAction === "update" ? singleNGO[0].website : "",
       email: formAction === "update" ? singleNGO[0].email : "",
+      email_status: formAction === "update" ? singleNGO[0].email_status : "",
+      call_response: formAction === "update" ? singleNGO[0].call_response : "",
     }
   });
 
@@ -49,24 +56,69 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
     fields: serviceFields,
     append: serviceAppend,
     remove: serviceRemove
-  } = useFieldArray({ control, name: "services" });
+  } = useFieldArray({ control, name: "service" });
 
   const {
     fields: contactFields,
     append: contactAppend,
     remove: contactRemove
-  } = useFieldArray({ control, name: "contacts" });
+  } = useFieldArray({ control, name: "contact" });
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    data.service = data.service.map(service => service.service);
+    console.log(data);
+
     if (formAction === "create") {
-      const id = ngos.length > 1 ? ngos[ngos.length - 1].id + 1 : 1;
+      try {
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
+          },
+        });
 
-      createNGO({ ...data, id });
-      setShowFormModal(false);
+        const res = await fetch("http://localhost:3000/api/ngo", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (res.status === 200) {
+          await res.json();
+          createNGO(data);
+          setShowFormModal(false);
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
     }
     if (formAction === "update") {
-      updateNGO(singleNGO[0].id, data);
-      setShowFormModal(false);
+      try {
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
+          },
+        });
+
+        const res = await fetch(`http://localhost:3000/api/ngo/${singleNGO[0].id}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (res.status === 200) {
+          await res.json();
+          updateNGO(singleNGO[0].id, data);
+          setShowFormModal(false);
+        }
+      } catch (e) {
+        console.log(e.message);
+      }
     }
   };
 
@@ -74,22 +126,28 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
     <Form className="w-75 mx-auto mt-3" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <h5>Services</h5>
-        <p className="text-danger">{(errors.services && errors.services.message) && errors.services.message}</p>
+        <p className="text-danger">{(errors.service && errors.service.message) && errors.service.message}</p>
         {serviceFields.map((field, index) => (
           <Row key={field.id} className="mb-3">
             <Col>
               <Form.Select
                 aria-label="gender"
-                {...register(`services.${index}.service`)}
-                isInvalid={(errors.services && errors.services[index]) ? true : false}
+                {...register(`service.${index}.service`)}
+                isInvalid={(errors.service && errors.service[index]) ? true : false}
               >
                 <option value="">Select...</option>
                 <option value="Legal Aid">Legal Aid</option>
-                <option value="Employment & Life Skills">Employment & Life Skills</option>
                 <option value="Drug De-Addiction">Drug De-Addiction</option>
+                <option value="Education">Education</option>
+                <option value="Employment & Life Skills">Employment & Life Skills</option>
+                <option value="Education for children">Education for children</option>
+                <option value="Health Care">Health Care</option>
+                <option value="Mental Health">Mental Health</option>
+                <option value="Food/Shelter/Clothing assistance">Food/Shelter/Clothing assistance</option>
+                <option value="Important Documents">Important Documents</option>
               </Form.Select>
               <Form.Control.Feedback type="invalid">
-                {(errors.services && errors.services[index]) && errors.services[index].service.message}
+                {(errors.service && errors.service[index]) && errors.service[index].service.message}
               </Form.Control.Feedback>
             </Col>
             <Col>
@@ -171,25 +229,25 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
 
       <div>
         <h5>Contacts</h5>
-        <p className="text-danger">{(errors.contacts && errors.contacts.message) && errors.contacts.message}</p>
+        <p className="text-danger">{(errors.contact && errors.contact.message) && errors.contact.message}</p>
         {contactFields.map((field, index) => (
           <Row key={field.id} className="mb-3">
             <Col>
               <Form.Control
                 type="text"
-                placeholder="Contact"
-                {...register(`contacts.${index}.contact`)}
-                isInvalid={(errors.contacts && errors.contacts[index]) ? true : false}
+                placeholder="Phone Number"
+                {...register(`contact.${index}.phone_number`)}
+                isInvalid={(errors.contact && errors.contact[index]) ? true : false}
               />
               <Form.Control.Feedback type="invalid">
-                {(errors.contacts && errors.contacts[index]) && errors.contacts[index].contact.message}
+                {(errors.contact && errors.contact[index]) && errors.contact[index].phone_number.message}
               </Form.Control.Feedback>
             </Col>
             <Col>
               <Form.Control
                 type="text"
                 placeholder="Description"
-                {...register(`contacts.${index}.description`)}
+                {...register(`contact.${index}.description`)}
               />
             </Col>
             <Col>
@@ -199,7 +257,7 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
         ))}
         <Row>
           <Col className="mb-3" style={{ textAlign: "right" }}>
-            <Button variant="outline-primary" size="sm" onClick={() => contactAppend({ contact: "", description: "" })}>
+            <Button variant="outline-primary" size="sm" onClick={() => contactAppend({ phone_number: "", description: "" })}>
               <PlusIcon />
               Add New
             </Button>
@@ -239,6 +297,42 @@ export default function CreateNGO({ formAction, ngos, singleNGO, createNGO, upda
             />
             <Form.Control.Feedback type="invalid">
               {errors.email?.message}
+            </Form.Control.Feedback>
+          </Col>
+        </Row>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="email_status">
+        <Row>
+          <Col>
+            <Form.Label>Email Status</Form.Label>
+          </Col>
+          <Col>
+            <Form.Control
+              type="text"
+              {...register("email_status")}
+              isInvalid={errors.email_status?.message}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.email_status?.message}
+            </Form.Control.Feedback>
+          </Col>
+        </Row>
+      </Form.Group>
+
+      <Form.Group className="mb-3" controlId="call_response">
+        <Row>
+          <Col>
+            <Form.Label>Call Response</Form.Label>
+          </Col>
+          <Col>
+            <Form.Control
+              type="text"
+              {...register("call_response")}
+              isInvalid={errors.call_response?.message}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.call_response?.message}
             </Form.Control.Feedback>
           </Col>
         </Row>

@@ -10,7 +10,7 @@ createRoot(document.getElementById("root")).render(
 		clientId="49LiusOQku1efCsU4Pw01K9XzQ8nxK4l"
     authorizationParams={{
 			redirect_uri: window.location.origin + "/admin/users",
-			audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
+			audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
     }}
   >
 		<BrowserRouter>

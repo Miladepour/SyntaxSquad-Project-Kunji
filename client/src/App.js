@@ -9,6 +9,7 @@ import NGOs from "./pages/admin/NGOs";
 import "bootstrap/dist/css/bootstrap.min.css";
 import WrapperAdmin from "./components/wrappers/WrapperAdmin";
 import Admin from "./pages/admin/Admin";
+
 import "./app.css";
 
 const App = () => (

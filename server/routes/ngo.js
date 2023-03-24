@@ -3,13 +3,15 @@ const express = require("express");
 const router = express.Router();
 const validation = require("../middlewares/validationMiddleware");
 const ngoSchema = require("../validations/NgoValidation");
+const { auth } = require('express-oauth2-jwt-bearer');
 
+const jwtCheck = auth({
+  audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
+  issuerBaseURL: 'https://dev-smy0lct7oni31spt.us.auth0.com/',
+  tokenSigningAlg: 'RS256'
+});
 
-async function getNgo() {
-  const { rows } = await db.query("SELECT * FROM ngo");
-  return rows;
-}
-router.post("/", validation(ngoSchema) ,async (req, res) => {
+router.post("/", jwtCheck, validation(ngoSchema) ,async (req, res) => {
   const { body } = req;
 
   try {
@@ -27,13 +29,13 @@ router.post("/", validation(ngoSchema) ,async (req, res) => {
         body.call_response,
       ]
     );
-    res.status(201).json(result.rows[0]);
+    res.json(result.rows[0]);
   } catch (err) {
     res.status(500).json({ error: "Failed to create NGO" });
   }
 });
 
-router.put("/:id", validation(ngoSchema) , async (req, res) => {
+router.put("/:id", jwtCheck, validation(ngoSchema) , async (req, res) => {
   const { id } = req.params;
   const { body } = req;
 
@@ -63,7 +65,7 @@ router.put("/:id", validation(ngoSchema) , async (req, res) => {
 });
 
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", jwtCheck, async (req, res) => {
   const { id } = req.params;
 
   try {
@@ -79,8 +81,31 @@ router.delete("/:id", async (req, res) => {
 
 
 router.get("/", async (req, res) => {
-  const ngos = await getNgo();
-  res.json(ngos);
+  const { service, location } = req.query;
+  let query = "SELECT * FROM ngo";
+  let params = [];
+
+  if (service && location) {
+    query += " WHERE service @> $1 AND zone = $2";
+    params = [[service], location];
+  } else if (service) {
+    query += " WHERE service @> $1";
+    params = [[service]];
+  } else if (location) {
+    query += " WHERE zone = $1";
+    params = [location];
+  }
+
+  try {
+    const { rows } = await db.query(query, params);
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to get NGO data" });
+  }
 });
+
+
+
+
 
 module.exports = router;
