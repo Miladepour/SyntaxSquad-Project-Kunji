@@ -39,48 +39,48 @@ export function NGOs() {
 
   const update = (id) => {
     setFormAction("update");
-    setSingleNGO(ngos.filter(ngo => ngo.id === id));
+    setSingleNGO(ngos.filter((ngo) => ngo.id === id));
     setShowFormModal(true);
   };
 
   const createNGO = (data) => {
     setNGOs([...ngos, data]);
-  }
+  };
 
   const updateNGO = (id, data) => {
-    setNGOs(ngos.map(ngo => (ngo.id === id ? data : ngo)));
-  }
+    setNGOs(ngos.map((ngo) => (ngo.id === id ? data : ngo)));
+  };
 
   const deleteNGO = async (id) => {
     try {
       const accessToken = await getAccessTokenSilently({
         authorizationParams: {
-          audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
+          audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
         },
       });
 
-      const res = await fetch(`http://localhost:3000/api/ngo/${id}`, {
+      const res = await fetch(`/api/ngo/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
-        }
+        },
       });
 
       if (res.status === 200) {
         await res.json();
-        setNGOs(ngos.filter(ngo => ngo.id !== id));
+        setNGOs(ngos.filter((ngo) => ngo.id !== id));
         setShowDeleteModal([false, 0]);
 
       }
     } catch (e) {
       console.log(e.message);
     }
-  }
+  };
 
   return(
     <div>
-      {isAuthenticated && 
+      {isAuthenticated &&
         <>
           <Modal size="lg" show={showFormModal} onHide={() => setShowFormModal(false)}>
             <Modal.Header closeButton>
