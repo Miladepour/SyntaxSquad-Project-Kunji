@@ -1,26 +1,15 @@
-
-  .heroImages{
+.heroImages{
     border-radius: 69% 31% 77% 23% / 26% 37% 63% 74%;
     width: 400px;
     height: 400px;
     box-shadow:  26px 26px 47px #00416f31,
     -26px -26px 47px #005d9f2a;
   }
- .container{
-    margin: 1em;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-     align-items: center;
- }
- .row{
+.rowMain{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
  }
- h2{
+.titleMain{
     color: #004E87;
- }
- p{
-    text-align: justify;
  }

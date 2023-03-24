@@ -1,31 +1,39 @@
-button {
-  color: #004E87;
-  text-decoration: none;
-  font-size: 25px;
+.buttonHelp {
+  min-width: 130px;
+  height: 40px;
+  color: #fff;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  outline: none;
+  border-radius: 5px;
   border: none;
-  background: none;
-  font-weight: 600;
-  font-family: 'Poppins', sans-serif;
+  background-size: 120% auto;
+  background-image: linear-gradient(315deg, #000428 0%, #004e92 75%);
+  font-weight: 400;
 }
-
-button::before {
-  margin-left: auto;
+.buttonHelp:hover  {
+  background-position: right center;
 }
-
-button::after, button::before {
-  content: '';
-  width: 0%;
-  height: 2px;
-  background: #004E87;
-  display: block;
-  transition: 0.5s;
+.buttonHelp:active {
+  top: 2px;
 }
-
-button:hover::after, button:hover::before {
-  width: 100%;
-}
-.navbar{
+.navbarHero{
   background-color: #FA4F3D;
-  color: white;
-  margin-bottom: 3em;
+}
+.helpline{
+  color:#004E87;
+  text-align: center;
+  background-color: #FFD700;
+  padding: 5px;
+  margin-bottom: 2em;
+}
+.helplineLink{
+  text-decoration: none;
+  color:#004E87;
+}
+.navbarLink{
+  color: white!important;
 }
