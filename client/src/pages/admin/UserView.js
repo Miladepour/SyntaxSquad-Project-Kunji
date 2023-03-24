@@ -1,6 +1,4 @@
-
 import Table from "react-bootstrap/Table";
-import "./UserView.css";
 import React, { useEffect, useState } from "react";
 
 export default function UserView() {
@@ -14,7 +12,7 @@ export default function UserView() {
 
       return (
 
-        <Table className='resize' striped bordered responsive="lg" size="xl">
+        <Table striped bordered responsive="lg" size="xl">
           <thead>
             <tr>
               <th>User ID</th>
