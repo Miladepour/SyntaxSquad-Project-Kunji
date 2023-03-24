@@ -54,7 +54,7 @@ export default function Result() {
     </Form>
     <br></br>
     <h3 className="bg-primary header-list">List of NGOs</h3>
-    <Table striped bordered hover >
+    <Table striped bordered hover style={{ marginBottom:"600px" }}>
        <thead>
         <tr>
           <th>Themes</th>
