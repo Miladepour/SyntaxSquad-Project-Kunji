@@ -63,7 +63,7 @@ export default function UserForm() {
           body: JSON.stringify(formData),
         });
 
-        if (response.status === 200) {
+        if (response.status === 201) {
           navigate("/user-preferences");
         } else {
           const data=await response.json();

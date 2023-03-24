@@ -26,9 +26,9 @@ const userSchema = require("../validations/UserValidation");
           body.caseStatus,
         ]
       );
-      res.json(result.rows[0]);
+      res.status(201).json(result.rows[0]);
     } catch (err) {
-      res.status(500).json({ error: "Failed to create user" });
+      res.status(500).json({ error: err.message });
     }
   });
 
