@@ -1,18 +1,8 @@
 #site-footer{
     background-color: #FA4F3D;
     color: white;
-    position: fixed;
-    height: 70px;
+    position: relative;
     width: 100%;
-    bottom: 0px;
-    left: 0;
-    right: 0;
- 
-        
+    margin-top: 2em;     
 }
-#footer-container{
-         position: relative;
-        padding-bottom: 0;
-        margin-bottom: 0;
-        
-}
+
