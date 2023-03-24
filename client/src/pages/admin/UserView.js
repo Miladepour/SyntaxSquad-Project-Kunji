@@ -1,16 +1,41 @@
-
-import Table from "react-bootstrap/Table";
-import "./UserView.css";
+import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import Table from 'react-bootstrap/Table';
+import "./UserView.css"
 import React, { useEffect, useState } from "react";
 
-export default function UserView() {
-    const [datas,setDatas] = useState([]);
-    useEffect(()=>{
-        fetch("/api/admin/users")
-        .then((res) => res.json())
-        .then((data)=> setDatas(data));
-    },[]);
-      return (
+export function UserView() {
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const [datas, setDatas] = useState([]);
+
+  useEffect(() => {
+    async function getUsers() {
+      try {
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
+          },
+        });
+
+        const res = await fetch("http://localhost:3000/api/admin/users", {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          }
+        });
+
+        const users = await res.json();
+        setDatas(users);
+
+      } catch (e) {
+        console.log(e.message);
+      }
+    }
+
+    getUsers();
+  }, [getAccessTokenSilently]);
+
+  return(
+    <div>
+      {isAuthenticated &&
         <Table className='resize' striped bordered responsive="lg" size="xl">
           <thead>
             <tr>
@@ -28,8 +53,8 @@ export default function UserView() {
             </tr>
           </thead>
           <tbody>
-            {datas.map((val)=>{
-                return <tr key={val.user_id}>
+            {datas.map(val => {
+              return <tr key={val.user_id}>
                 <td>{val.user_id}</td>
                 <td>{val.name}</td>
                 <td>{val.email}</td>
@@ -41,9 +66,13 @@ export default function UserView() {
                 <td>{val.qualification}</td>
                 <td>{val.date_of_release}</td>
                 <td>{val.case_status}</td>
-               </tr>;
+              </tr>
             })}
           </tbody>
         </Table>
-      );
-    }
+      }
+    </div>
+  );
+}
+
+export default withAuthenticationRequired(UserView);
