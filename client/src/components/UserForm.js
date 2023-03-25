@@ -131,6 +131,8 @@ export default function UserForm() {
             <option value="">Select...</option>
             <option value="male">Male</option>
             <option value="Female">Female</option>
+            <option value="Transgender'">Transgender</option>
+            <option value="Other'">Other</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.gender?.message}
