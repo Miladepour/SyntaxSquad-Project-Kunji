@@ -31,7 +31,7 @@ router.post("/", jwtCheck, validation(ngoSchema) ,async (req, res) => {
     );
     res.json(result.rows[0]);
   } catch (err) {
-    res.status(500).json({ error: "Failed to create NGO" });
+    res.status(500).json({ error: err.message });
   }
 });
 
