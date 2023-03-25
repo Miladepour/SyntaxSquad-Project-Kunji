@@ -1,9 +1,6 @@
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 import React, { useEffect, useState } from "react";
-
-
-
 
 export function UserView() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
