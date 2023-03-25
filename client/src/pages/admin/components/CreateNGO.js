@@ -80,7 +80,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
           },
         });
 
-        const res = await fetch("http://localhost:3000/api/ngo", {
+        const res = await fetch("/api/ngo", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

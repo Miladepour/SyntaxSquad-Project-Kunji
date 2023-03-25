@@ -15,7 +15,7 @@ export function UserView() {
           },
         });
 
-        const res = await fetch("http://localhost:3000/api/admin/users", {
+        const res = await fetch("/api/admin/users", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
