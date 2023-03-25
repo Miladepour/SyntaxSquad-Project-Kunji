@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { parse, isDate } from "date-fns";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-
+import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./UserForm.module.css";
-
 const today = new Date();
 
 function parseDateString(value, originalValue) {
@@ -20,7 +20,6 @@ function parseDateString(value, originalValue) {
 
 const schema = yup.object({
   name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, "Name must be letters only.").required().label("Name"),
-
   email: yup.string().email().required().label("Email"),
 
   gender: yup.string().required("Please select a gender.").label("Gender"),
@@ -42,7 +41,7 @@ const schema = yup.object({
 
 export default function UserForm() {
   const navigate = useNavigate();
-
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
   const {
     register,
     handleSubmit,
@@ -51,8 +50,44 @@ export default function UserForm() {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data) => {
-    navigate("/user-preferences");
+  const onSubmit = async (formData) => {
+    if (isCaptchaVerified) {
+      formData.dateOfBirth=new Date(formData.dateOfBirth).toISOString().split("T")[0];
+      formData.dateOfRelease=new Date(formData.dateOfRelease).toISOString().split("T")[0];
+      try {
+        const response = await fetch("/api/user", {
+          method:"POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.status === 201) {
+          navigate("/user-preferences");
+        } else {
+          const data=await response.json();
+          console.log(data);
+        }
+      } catch (error) {
+       console.log(error.message);
+      }
+    } else {
+      alert("Please complete the reCAPTCHA challenge.");
+    }
+  };
+  const handleCaptchaChange = (value) => {
+    if (value) {
+      setIsCaptchaVerified(true);
+    }
+  };
+
+  const handleCaptchaExpired = () => {
+    setIsCaptchaVerified(false);
+  };
+
+  const handleCaptchaError = () => {
+    alert("There was an error with the reCAPTCHA challenge. Please try again.");
   };
 
   return (
@@ -204,7 +239,14 @@ export default function UserForm() {
           </Form.Control.Feedback>
         </div>
       </Form.Group>
-
+      <div className="w-50">
+      <ReCAPTCHA
+       sitekey="6LfUTRElAAAAAGygougsf9-TgpDcXrONCKzZGqJP"
+      onChange={handleCaptchaChange}
+      onExpired={handleCaptchaExpired}
+      onError={handleCaptchaError}
+        />
+      </div>
       <div className="text-center mb-4">
         <Button variant="primary" type="submit">
           Next

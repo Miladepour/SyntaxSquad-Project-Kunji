@@ -31,7 +31,6 @@ export default function Result() {
 			});
 		}
 	}
-
 	function selectLocation(e) {
 		if (e.target.checked) {
 			setLocation(e.target.id);
