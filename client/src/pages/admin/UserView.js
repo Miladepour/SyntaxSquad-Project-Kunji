@@ -3,16 +3,7 @@ import Table from 'react-bootstrap/Table';
 import React, { useEffect, useState } from "react";
 
 
-export default function UserView() {
-    const [datas,setDatas] = useState([]);
-    useEffect(()=>{
-        
-        fetch(`/api/admin/users`)
-        .then((res) => res.json())
-        .then((data)=> setDatas(data))
-    },[]);
-    
-      return (
+
 
 export function UserView() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
