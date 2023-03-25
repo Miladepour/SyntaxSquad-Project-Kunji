@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 
 export default function WrapperAdmin() {
+  console.log(window.location.origin + "/admin");
   const { isLoading, error, isAuthenticated, logout } = useAuth0();
 
   if (isLoading) {
