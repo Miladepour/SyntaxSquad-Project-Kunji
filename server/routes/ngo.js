@@ -82,7 +82,7 @@ router.delete("/:id", jwtCheck, async (req, res) => {
 
 router.get("/", async (req, res) => {
   const { service, location } = req.query;
-  let query = "SELECT * FROM ngo ORDER BY id";
+  let query = "SELECT * FROM ngo";
   let params = [];
 
   if (service && location) {
@@ -95,6 +95,8 @@ router.get("/", async (req, res) => {
     query += " WHERE zone = $1";
     params = [location];
   }
+
+  query += " ORDER BY id";
 
   try {
     const { rows } = await db.query(query, params);

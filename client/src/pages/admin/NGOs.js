@@ -38,12 +38,15 @@ export function NGOs() {
   };
 
   const update = (id) => {
+    console.log(id);
     setFormAction("update");
     setSingleNGO(ngos.filter((ngo) => ngo.id === id));
+    console.log(ngos.filter((ngo) => ngo.id === id));
     setShowFormModal(true);
   };
 
-  const createNGO = (data) => {
+  const createNGO = (data, id) => {
+    data.id = id;
     setNGOs([...ngos, data]);
   };
 

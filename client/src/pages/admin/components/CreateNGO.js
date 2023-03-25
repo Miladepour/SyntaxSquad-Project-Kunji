@@ -90,8 +90,8 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
         });
 
         if (res.status === 200) {
-          await res.json();
-          createNGO(data);
+          const data = await res.json();
+          createNGO(data, data.id);
           setShowFormModal(false);
         } else {
           const data = await res.json();
