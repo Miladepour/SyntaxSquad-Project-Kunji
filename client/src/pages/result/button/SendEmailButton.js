@@ -49,9 +49,9 @@ export default function SendEmailButton({ sendEmail }) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <button className="btn text-white m-2" type="button" style={{backgroundColor: "#004e87"}} onClick={handleShow}>
         Send Email
-      </Button>
+      </button>
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
