@@ -41,14 +41,14 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
     resolver: yupResolver(schema),
     defaultValues: {
       service: formAction === "update" ? singleNGO[0].service.map((service) => {
- return { service };
-}) : [{ service: "" }],
+        return { service };
+      }) : [{ service: "" }],
       zone: formAction === "update" ? singleNGO[0].zone : "",
       organization: formAction === "update" ? singleNGO[0].organization : "",
       address: formAction === "update" ? singleNGO[0].address : "",
-      contact: formAction === "update" ? singleNGO[0].contact.map((contact) => {
- return { phone_number: contact.phone_number, description: contact.description };
-}) : [{ phone_number: "", description: "" }],
+      contact: formAction === "update" && singleNGO[0].contact ? singleNGO[0].contact.map((contact) => {
+        return { phone_number: contact.phone_number, description: contact.description };
+      }) : [{ phone_number: "", description: "" }],
       website: formAction === "update" ? singleNGO[0].website : "",
       email: formAction === "update" ? singleNGO[0].email : "",
       email_status: formAction === "update" ? singleNGO[0].email_status : "",
@@ -122,6 +122,9 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
           await res.json();
           updateNGO(singleNGO[0].id, data);
           setShowFormModal(false);
+        } else {
+          const data = await res.json();
+          console.log(data);
         }
       } catch (e) {
         console.log(e.message);
@@ -129,7 +132,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
     }
   };
 
-  return(
+  return (
     <Form className="w-75 mx-auto mt-3" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <h5>Services</h5>

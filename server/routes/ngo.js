@@ -60,7 +60,7 @@ router.put("/:id", jwtCheck, validation(ngoSchema) , async (req, res) => {
     }
     res.json(`${id} has been updated!`);
   } catch (err) {
-    res.status(500).json({ error: "Failed to update NGO" });
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -82,7 +82,7 @@ router.delete("/:id", jwtCheck, async (req, res) => {
 
 router.get("/", async (req, res) => {
   const { service, location } = req.query;
-  let query = "SELECT * FROM ngo";
+  let query = "SELECT * FROM ngo ORDER BY id";
   let params = [];
 
   if (service && location) {
