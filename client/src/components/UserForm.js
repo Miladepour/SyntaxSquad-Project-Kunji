@@ -20,7 +20,7 @@ function parseDateString(value, originalValue) {
 
 const schema = yup.object({
   name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, "Name must be letters only.").required().label("Name"),
-  email: yup.string().email().required().label("Email"),
+  email: yup.string().email().label("Email"),
 
   gender: yup.string().required("Please select a gender.").label("Gender"),
 
@@ -28,7 +28,7 @@ const schema = yup.object({
 
   currentLocation: yup.string().min(3).max(50).required().label("Current Location"),
 
-  pinCode: yup.number().typeError("Pin code must be a number.").min(100000).max(999999).required().label("Pin Code"),
+  pinCode: yup.number().typeError("Pin code must be a number.").min(100000).max(999999).label("Pin Code"),
 
   phoneNumber: yup.string().min(5).max(20).required().label("Phone Number"),
 
