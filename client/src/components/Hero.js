@@ -1,7 +1,7 @@
 import { Container, Row, Col, Image } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "./Hero.module.css";
-
+import imgOne from "../assets/kunji-1.jpg";
 function Hero() {
   return (
     <>
@@ -12,7 +12,7 @@ function Hero() {
           <p>Welcome to Kunji, a charity organization dedicated to assisting ex-prisoners in finding the help they need to reintegrate into society. Our mission is to connect ex-prisoners with various NGOs, resources, and support systems to empower them in building a better future for themselves and their families.</p>
         </Col>
         <Col md={6}>
-          <Image  src="https://i.ibb.co/j6f02Js/kunji-1.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
+          <Image  src={imgOne} alt="Right Column Image" fluid className={styles.heroImages} />
         </Col>
       </Row >
     </Container>
