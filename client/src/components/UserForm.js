@@ -28,11 +28,11 @@ const schema = yup.object({
 
   currentLocation: yup.string().min(3).max(50).required().label("Current Location"),
 
-  pinCode: yup.number().typeError("Pin code must be a number.").min(100000).max(999999).label("Pin Code"),
+  pinCode: yup.number().typeError("Pin code must be a number.").transform((_, val) => val === "" ? null : Number(val) ? Number(val) : val).min(100000).max(999999).nullable(true).label("Pin Code"),
 
   phoneNumber: yup.string().min(5).max(20).required().label("Phone Number"),
 
-  qualification: yup.string().min(3).max(50).required().label("Qualification"),
+  qualification: yup.string().required().label("Qualification"),
 
   dateOfRelease: yup.date().transform(parseDateString).max(today).label("Date of Release"),
 
@@ -201,8 +201,8 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Select
             aria-label="qualification"
-            {...register("qualificaton")}
-            isInvalid={errors.qualification?.message}
+            {...register("qualification")}
+            isInvalid={errors?.qualification}
           >
             <option value="">Select...</option>
             <option value="Cannot read or write">Cannot read or write</option>
