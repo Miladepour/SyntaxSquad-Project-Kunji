@@ -1,18 +1,6 @@
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 import React, { useEffect, useState } from "react";
-
-
-export default function UserView() {
-    const [datas,setDatas] = useState([]);
-    useEffect(()=>{
-        
-        fetch(`/api/admin/users`)
-        .then((res) => res.json())
-        .then((data)=> setDatas(data))
-    },[]);
-    
-      return (
 
 export function UserView() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -65,7 +53,7 @@ export function UserView() {
             </tr>
           </thead>
           <tbody>
-            {datas.map(val => {
+            {datas.map((val )=> {
               return <tr key={val.user_id}>
                 <td>{val.user_id}</td>
                 <td>{val.name}</td>

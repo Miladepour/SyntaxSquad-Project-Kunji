@@ -199,11 +199,20 @@ export default function UserForm() {
       <Form.Group className={styles.formGroup} controlId="qualification">
         <Form.Label>Qualification</Form.Label>
         <div className="w-50">
-          <Form.Control
-            type="text"
-            {...register("qualification")}
+          <Form.Select
+            aria-label="qualification"
+            {...register("qualificaton")}
             isInvalid={errors.qualification?.message}
-          />
+          >
+            <option value="">Select...</option>
+            <option value="Cannot read or write">Cannot read or write</option>
+            <option value="8th">8th</option>
+            <option value="10th'">10th</option>
+            <option value="12th'">12th</option>
+            <option value="Graduate'">Graduate</option>
+            <option value="Postgraduate'">Postgraduate</option>
+            <option value="Other'">Other</option>
+          </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.qualification?.message}
           </Form.Control.Feedback>
@@ -234,7 +243,8 @@ export default function UserForm() {
           >
             <option value="">Select...</option>
             <option value="ongoing">Ongoing</option>
-            <option value="complete">Complete</option>
+            <option value="Acquitted">Acquitted</option>
+            <option value="Convicted">Convicted</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.caseStatus?.message}
