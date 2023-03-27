@@ -12,7 +12,7 @@ import PlusIcon from "./PlusIcon";
 const schema = yup.object({
   service: yup.array().min(1, "Please add at least one service.").of(
     yup.object().shape({
-      service: yup.string().required("Please select a service.").label("Service")
+      service: yup.string().required("Please select a service.").label("Service"),
     })
   ),
   zone: yup.string().required("Please select zone.").label("Zone"),
@@ -29,66 +29,73 @@ const schema = yup.object({
   call_response: yup.string().required().label("Call Response"),
 }).required();
 
-export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal}) {
+export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal }) {
   const { getAccessTokenSilently } = useAuth0();
 
   const {
     register,
     control,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     defaultValues: {
-      service: formAction === "update" ? singleNGO[0].service.map(service => { return { service } }) : [{ service: "" }],
+      service: formAction === "update" ? singleNGO[0].service.map((service) => {
+        return { service };
+      }) : [{ service: "" }],
       zone: formAction === "update" ? singleNGO[0].zone : "",
       organization: formAction === "update" ? singleNGO[0].organization : "",
       address: formAction === "update" ? singleNGO[0].address : "",
-      contact: formAction === "update" ? singleNGO[0].contact.map(contact => { return { phone_number: contact.phone_number, description: contact.description } }) : [{ phone_number: "", description: "" }],
+      contact: formAction === "update" && singleNGO[0].contact ? singleNGO[0].contact.map((contact) => {
+        return { phone_number: contact.phone_number, description: contact.description };
+      }) : [{ phone_number: "", description: "" }],
       website: formAction === "update" ? singleNGO[0].website : "",
       email: formAction === "update" ? singleNGO[0].email : "",
       email_status: formAction === "update" ? singleNGO[0].email_status : "",
       call_response: formAction === "update" ? singleNGO[0].call_response : "",
-    }
+    },
   });
 
   const {
     fields: serviceFields,
     append: serviceAppend,
-    remove: serviceRemove
+    remove: serviceRemove,
   } = useFieldArray({ control, name: "service" });
 
   const {
     fields: contactFields,
     append: contactAppend,
-    remove: contactRemove
+    remove: contactRemove,
   } = useFieldArray({ control, name: "contact" });
 
   const onSubmit = async (data) => {
-    data.service = data.service.map(service => service.service);
+    data.service = data.service.map((service) => service.service);
     console.log(data);
 
     if (formAction === "create") {
       try {
         const accessToken = await getAccessTokenSilently({
           authorizationParams: {
-            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
+            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
           },
         });
 
-        const res = await fetch("http://localhost:3000/api/ngo", {
+        const res = await fetch("/api/ngo", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         });
 
         if (res.status === 200) {
-          await res.json();
-          createNGO(data);
+          const data = await res.json();
+          createNGO(data, data.id);
           setShowFormModal(false);
+        } else {
+          const data = await res.json();
+          console.log(data);
         }
       } catch (e) {
         console.log(e.message);
@@ -98,23 +105,26 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
       try {
         const accessToken = await getAccessTokenSilently({
           authorizationParams: {
-            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
+            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
           },
         });
 
-        const res = await fetch(`http://localhost:3000/api/ngo/${singleNGO[0].id}`, {
+        const res = await fetch(`/api/ngo/${singleNGO[0].id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify(data)
+          body: JSON.stringify(data),
         });
 
         if (res.status === 200) {
           await res.json();
           updateNGO(singleNGO[0].id, data);
           setShowFormModal(false);
+        } else {
+          const data = await res.json();
+          console.log(data);
         }
       } catch (e) {
         console.log(e.message);
@@ -122,7 +132,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
     }
   };
 
-  return(
+  return (
     <Form className="w-75 mx-auto mt-3" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <h5>Services</h5>

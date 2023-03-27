@@ -1,18 +1,6 @@
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
 import React, { useEffect, useState } from "react";
-
-
-export default function UserView() {
-    const [datas,setDatas] = useState([]);
-    useEffect(()=>{
-        
-        fetch(`/api/admin/users`)
-        .then((res) => res.json())
-        .then((data)=> setDatas(data))
-    },[]);
-    
-      return (
 
 export function UserView() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -23,11 +11,11 @@ export function UserView() {
       try {
         const accessToken = await getAccessTokenSilently({
           authorizationParams: {
-            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
+            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
           },
         });
 
-        const res = await fetch("http://localhost:3000/api/admin/users", {
+        const res = await fetch("/api/admin/users", {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -65,7 +53,7 @@ export function UserView() {
             </tr>
           </thead>
           <tbody>
-            {datas.map(val => {
+            {datas.map((val) => {
               return <tr key={val.user_id}>
                 <td>{val.user_id}</td>
                 <td>{val.name}</td>

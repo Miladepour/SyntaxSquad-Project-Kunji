@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Image } from "react-bootstrap";
-import logo from "../assest/kunji-logo2.svg";
+import logo from "../assets/kunji-logo2.svg";
 import styles from "./NavBar.module.css";
 function NavBar() {
 
