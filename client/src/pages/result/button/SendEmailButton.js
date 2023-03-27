@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
+import Spinner from "react-bootstrap/Spinner";
 import * as yup from "yup";
 
 const emailSchema = yup.string().email().required();
@@ -56,7 +57,14 @@ export default function SendEmailButton({ sendEmail }) {
   return (
     <>
       <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
-      {isSending ? "Sending..." : "Send Email"}
+        {isSending ? (
+          <>
+            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+             Sending...
+          </>
+        ) : (
+          "Send Email"
+        )}
       </button>
 
       <Modal show={showModal} onHide={handleClose}>
@@ -86,7 +94,14 @@ export default function SendEmailButton({ sendEmail }) {
           </Button>
           {!messageSent && (
             <Button variant="primary" onClick={handleSendEmail} disabled={!isValidEmail || isSending}>
-              {isSending ? "Sending..." : "Send Email"}
+              {isSending ? (
+                <>
+                  <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                   Sending...
+                </>
+              ) : (
+                "Send Email"
+              )}
             </Button>
           )}
         </Modal.Footer>
