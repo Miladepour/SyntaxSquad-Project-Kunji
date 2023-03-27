@@ -48,6 +48,7 @@ export default function Result() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"Request-Source": 1
 			},
 			body: JSON.stringify({
 				to: email,
@@ -73,6 +74,7 @@ export default function Result() {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
+				"Request-Source": 1
 			},
 			body: JSON.stringify({
 				to: sms,
