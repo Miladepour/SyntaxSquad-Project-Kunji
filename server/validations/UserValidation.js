@@ -15,7 +15,7 @@ const userSchema = yup.object({
     gender: yup.string().required("Please select a gender.").label("Gender"),
     dateofBirth: yup.date().transform(parseDateString).max(today).label("Date of Birth"),
     currentLocation: yup.string().min(3).max(50).required().label("Current Location"),
-    pinCode: yup.number().typeError("Pin code must be a number.").min(100000).max(999999).label("Pin Code"),
+    pinCode: yup.number().typeError("Pin code must be a number.").transform((_, val) => val === "" ? null : Number(val) ? Number(val) : val).min(100000).max(999999).nullable(true).label("Pin Code"),
     phoneNumber: yup.string().min(5).max(20).required().label("Phone Number"),
     qualification: yup.string().min(3).max(50).required().label("Qualification"),
     dateOfRelease: yup.date().transform(parseDateString).max(today).label("Date of Release"),
