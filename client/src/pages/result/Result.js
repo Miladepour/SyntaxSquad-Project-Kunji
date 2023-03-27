@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import SendSmsButton from "./button/SendSMSButton";
 import SendEmailButton from "./button/SendEmailButton";
 import LocationIcon from "../../components/LocationIcon";
+import ConfirmationScreen from "./ConfirmationScreen";
 
 export default function Result() {
 	let [searchParams, setSearchParams] = useSearchParams();
@@ -13,6 +14,7 @@ export default function Result() {
 	const [data, setData] = useState([]);
 	const [emailSent, setEmailSent] = useState(false);
 	const [smsSent, setSmsSent] = useState(false);
+    const [showConfirmation, setShowConfirmation] = useState(false);
 	useEffect(() => {
 		fetch(`/api/ngo?service=${service}&location=${location}`)
 			.then((response) => response.json())
@@ -59,6 +61,7 @@ export default function Result() {
 			.then((response) => {
 				if (response.ok) {
 					setEmailSent(true);
+					showConfirmation(true);
 				} else {
 					throw new Error("Failed to send email");
 				}
@@ -84,6 +87,7 @@ export default function Result() {
 			.then((response) => {
 				if (response.ok) {
 					setSmsSent(true);
+					showConfirmation(true);
 				} else {
 					throw new Error("Failed to send SMS");
 				}
@@ -117,7 +121,6 @@ export default function Result() {
 									name="service"
 									id={`${type}`}
 									onChange={selectService}
-								
 								/>
 								<span className="mx-2">{type}</span>
 							</div>
@@ -132,7 +135,6 @@ export default function Result() {
 						{["North", "East", "West", "Central", "South"].map((type) => (
 							<div key={`${type}`} className="mb-3">
 								<Form.Check
-								
 									type="radio"
 									name="location"
 									id={`${type}`}
@@ -163,7 +165,7 @@ export default function Result() {
 							className="card w-75 mt-2 bg-light"
 							style={{ border: "none" }}
 						>
-							<div class="card-body" style={{ color: "#004e87" }}>
+							<div className="card-body" style={{ color: "#004e87" }}>
 								<h5 className="card-title">{item.organization}</h5>
 								<p className="card-text">
 									<span className="text-warning">
