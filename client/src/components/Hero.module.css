@@ -9,8 +9,8 @@
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    
+    flex-direction: row-reverse;
  }
 .titleMain{
     color: #004E87;
- }
+}

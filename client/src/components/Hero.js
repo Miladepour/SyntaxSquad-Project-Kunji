@@ -5,7 +5,7 @@ import styles from "./Hero.module.css";
 function Hero() {
   return (
     <>
-    <Container >
+    <Container>
       <Row className={styles.rowMain}>
         <Col md={6}>
           <h2 className={styles.titleMain}>Behind the Bars: Life in Indian Prisons</h2>
@@ -15,19 +15,15 @@ function Hero() {
           <Image  src="https://i.ibb.co/j6f02Js/kunji-1.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
         </Col>
       </Row >
-    </Container>
-    <Container>
       <Row className={styles.rowMain}>
         <Col md={6}>
-          <Image src="https://i.ibb.co/HgTHb2j/kunji-2.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
+          <Image src="https://i.ibb.co/HgTHb2j/kunji-2.jpg" alt="Left Column Image" fluid className={styles.heroImages} />
         </Col>
         <Col md={6}>
           <h2 className={styles.titleMain}>Embracing Freedom: A New Chapter Begins</h2>
           <p>A glimpse into the Indian prison system, where countless individuals seek a chance at a new beginning upon their release.</p>
         </Col>
       </Row>
-    </Container>
-    <Container>
       <Row className={styles.rowMain}>
         <Col md={6}>
           <h2 className={styles.titleMain}>Navigating Challenges: Seeking Solution</h2>
@@ -37,8 +33,6 @@ function Hero() {
           <Image src="https://i.ibb.co/KFpXvbb/kunji-3.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
         </Col>
       </Row>
-    </Container>
-    <Container>
       <Row className={styles.rowMain}>
         <Col md={6}>
           <Image src="https://i.ibb.co/C9nJLPc/kunji-4.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
@@ -48,8 +42,6 @@ function Hero() {
           <p>The power of information: A passerby discovers Kunji’s life-changing advertisement on a bustling street, opening the door to a world of support and resources for ex-prisoners.</p>
         </Col>
       </Row>
-    </Container>
-    <Container>
       <Row className={styles.rowMain}>
         <Col md={6}>
           <h2 className={styles.titleMain}>Reaching Out: A Call for Help and Guidance</h2>
@@ -59,8 +51,6 @@ function Hero() {
           <Image src="https://i.ibb.co/MGjCtmz/kunji-5.jpg" alt="Left Column Image" fluid className={styles.heroImages} />
         </Col>
       </Row>
-    </Container>
-    <Container>
       <Row className={styles.rowMain}>
         <Col md={6}>
           <Image src="https://i.ibb.co/qypD9w8/kunji-6.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
@@ -70,8 +60,6 @@ function Hero() {
           <p>A heartfelt conversation unfolds as the ex-prisoner explains the challenges they face to Kunji’s empathetic receptionist.</p>
         </Col>
       </Row>
-    </Container>
-    <Container>
       <Row className={styles.rowMain}>
         <Col md={6}>
           <h2 className={styles.titleMain}>Compassionate Guidance: Avnish Lends a Hand</h2>
@@ -81,8 +69,6 @@ function Hero() {
           <Image src="https://i.ibb.co/d7MbHHZ/kunji-7.jpg" alt="Left Column Image" fluid className={styles.heroImages} />
         </Col>
       </Row>
-    </Container>
-    <Container>
       <Row className={styles.rowMain}>
         <Col md={6}>
           <Image src="https://i.ibb.co/hRmtwSv/kunji-8.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
