@@ -2,6 +2,7 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
+import Spinner from "react-bootstrap/Spinner";
 import * as yup from "yup";
 
 const smsSchema = yup.string().min(5).max(20).required();
@@ -56,7 +57,14 @@ export default function SendSmsButton({ sendSms }) {
   return (
     <>
       <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
-      {isSending ? "Sending..." : "Send SMS"}
+        {isSending ? (
+          <>
+            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+              Sending...
+          </>
+        ) : (
+          "Send SMS"
+        )}
       </button>
 
       <Modal show={showModal} onHide={handleClose}>
@@ -82,12 +90,19 @@ export default function SendSmsButton({ sendSms }) {
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={handleClose} disabled={isSending}>
             Close
           </Button>
           {!messageSent && (
-            <Button variant="primary" onClick={handleSendSms} disabled={!isValidSms}>
-              {isSending ? "Sending..." : "Send SMS"}
+            <Button variant="primary" onClick={handleSendSms} disabled={!isValidSms || isSending}>
+              {isSending ? (
+                <>
+                  <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                    Sending...
+                </>
+              ) : (
+                "Send SMS"
+              )}
             </Button>
           )}
         </Modal.Footer>
