@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./Result.css";
+import styles from "./Result.module.css";
 import Form from "react-bootstrap/Form";
 import { useSearchParams } from "react-router-dom";
 import SendSmsButton from "./button/SendSMSButton";
@@ -95,7 +95,7 @@ export default function Result() {
 			<div className="col-3 bg-light rounded m-2">
 				<Form>
 					<Form.Group
-						className="select-group"
+						className={styles.selectGroup}
 						style={{ color: "#004e87" }}
 						controlId="service"
 					>
@@ -117,14 +117,14 @@ export default function Result() {
 									name="service"
 									id={`${type}`}
 									onChange={selectService}
-								
+
 								/>
 								<span className="mx-2">{type}</span>
 							</div>
 						))}
 					</Form.Group>
 					<Form.Group
-						className="select-group"
+						className={styles.selectGroup}
 						style={{ color: "#004e87" }}
 						controlId="location"
 					>
@@ -132,7 +132,7 @@ export default function Result() {
 						{["North", "East", "West", "Central", "South"].map((type) => (
 							<div key={`${type}`} className="mb-3">
 								<Form.Check
-								
+
 									type="radio"
 									name="location"
 									id={`${type}`}
@@ -144,10 +144,9 @@ export default function Result() {
 					</Form.Group>
 				</Form>
 			</div>
-
 			<div className="col-9 d-flex flex-column align-items-center rounded m-2">
-				<h3 className="py-2 header-list" style={{color:"#004e87"}}>List of NGOs</h3>
-				<div className="d-flex justify-content-between" style={{width:"20%"}}>
+				<h3 className="py-2" style={{ color:"#004e87" }}>List of NGOs</h3>
+				<div className="d-flex justify-content-between" style={{ width:"20%" }}>
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
 				</div>
@@ -163,7 +162,7 @@ export default function Result() {
 							className="card w-75 mt-2 bg-light"
 							style={{ border: "none" }}
 						>
-							<div class="card-body" style={{ color: "#004e87" }}>
+							<div className="card-body" style={{ color: "#004e87" }}>
 								<h5 className="card-title">{item.organization}</h5>
 								<p className="card-text">
 									<span className="text-warning">
