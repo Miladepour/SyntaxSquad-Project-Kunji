@@ -247,7 +247,7 @@ export default function UserForm() {
       onError={handleCaptchaError}
         />
       </div>
-      <div className="text-center mb-4">
+      <div className="text-center mb-4 mt-3">
         <Button variant="primary" type="submit">
           Next
         </Button>
