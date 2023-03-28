@@ -6,7 +6,7 @@ function Hero() {
   return (
     <>
     <Container>
-      <Row className={styles.rowMain}>
+      <Row className="d-flex flex-row align-items-center">
         <Col md={6}>
           <h2 className={styles.titleMain}>Behind the Bars: Life in Indian Prisons</h2>
           <p>Welcome to Kunji, a charity organization dedicated to assisting ex-prisoners in finding the help they need to reintegrate into society. Our mission is to connect ex-prisoners with various NGOs, resources, and support systems to empower them in building a better future for themselves and their families.</p>
@@ -15,7 +15,7 @@ function Hero() {
           <Image  src="https://i.ibb.co/j6f02Js/kunji-1.jpg" alt="Central jail in india" fluid className={styles.heroImages} />
         </Col>
       </Row >
-      <Row className={styles.rowMain}>
+      <Row className="d-flex flex-row align-items-center">
         <Col md={6}>
           <Image src="https://i.ibb.co/HgTHb2j/kunji-2.jpg" alt="A man released from jail in india" fluid className={styles.heroImages} />
         </Col>
@@ -24,7 +24,7 @@ function Hero() {
           <p>A glimpse into the Indian prison system, where countless individuals seek a chance at a new beginning upon their release.</p>
         </Col>
       </Row>
-      <Row className={styles.rowMain}>
+      <Row className="d-flex flex-row align-items-center">
         <Col md={6}>
           <h2 className={styles.titleMain}>Navigating Challenges: Seeking Solution</h2>
           <p>A former inmate contemplates the many issues that need assistance, such as legal aid, healthcare, education, and more.</p>
@@ -33,7 +33,7 @@ function Hero() {
           <Image src="https://i.ibb.co/KFpXvbb/kunji-3.jpg" alt="A former inmate contemplates the many issues that need assistance" fluid className={styles.heroImages} />
         </Col>
       </Row>
-      <Row className={styles.rowMain}>
+      <Row className="d-flex flex-row align-items-center">
         <Col md={6}>
           <Image src="https://i.ibb.co/C9nJLPc/kunji-4.jpg" alt="life-changing advertisement on a bustling street" fluid className={styles.heroImages} />
         </Col>
@@ -42,7 +42,7 @@ function Hero() {
           <p>The power of information: A passerby discovers Kunji’s life-changing advertisement on a bustling street, opening the door to a world of support and resources for ex-prisoners.</p>
         </Col>
       </Row>
-      <Row className={styles.rowMain}>
+      <Row className="d-flex flex-row align-items-center">
         <Col md={6}>
           <h2 className={styles.titleMain}>Reaching Out: A Call for Help and Guidance</h2>
           <p>Taking the first step: A former inmate reaches out to the Kunji helpline, seeking guidance and assistance in their journey towards a brighter future.</p>
@@ -51,7 +51,7 @@ function Hero() {
           <Image src="https://i.ibb.co/MGjCtmz/kunji-5.jpg" alt=" A former inmate reaches out to the Kunji helpline" fluid className={styles.heroImages} />
         </Col>
       </Row>
-      <Row className={styles.rowMain}>
+      <Row className="d-flex flex-row align-items-center">
         <Col md={6}>
           <Image src="https://i.ibb.co/qypD9w8/kunji-6.jpg" alt="Kunji’s empathetic receptionist" fluid className={styles.heroImages} />
         </Col>
@@ -60,7 +60,7 @@ function Hero() {
           <p>A heartfelt conversation unfolds as the ex-prisoner explains the challenges they face to Kunji’s empathetic receptionist.</p>
         </Col>
       </Row>
-      <Row className={styles.rowMain}>
+      <Row className="d-flex flex-row align-items-center">
         <Col md={6}>
           <h2 className={styles.titleMain}>Compassionate Guidance: Avnish Lends a Hand</h2>
           <p>Avnish, our dedicated receptionist, helps the ex-prisoner navigate their situation, connecting them with the appropriate resources and support.</p>
@@ -69,7 +69,7 @@ function Hero() {
           <Image src="https://i.ibb.co/d7MbHHZ/kunji-7.jpg" alt="helps the ex-prisoner navigate their situation" fluid className={styles.heroImages} />
         </Col>
       </Row>
-      <Row className={styles.rowMain}>
+      <Row className="d-flex flex-row align-items-center">
         <Col md={6}>
           <Image src="https://i.ibb.co/hRmtwSv/kunji-8.jpg" alt=" the ex-prisoner found right help" fluid className={styles.heroImages} />
         </Col>

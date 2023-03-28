@@ -5,12 +5,6 @@
     box-shadow:  26px 26px 47px #00416f31,
     -26px -26px 47px #005d9f2a;
   }
-.rowMain{
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    flex-direction: row-reverse;
- }
 .titleMain{
     color: #004E87;
 }
