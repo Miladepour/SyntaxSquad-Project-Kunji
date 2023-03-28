@@ -1,20 +1,13 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { Auth0Provider } from "@auth0/auth0-react";
+import Auth0ProviderWithHistory from "./components/Auth0ProviderWithHistory";
 
 import App from "./App";
 
 createRoot(document.getElementById("root")).render(
-	<Auth0Provider
-		domain="dev-smy0lct7oni31spt.us.auth0.com"
-		clientId="49LiusOQku1efCsU4Pw01K9XzQ8nxK4l"
-    authorizationParams={{
-			redirect_uri: window.location.origin + "/admin/users",
-			audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
-    }}
-  >
-		<BrowserRouter>
+	<BrowserRouter>
+		<Auth0ProviderWithHistory>
 			<App />
-		</BrowserRouter>
-  </Auth0Provider>
+		</Auth0ProviderWithHistory>
+	</BrowserRouter>
 );
