@@ -26,7 +26,7 @@ function NavBar() {
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>
-					<div>
+					<div className="d-none d-md-block">
 						<button className={styles.buttonHelp}>Call Helpline</button>
 					</div>
 				</Container>
