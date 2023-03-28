@@ -47,8 +47,7 @@ export default function Result() {
 		fetch("/api/sendmail", {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json",
-				"Request-Source": 1
+				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
 				to: email,
@@ -73,8 +72,7 @@ export default function Result() {
 		fetch("/api/sendsms", {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json",
-				"Request-Source": 1
+				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
 				to: sms,
