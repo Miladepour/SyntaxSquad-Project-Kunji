@@ -12,12 +12,12 @@ function Hero() {
           <p>Welcome to Kunji, a charity organization dedicated to assisting ex-prisoners in finding the help they need to reintegrate into society. Our mission is to connect ex-prisoners with various NGOs, resources, and support systems to empower them in building a better future for themselves and their families.</p>
         </Col>
         <Col md={6}>
-          <Image  src="https://i.ibb.co/j6f02Js/kunji-1.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
+          <Image  src="https://i.ibb.co/j6f02Js/kunji-1.jpg" alt="Central jail in india" fluid className={styles.heroImages} />
         </Col>
       </Row >
       <Row className={styles.rowMain}>
         <Col md={6}>
-          <Image src="https://i.ibb.co/HgTHb2j/kunji-2.jpg" alt="Left Column Image" fluid className={styles.heroImages} />
+          <Image src="https://i.ibb.co/HgTHb2j/kunji-2.jpg" alt="A man released from jail in india" fluid className={styles.heroImages} />
         </Col>
         <Col md={6}>
           <h2 className={styles.titleMain}>Embracing Freedom: A New Chapter Begins</h2>
@@ -30,12 +30,12 @@ function Hero() {
           <p>A former inmate contemplates the many issues that need assistance, such as legal aid, healthcare, education, and more.</p>
         </Col>
         <Col md={6}>
-          <Image src="https://i.ibb.co/KFpXvbb/kunji-3.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
+          <Image src="https://i.ibb.co/KFpXvbb/kunji-3.jpg" alt="A former inmate contemplates the many issues that need assistance" fluid className={styles.heroImages} />
         </Col>
       </Row>
       <Row className={styles.rowMain}>
         <Col md={6}>
-          <Image src="https://i.ibb.co/C9nJLPc/kunji-4.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
+          <Image src="https://i.ibb.co/C9nJLPc/kunji-4.jpg" alt="life-changing advertisement on a bustling street" fluid className={styles.heroImages} />
         </Col>
         <Col md={6}>
           <h2 className={styles.titleMain}>Discovering Kunji: Hope on the Horizon</h2>
@@ -48,12 +48,12 @@ function Hero() {
           <p>Taking the first step: A former inmate reaches out to the Kunji helpline, seeking guidance and assistance in their journey towards a brighter future.</p>
         </Col>
         <Col md={6}>
-          <Image src="https://i.ibb.co/MGjCtmz/kunji-5.jpg" alt="Left Column Image" fluid className={styles.heroImages} />
+          <Image src="https://i.ibb.co/MGjCtmz/kunji-5.jpg" alt=" A former inmate reaches out to the Kunji helpline" fluid className={styles.heroImages} />
         </Col>
       </Row>
       <Row className={styles.rowMain}>
         <Col md={6}>
-          <Image src="https://i.ibb.co/qypD9w8/kunji-6.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
+          <Image src="https://i.ibb.co/qypD9w8/kunji-6.jpg" alt="Kunji’s empathetic receptionist" fluid className={styles.heroImages} />
         </Col>
         <Col md={6}>
           <h2 className={styles.titleMain}>Opening Up: Sharing Struggles with Kunji</h2>
@@ -66,12 +66,12 @@ function Hero() {
           <p>Avnish, our dedicated receptionist, helps the ex-prisoner navigate their situation, connecting them with the appropriate resources and support.</p>
         </Col>
         <Col md={6}>
-          <Image src="https://i.ibb.co/d7MbHHZ/kunji-7.jpg" alt="Left Column Image" fluid className={styles.heroImages} />
+          <Image src="https://i.ibb.co/d7MbHHZ/kunji-7.jpg" alt="helps the ex-prisoner navigate their situation" fluid className={styles.heroImages} />
         </Col>
       </Row>
       <Row className={styles.rowMain}>
         <Col md={6}>
-          <Image src="https://i.ibb.co/hRmtwSv/kunji-8.jpg" alt="Right Column Image" fluid className={styles.heroImages} />
+          <Image src="https://i.ibb.co/hRmtwSv/kunji-8.jpg" alt=" the ex-prisoner found right help" fluid className={styles.heroImages} />
         </Col>
         <Col md={6}>
           <h2 className={styles.titleMain}>A New Lease on Life: Finding the Help They Need</h2>
