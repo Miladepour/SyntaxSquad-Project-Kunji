@@ -3,4 +3,19 @@
     margin-left: 20%;
     width: 60%;
 }
-
+.btn{
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+    background-color: red;
+}
+@media screen and (max-width: 768px) {
+.page{
+    flex-direction: column!important;
+    align-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.dataTable{
+width: 100%;
+}
+  }
