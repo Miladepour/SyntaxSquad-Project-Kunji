@@ -5,16 +5,25 @@ import { useSearchParams } from "react-router-dom";
 import SendSmsButton from "./button/SendSMSButton";
 import SendEmailButton from "./button/SendEmailButton";
 import LocationIcon from "../../components/LocationIcon";
-import ConfirmationScreen from "./ConfirmationScreen";
+import { useLocation } from "react-router-dom";
 
-export default function Result() {
+
+
+
+// import ConfirmationScreen from "./ConfirmationScreen";
+
+export default function Result(props) {
+  const location1 = useLocation();
+  console.log(props);
+  const emailnew = location1.state?.email || "";
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [service, setService] = useState(searchParams.get("service"));
 	const [location, setLocation] = useState(searchParams.get("location"));
 	const [data, setData] = useState([]);
 	const [emailSent, setEmailSent] = useState(false);
 	const [smsSent, setSmsSent] = useState(false);
-    const [showConfirmation, setShowConfirmation] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+
 	useEffect(() => {
 		fetch(`/api/ngo?service=${service}&location=${location}`)
 			.then((response) => response.json())
@@ -148,10 +157,10 @@ export default function Result() {
 			</div>
 
 			<div className="col-9 d-flex flex-column align-items-center rounded m-2">
-				<h3 className="py-2 header-list" style={{color:"#004e87"}}>List of NGOs</h3>
-				<div className="d-flex justify-content-between" style={{width:"20%"}}>
-					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
-					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
+				<h3 className="py-2 header-list" style={{ color:"#004e87" }}>List of NGOs</h3>
+				<div className="d-flex justify-content-between" style={{ width:"20%" }}>
+					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} state={state} />
+					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  />
 				</div>
 
 				{data == "" ? (

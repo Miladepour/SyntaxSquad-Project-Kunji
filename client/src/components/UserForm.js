@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./UserForm.module.css";
+import { Link } from "react-router-dom";
 const today = new Date();
 
 function parseDateString(value, originalValue) {
@@ -91,6 +92,7 @@ export default function UserForm() {
   };
 
   return (
+    <>
     <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className={styles.formGroup} controlId="name">
         <Form.Label>Name</Form.Label>
@@ -113,6 +115,7 @@ export default function UserForm() {
             type="email"
             {...register("email")}
             isInvalid={errors.email?.message}
+
           />
           <Form.Control.Feedback type="invalid">
             {errors.email?.message}
@@ -253,5 +256,8 @@ export default function UserForm() {
         </Button>
       </div>
     </Form>
+      <Link to='/result'
+  state={{ data: register }} />
+    </>
   );
 }

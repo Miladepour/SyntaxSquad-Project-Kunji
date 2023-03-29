@@ -3,12 +3,14 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import * as yup from "yup";
-
 const emailSchema = yup.string().email().required();
 
-export default function SendEmailButton({ sendEmail }) {
+export default function SendEmailButton({ sendEmail, state }) {
+
+  const emailnew = state?.email || "";
+  console.log(state);
   const [showModal, setShowModal] = useState(false);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(emailnew);
   const [messageSent, setMessageSent] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
 
@@ -52,8 +54,24 @@ export default function SendEmailButton({ sendEmail }) {
       <button className="btn text-white m-2" type="button" style={{backgroundColor: "#004e87"}} onClick={handleShow}>
         Send Email
       </button>
-
-      <Modal show={showModal} onHide={handleClose}>
+      {email ? (
+           <Modal show={setShowModal} onHide={handleClose}>
+           <Modal.Header>
+             <Modal.Title>Confirmation</Modal.Title>
+           </Modal.Header>
+           <Modal.Body>
+                   <p>
+                     Thank you! The NGOs list was sent to {email}.
+                   </p>
+           </Modal.Body>
+           <Modal.Footer>
+             <Button variant="secondary" onClick={handleClose}>
+               Close
+             </Button>
+           </Modal.Footer>
+         </Modal>
+        ) : (
+        <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Enter your email address</Modal.Title>
         </Modal.Header>
@@ -85,6 +103,8 @@ export default function SendEmailButton({ sendEmail }) {
           )}
         </Modal.Footer>
       </Modal>
+        )
+          }
     </>
   );
 }

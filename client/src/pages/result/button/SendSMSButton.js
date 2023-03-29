@@ -49,7 +49,7 @@ export default function SendSmsButton({ sendSms }) {
 
   return (
     <>
-      <button className="btn text-white m-2" type="button" style={{backgroundColor: "#004e87"}} onClick={handleShow}>
+      <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
         Send SMS
       </button>
 
