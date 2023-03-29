@@ -16,7 +16,7 @@ export default function ResultMobV(props) {
   }
 
   return (
-    <div className={`d-md-none ${styles.form}`}>
+    <div className={`d-md-none ${styles.form} mt-4 mb-4`}>
       <select className={`form-select mb-2 ${styles.formGroup}`} value={service} onChange={handleServiceChange}>
         <option value="">Select Service</option>
         <option value="Legal Aid">Legal Aid</option>
