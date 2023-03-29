@@ -5,7 +5,7 @@ import FormControl from "react-bootstrap/FormControl";
 import * as yup from "yup";
 const emailSchema = yup.string().email().required();
 
-export default function SendEmailButton({ sendEmail, email ,setEmail , getEmail }) {
+export default function SendEmailButton({ sendEmail, email ,setEmail }) {
 
   // const emailnew = state?.email || "";
   // console.log(state);
@@ -20,7 +20,6 @@ export default function SendEmailButton({ sendEmail, email ,setEmail , getEmail 
   }
 
   function handleShow() {
-    getEmail();
     setShowModal(true);
     setEmail("");
     setMessageSent(false);

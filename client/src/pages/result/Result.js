@@ -10,9 +10,8 @@ import { useLocation } from "react-router-dom";
 
 
 export default function Result() {
-  const { state } = useLocation();
-  const emailnew = state?.email || "";
-  console.log(emailnew);
+    const { state } = useLocation();
+    const emailnew = state?.email || "";
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [service, setService] = useState(searchParams.get("service"));
 	const [location, setLocation] = useState(searchParams.get("location"));
@@ -48,27 +47,6 @@ export default function Result() {
 				location: e.target.id,
 			});
 		}
-	}
-	function getEmail() {
-		if (!email) {
-			return;
-		}
-		fetch("/api/user", {
-			method: "Get",
-			headers: {
-				"Content-Type": "application/json",
-			},
-		})
-			.then((response) => {
-				if (response.ok) {
-					setEmailSent(data.email);
-					showConfirmation(true);
-					console.log(data.email);
-				} else {
-					throw new Error("Failed to get email");
-				}
-			})
-			.catch((error) => console.error(error));
 	}
 	function sendEmail(email) {
 		console.log(email);
@@ -179,7 +157,7 @@ export default function Result() {
 			<div className="col-9 d-flex flex-column align-items-center rounded m-2">
 				<h3 className="py-2 header-list" style={{ color:"#004e87" }}>List of NGOs</h3>
 				<div className="d-flex justify-content-between" style={{ width:"20%" }}>
-					<SendEmailButton  getEmail={getEmail} emailSent={emailSent} sendEmail={sendEmail} setEmail={setEmail} email={email} />
+					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} setEmail={setEmail} email={email} />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  />
 				</div>
 
