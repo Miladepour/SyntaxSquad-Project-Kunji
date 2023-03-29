@@ -50,7 +50,7 @@ export default function UserForm() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
+  
   const onSubmit = async (formData) => {
     if (isCaptchaVerified) {
       formData.dateOfBirth=new Date(formData.dateOfBirth).toISOString().split("T")[0];
@@ -66,6 +66,7 @@ export default function UserForm() {
 
         if (response.status === 201) {
           navigate("/user-preferences");
+          console.log(errors)
         } else {
           const data=await response.json();
           console.log(data);
@@ -256,8 +257,8 @@ export default function UserForm() {
         </Button>
       </div>
     </Form>
-      <Link to='/result'
-  state={{ data: register }} />
+      {/* <Link to='/result'
+  state={{ errors:  errors }} /> */}
     </>
   );
 }

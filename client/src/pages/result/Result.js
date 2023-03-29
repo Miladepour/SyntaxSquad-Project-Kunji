@@ -9,16 +9,14 @@ import { useLocation } from "react-router-dom";
 
 
 
-
-// import ConfirmationScreen from "./ConfirmationScreen";
-
-export default function Result(props) {
-  const location1 = useLocation();
-  console.log(props);
-  const emailnew = location1.state?.email || "";
+export default function Result() {
+  const { state } = useLocation();
+  const emailnew = state?.email || "";
+  console.log(emailnew);
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [service, setService] = useState(searchParams.get("service"));
 	const [location, setLocation] = useState(searchParams.get("location"));
+	const [email,setEmail]=useState("");
 	const [data, setData] = useState([]);
 	const [emailSent, setEmailSent] = useState(false);
 	const [smsSent, setSmsSent] = useState(false);
@@ -51,7 +49,29 @@ export default function Result(props) {
 			});
 		}
 	}
+	function getEmail() {
+		if (!email) {
+			return;
+		}
+		fetch("/api/user", {
+			method: "Get",
+			headers: {
+				"Content-Type": "application/json",
+			},
+		})
+			.then((response) => {
+				if (response.ok) {
+					setEmailSent(data.email);
+					showConfirmation(true);
+					console.log(data.email);
+				} else {
+					throw new Error("Failed to get email");
+				}
+			})
+			.catch((error) => console.error(error));
+	}
 	function sendEmail(email) {
+		console.log(email);
 		if (!email) {
 			return;
 		}
@@ -159,7 +179,7 @@ export default function Result(props) {
 			<div className="col-9 d-flex flex-column align-items-center rounded m-2">
 				<h3 className="py-2 header-list" style={{ color:"#004e87" }}>List of NGOs</h3>
 				<div className="d-flex justify-content-between" style={{ width:"20%" }}>
-					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} state={state} />
+					<SendEmailButton  getEmail={getEmail} emailSent={emailSent} sendEmail={sendEmail} setEmail={setEmail} email={email} />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  />
 				</div>
 

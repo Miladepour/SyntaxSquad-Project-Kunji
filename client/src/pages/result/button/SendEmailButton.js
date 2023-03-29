@@ -5,12 +5,11 @@ import FormControl from "react-bootstrap/FormControl";
 import * as yup from "yup";
 const emailSchema = yup.string().email().required();
 
-export default function SendEmailButton({ sendEmail, state }) {
+export default function SendEmailButton({ sendEmail, email ,setEmail , getEmail }) {
 
-  const emailnew = state?.email || "";
-  console.log(state);
+  // const emailnew = state?.email || "";
+  // console.log(state);
   const [showModal, setShowModal] = useState(false);
-  const [email, setEmail] = useState(emailnew);
   const [messageSent, setMessageSent] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
 
@@ -21,6 +20,7 @@ export default function SendEmailButton({ sendEmail, state }) {
   }
 
   function handleShow() {
+    getEmail();
     setShowModal(true);
     setEmail("");
     setMessageSent(false);
@@ -55,7 +55,7 @@ export default function SendEmailButton({ sendEmail, state }) {
         Send Email
       </button>
       {email ? (
-           <Modal show={setShowModal} onHide={handleClose}>
+           <Modal show={showModal} onHide={handleClose}>
            <Modal.Header>
              <Modal.Title>Confirmation</Modal.Title>
            </Modal.Header>
