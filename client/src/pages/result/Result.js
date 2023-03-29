@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import { useSearchParams } from "react-router-dom";
 import SendSmsButton from "./button/SendSMSButton";
 import SendEmailButton from "./button/SendEmailButton";
+import SendWhatsappButton from "./button/SendWhatsappButton";
 import LocationIcon from "../../components/LocationIcon";
 
 export default function Result() {
@@ -13,11 +14,11 @@ export default function Result() {
 	const [data, setData] = useState([]);
 	const [emailSent, setEmailSent] = useState(false);
 	const [smsSent, setSmsSent] = useState(false);
+	const [whatsappSent, setWhatsappSent] = useState(false);
 	useEffect(() => {
 		fetch(`/api/ngo?service=${service}&location=${location}`)
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
 				setData(data);
 			});
 	}, [service, location]);
@@ -90,6 +91,31 @@ export default function Result() {
 			})
 			.catch((error) => console.error(error));
 	}
+	function sendWhatsapp(number) {
+		if (!number) {
+			return;
+		}
+		fetch("/api/sendwhatsapp", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				to: number,
+				data: data,
+				service: service,
+				location: location,
+			}),
+		})
+			.then((response) => {
+				if (response.ok) {
+					setWhatsappSent(true);
+				} else {
+					throw new Error("Failed to send Whatsapp message");
+				}
+			})
+			.catch((error) => console.error(error));
+	}
 	return (
 		<div className="d-flex">
 			<div className="col-3 bg-light rounded m-2">
@@ -150,6 +176,7 @@ export default function Result() {
 				<div className="d-flex justify-content-between" style={{width:"20%"}}>
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
+					<SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp}/>
 				</div>
 
 				{data == "" ? (
