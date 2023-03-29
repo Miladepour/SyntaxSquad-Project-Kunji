@@ -31,7 +31,7 @@ router.post("/", jwtCheck, validation(ngoSchema) ,async (req, res) => {
     );
     res.json(result.rows[0]);
   } catch (err) {
-    res.status(500).json({ error: "Failed to create NGO" });
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -60,7 +60,7 @@ router.put("/:id", jwtCheck, validation(ngoSchema) , async (req, res) => {
     }
     res.json(`${id} has been updated!`);
   } catch (err) {
-    res.status(500).json({ error: "Failed to update NGO" });
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -95,6 +95,8 @@ router.get("/", async (req, res) => {
     query += " WHERE zone = $1";
     params = [location];
   }
+
+  query += " ORDER BY id";
 
   try {
     const { rows } = await db.query(query, params);
