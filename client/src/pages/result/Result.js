@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import "./Result.css";
+import styles from "./Result.module.css";
 import Form from "react-bootstrap/Form";
 import { useSearchParams } from "react-router-dom";
 import SendSmsButton from "./button/SendSMSButton";
 import SendEmailButton from "./button/SendEmailButton";
 import LocationIcon from "../../components/LocationIcon";
+import MobileVersion from "./ResultMobV.js";
+import { style } from "@mui/system";
 
 export default function Result() {
 	let [searchParams, setSearchParams] = useSearchParams();
@@ -14,10 +16,9 @@ export default function Result() {
 	const [emailSent, setEmailSent] = useState(false);
 	const [smsSent, setSmsSent] = useState(false);
 	useEffect(() => {
-		fetch(`/api/ngo?service=${service}&location=${location}`)
+		fetch(`/api/ngo?service=${encodeURIComponent(service)}&location=${location}`)
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data);
 				setData(data);
 			});
 	}, [service, location]);
@@ -47,7 +48,7 @@ export default function Result() {
 		fetch("/api/sendmail", {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
 				to: email,
@@ -72,7 +73,7 @@ export default function Result() {
 		fetch("/api/sendsms", {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json",
+				"Content-Type": "application/json"
 			},
 			body: JSON.stringify({
 				to: sms,
@@ -90,12 +91,42 @@ export default function Result() {
 			})
 			.catch((error) => console.error(error));
 	}
+	function handleServiceChange(selectedService) {
+    setService(selectedService);
+    setSearchParams({
+      service: selectedService,
+      location: location,
+    });
+  }
+
+  function handleLocationChange(selectedLocation) {
+    setLocation(selectedLocation);
+    setSearchParams({
+      service: service,
+      location: selectedLocation,
+    });
+  }
 	return (
-		<div className="d-flex">
-			<div className="col-3 bg-light rounded m-2">
+		<>
+		<h3 className="text-center" style={{ color:"#004e87" }}>List of NGOs</h3>
+			<div className="d-md-none">
+			<div className="d-flex justify-content-center">
+					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
+					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
+			</div>
+				<MobileVersion onServiceChange={handleServiceChange} onLocationChange={handleLocationChange} />
+			</div>
+			<div className="d-none d-md-block">
+		<div className="col-3">
+					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
+					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
+		</div>
+		</div>
+		<div className={`d-flex ${styles.page}`}>
+			<div className="col-3 bg-light rounded m-2 d-none d-md-block">
 				<Form>
 					<Form.Group
-						className="select-group"
+						className={styles.selectGroup}
 						style={{ color: "#004e87" }}
 						controlId="service"
 					>
@@ -117,14 +148,15 @@ export default function Result() {
 									name="service"
 									id={`${type}`}
 									onChange={selectService}
-								
+
+									checked={service === type && true}
 								/>
 								<span className="mx-2">{type}</span>
 							</div>
 						))}
 					</Form.Group>
 					<Form.Group
-						className="select-group"
+						className={styles.selectGroup}
 						style={{ color: "#004e87" }}
 						controlId="location"
 					>
@@ -132,11 +164,11 @@ export default function Result() {
 						{["North", "East", "West", "Central", "South"].map((type) => (
 							<div key={`${type}`} className="mb-3">
 								<Form.Check
-								
 									type="radio"
 									name="location"
 									id={`${type}`}
 									label={`${type}`}
+									checked={location === type && true}
 									onChange={selectLocation}
 								/>
 							</div>
@@ -144,14 +176,7 @@ export default function Result() {
 					</Form.Group>
 				</Form>
 			</div>
-
-			<div className="col-9 d-flex flex-column align-items-center rounded m-2">
-				<h3 className="py-2 header-list" style={{color:"#004e87"}}>List of NGOs</h3>
-				<div className="d-flex justify-content-between" style={{width:"20%"}}>
-					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
-					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
-				</div>
-
+			<div className={`col-9 d-flex flex-column align-items-center rounded m-2 ${styles.dataTable}`}>
 				{data == "" ? (
 					<h2 className="m-4" style={{ color: "#004e87" }}>
 						No result matched...
@@ -163,7 +188,7 @@ export default function Result() {
 							className="card w-75 mt-2 bg-light"
 							style={{ border: "none" }}
 						>
-							<div class="card-body" style={{ color: "#004e87" }}>
+							<div className="card-body" style={{ color: "#004e87" }}>
 								<h5 className="card-title">{item.organization}</h5>
 								<p className="card-text">
 									<span className="text-warning">
@@ -175,9 +200,9 @@ export default function Result() {
 								<p className="card-text">
 									{item.contact &&
 										item.contact.map((item, index) => (
-											<div key={index}>
+											<span key={index}>
 												Phone number : {item.phone_number} {item.description}
-											</div>
+											</span>
 										))}
 								</p>
 								<p className="card-text">
@@ -192,5 +217,6 @@ export default function Result() {
 				)}
 			</div>
 		</div>
+		</>
 	);
 }
