@@ -1,0 +1,62 @@
+[
+	{
+		"id": 1,
+		"name": "Lorine Arkell",
+		"email": "larkell0@auda.org.au",
+		"gender": "Female",
+		"date_of_birth": "2022-07-10",
+		"current_location": "Sobral",
+		"pin_code": 852310,
+		"qualification": "Assistant Media Planner",
+		"date_of_release": "2022-04-19",
+		"case_status": false
+	},
+	{
+		"id": 2,
+		"name": "Xever Lording",
+		"email": "xlording1@home.pl",
+		"gender": "Male",
+		"date_of_birth": "2022-08-06",
+		"current_location": "Luna",
+		"pin_code": 831397,
+		"qualification": "Web Designer I",
+		"date_of_release": "2022-06-19",
+		"case_status": false
+	},
+	{
+		"id": 3,
+		"name": "Sinclair Clevely",
+		"email": "sclevely2@photobucket.com",
+		"gender": "Male",
+		"date_of_birth": "2022-05-13",
+		"current_location": "Luowan",
+		"pin_code": 638694,
+		"qualification": "Design Engineer",
+		"date_of_release": "2022-12-25",
+		"case_status": false
+	},
+	{
+		"id": 4,
+		"name": "Marna Maskew",
+		"email": "mmaskew3@bing.com",
+		"gender": "Genderfluid",
+		"date_of_birth": "2022-07-20",
+		"current_location": "Bumbuna",
+		"pin_code": 118524,
+		"qualification": "Health Coach III",
+		"date_of_release": "2022-08-17",
+		"case_status": true
+	},
+	{
+		"id": 5,
+		"name": "Rakel Chastel",
+		"email": "rchastel4@liveinternet.ru",
+		"gender": "Female",
+		"date_of_birth": "2022-10-23",
+		"current_location": "Loma Bonita",
+		"pin_code": 483371,
+		"qualification": "Senior Financial Analyst",
+		"date_of_release": "2023-02-26",
+		"case_status": true
+	}
+]
