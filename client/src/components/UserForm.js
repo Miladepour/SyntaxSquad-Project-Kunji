@@ -97,6 +97,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
+            placeholder="E.g. Shah Rukh Khan"
             {...register("name")}
             isInvalid={errors.name?.message}
           />
@@ -111,6 +112,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="email"
+            placeholder="Email@domain.com"
             {...register("email")}
             isInvalid={errors.email?.message}
           />
@@ -157,6 +159,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
+            placeholder="E.g. Delhi"
             {...register("currentLocation")}
             isInvalid={errors.currentLocation?.message}
           />
@@ -171,6 +174,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
+            placeholder="Enter your six digit pin code"
             {...register("pinCode")}
             isInvalid={errors.pinCode?.message}
           />
@@ -185,6 +189,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
+            placeholder="+91 xxxx-nnnnnn"
             {...register("phoneNumber")}
             isInvalid={errors.phoneNumber?.message}
           />
