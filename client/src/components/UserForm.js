@@ -8,7 +8,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./UserForm.module.css";
-import { Link } from "react-router-dom";
+
 const today = new Date();
 
 function parseDateString(value, originalValue) {
@@ -64,8 +64,7 @@ export default function UserForm() {
         });
 
         if (response.status === 201) {
-          navigate("/user-preferences");
-          console.log(errors)
+          navigate("/user-preferences", { state : formData });
         } else {
           const data=await response.json();
           console.log(data);
@@ -256,8 +255,6 @@ export default function UserForm() {
         </Button>
       </div>
     </Form>
-      <Link to='/result'
-  state={{ errors:  errors }} />
     </>
   );
 }

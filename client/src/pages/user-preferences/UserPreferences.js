@@ -4,16 +4,19 @@ import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
 import Data from "../../components/form-data/formdata";
 import "./UserPreferences.css";
+import { useLocation } from "react-router-dom";
 
 export default function UserPreferences() {
+
 	const navigate = useNavigate();
+	const { state } = useLocation();
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
   const onSubmit = (data) => {
-    navigate(`/result?service=${data.service}&location=${data.location}`);
+    navigate(`/result?service=${data.service}&location=${data.location}` , { state :state } );
   };
 	return (
 		<Form className="form" onSubmit={handleSubmit(onSubmit)}>

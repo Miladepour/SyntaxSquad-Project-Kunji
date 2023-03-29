@@ -9,17 +9,17 @@ import { useLocation } from "react-router-dom";
 
 
 
-export default function Result() {
+export default function Result(  ) {
     const { state } = useLocation();
-    const emailnew = state?.email || "";
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [service, setService] = useState(searchParams.get("service"));
 	const [location, setLocation] = useState(searchParams.get("location"));
-	const [email,setEmail]=useState("");
+	const [email ,setEmail]=useState(searchParams.get("email"));
+	const [phoneNumber ,setPhoneNumber]=useState(searchParams.get("phoneNumber"));
 	const [data, setData] = useState([]);
 	const [emailSent, setEmailSent] = useState(false);
 	const [smsSent, setSmsSent] = useState(false);
-  const [showConfirmation, setShowConfirmation] = useState(false);
+
 
 	useEffect(() => {
 		fetch(`/api/ngo?service=${service}&location=${location}`)
@@ -27,9 +27,10 @@ export default function Result() {
 			.then((data) => {
 				console.log(data);
 				setData(data);
+				setEmail(email);
+				setPhoneNumber(phoneNumber);
 			});
-	}, [service, location]);
-
+	}, [service, location,email,phoneNumber]);
 	function selectService(e) {
 		if (e.target.checked) {
 			setService(e.target.id);
@@ -68,7 +69,6 @@ export default function Result() {
 			.then((response) => {
 				if (response.ok) {
 					setEmailSent(true);
-					showConfirmation(true);
 				} else {
 					throw new Error("Failed to send email");
 				}
@@ -157,8 +157,8 @@ export default function Result() {
 			<div className="col-9 d-flex flex-column align-items-center rounded m-2">
 				<h3 className="py-2 header-list" style={{ color:"#004e87" }}>List of NGOs</h3>
 				<div className="d-flex justify-content-between" style={{ width:"20%" }}>
-					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} setEmail={setEmail} email={email} />
-					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  />
+					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} setEmail={setEmail} email={state.email}  />
+					<SendSmsButton smsSent={smsSent} sendSms={sendSms} setPhoneNumber={setPhoneNumber} phoneNumber={state.phoneNumber} />
 				</div>
 
 				{data == "" ? (

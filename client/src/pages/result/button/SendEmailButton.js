@@ -3,16 +3,13 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import * as yup from "yup";
+
 const emailSchema = yup.string().email().required();
 
 export default function SendEmailButton({ sendEmail, email ,setEmail }) {
-
-  // const emailnew = state?.email || "";
-  // console.log(state);
   const [showModal, setShowModal] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
-
   function handleClose() {
     setShowModal(false);
     setEmail("");
@@ -31,6 +28,7 @@ export default function SendEmailButton({ sendEmail, email ,setEmail }) {
       setIsValidEmail(true);
       sendEmail(email);
       setMessageSent(true);
+      setShowModal(false);
     } catch (error) {
       setIsValidEmail(false);
     }
@@ -47,10 +45,24 @@ export default function SendEmailButton({ sendEmail, email ,setEmail }) {
       setIsValidEmail(false);
     }
   }
+  // async function handleUpdate(e) {
+  //   setShowModal(true);
+  //   setMessageSent(false);
+  //   setEmail("");
+  //   const newEmail = e.target.value;
+  //   setEmail(newEmail);
+
+  //   try {
+  //     await emailSchema.validate(newEmail);
+  //     setIsValidEmail(true);
+  //   } catch (error) {
+  //     setIsValidEmail(false);
+  //   }
+  // }
 
   return (
     <>
-      <button className="btn text-white m-2" type="button" style={{backgroundColor: "#004e87"}} onClick={handleShow}>
+      <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
         Send Email
       </button>
       {email ? (
@@ -60,10 +72,13 @@ export default function SendEmailButton({ sendEmail, email ,setEmail }) {
            </Modal.Header>
            <Modal.Body>
                    <p>
-                     Thank you! The NGOs list was sent to {email}.
+                    Is the list of NGOs sent to {email}??
                    </p>
            </Modal.Body>
            <Modal.Footer>
+           <Button variant="primary" onClick={handleSendEmail} disabled={!isValidEmail}>
+              Send Email
+            </Button>
              <Button variant="secondary" onClick={handleClose}>
                Close
              </Button>
@@ -77,7 +92,7 @@ export default function SendEmailButton({ sendEmail, email ,setEmail }) {
         <Modal.Body>
           {messageSent ? (
             <p>Email sent successfully.</p>
-          ) : (
+          ) :  (
             <>
               <FormControl
                 placeholder="Enter your email address"
