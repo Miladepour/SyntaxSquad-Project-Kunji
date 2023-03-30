@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../assets/kunji-w-logo.svg";
-import logoPSC from "../../assets/second-peroject-chance.png";
+import logoPSC from "../../assets/second-project-chance.png";
 import { Image } from "react-bootstrap";
 
 const About = () => (
