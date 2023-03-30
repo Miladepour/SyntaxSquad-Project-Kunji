@@ -6,10 +6,11 @@ import * as yup from "yup";
 
 const emailSchema = yup.string().email().required();
 
-export default function SendEmailButton({ sendEmail, email ,setEmail }) {
+export default function SendEmailButton({ sendEmail, state }) {
   const [showModal, setShowModal] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [email,setEmail]=useState("");
   function handleClose() {
     setShowModal(false);
     setEmail("");
@@ -45,46 +46,14 @@ export default function SendEmailButton({ sendEmail, email ,setEmail }) {
       setIsValidEmail(false);
     }
   }
-  // async function handleUpdate(e) {
-  //   setShowModal(true);
-  //   setMessageSent(false);
-  //   setEmail("");
-  //   const newEmail = e.target.value;
-  //   setEmail(newEmail);
 
-  //   try {
-  //     await emailSchema.validate(newEmail);
-  //     setIsValidEmail(true);
-  //   } catch (error) {
-  //     setIsValidEmail(false);
-  //   }
-  // }
-
+ console.log(email);
   return (
     <>
       <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
         Send Email
       </button>
-      {email ? (
-           <Modal show={showModal} onHide={handleClose}>
-           <Modal.Header>
-             <Modal.Title>Confirmation</Modal.Title>
-           </Modal.Header>
-           <Modal.Body>
-                   <p>
-                    Is the list of NGOs sent to {email}??
-                   </p>
-           </Modal.Body>
-           <Modal.Footer>
-           <Button variant="primary" onClick={handleSendEmail} disabled={!isValidEmail}>
-              Send Email
-            </Button>
-             <Button variant="secondary" onClick={handleClose}>
-               Close
-             </Button>
-           </Modal.Footer>
-         </Modal>
-        ) : (
+       (
         <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Enter your email address</Modal.Title>
@@ -96,7 +65,7 @@ export default function SendEmailButton({ sendEmail, email ,setEmail }) {
             <>
               <FormControl
                 placeholder="Enter your email address"
-                value={email}
+                value={state?.email}
                 onChange={handleEmailChange}
                 isInvalid={!isValidEmail}
               />
@@ -118,7 +87,6 @@ export default function SendEmailButton({ sendEmail, email ,setEmail }) {
         </Modal.Footer>
       </Modal>
         )
-          }
     </>
   );
 }
