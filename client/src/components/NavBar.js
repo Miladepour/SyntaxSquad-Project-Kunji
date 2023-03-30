@@ -24,7 +24,7 @@ function NavBar() {
 							<Nav.Link href="/userform" className={styles.navbarLink}>
 								Get help
 							</Nav.Link>
-							<Nav.Link href="#" className={styles.navbarLink}>
+							<Nav.Link href="/about-kunji" className={styles.navbarLink}>
 								About Kunji
 							</Nav.Link>
 							<Nav.Link href="#" className={styles.navbarLink}>
