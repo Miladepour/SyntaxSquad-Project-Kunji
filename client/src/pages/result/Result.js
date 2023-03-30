@@ -6,8 +6,11 @@ import SendSmsButton from "./button/SendSMSButton";
 import SendEmailButton from "./button/SendEmailButton";
 import LocationIcon from "../../components/LocationIcon";
 import MobileVersion from "./ResultMobV.js";
+import { useTranslation } from "react-i18next";
 
 export default function Result() {
+	const { t } = useTranslation();
+
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [service, setService] = useState(searchParams.get("service"));
 	const [location, setLocation] = useState(searchParams.get("location"));
@@ -107,7 +110,7 @@ export default function Result() {
   }
 	return (
 		<>
-		<h3 className="text-center" style={{ color:"#004e87" }}>List of NGOs</h3>
+			<h3 className="text-center" style={{ color: "#004e87" }}>{t("result.heading")}</h3>
 			<div className="d-md-none">
 			<div className="d-flex justify-content-center">
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
@@ -195,20 +198,20 @@ export default function Result() {
 									</span>
 									<span className="m-2">{item.zone}</span>
 								</p>
-								<p className="card-text">Address : {item.address}</p>
+								<p className="card-text">{t("result.address")} : {item.address}</p>
 								<p className="card-text">
 									{item.contact &&
 										item.contact.map((item, index) => (
 											<span key={index}>
-												Phone number : {item.phone_number} {item.description}
+												{t("userForm.phoneNumber")} : {item.phone_number} {item.description}
 											</span>
 										))}
 								</p>
 								<p className="card-text">
-									{item.website && `Website : ${item.website}`}
+									{item.website && `${t("result.website")} : ${item.website}`}
 								</p>
 								<p className="card-text">
-									{item.email && `Email : ${item.email}`}
+									{item.email && `${t("userForm.email")} : ${item.email}`}
 								</p>
 							</div>
 						</div>

@@ -4,10 +4,13 @@ import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import Spinner from "react-bootstrap/Spinner";
 import * as yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const smsSchema = yup.string().min(5).max(20).required();
 
 export default function SendSmsButton({ sendSms }) {
+  const { t } = useTranslation();
+
   const [showModal, setShowModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [messageSent, setMessageSent] = useState(false);
@@ -63,13 +66,13 @@ export default function SendSmsButton({ sendSms }) {
               Sending...
           </>
         ) : (
-          "Send SMS"
+          t("result.sendSMSBtn")
         )}
       </button>
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Enter your telephone number..</Modal.Title>
+          <Modal.Title>{t("result.enterPhone")}</Modal.Title>
           <Modal.Body></Modal.Body>
         </Modal.Header>
         <Modal.Body>
@@ -91,7 +94,7 @@ export default function SendSmsButton({ sendSms }) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose} disabled={isSending}>
-            Close
+            {t("result.closeBtn")}
           </Button>
           {!messageSent && (
             <Button variant="primary" onClick={handleSendSms} disabled={!isValidSms || isSending}>
@@ -101,7 +104,7 @@ export default function SendSmsButton({ sendSms }) {
                     Sending...
                 </>
               ) : (
-                "Send SMS"
+                t("result.sendSMSBtn")
               )}
             </Button>
           )}

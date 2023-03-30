@@ -4,10 +4,13 @@ import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import Spinner from "react-bootstrap/Spinner";
 import * as yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const emailSchema = yup.string().email().required();
 
 export default function SendEmailButton({ sendEmail }) {
+  const { t } = useTranslation();
+
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
   const [messageSent, setMessageSent] = useState(false);
@@ -63,13 +66,13 @@ export default function SendEmailButton({ sendEmail }) {
              Sending...
           </>
         ) : (
-          "Send Email"
+            t("result.sendEmailBtn")
         )}
       </button>
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Enter your email address</Modal.Title>
+          <Modal.Title>{t("result.enterEmail")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
@@ -90,7 +93,7 @@ export default function SendEmailButton({ sendEmail }) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose} disabled={isSending}>
-            Close
+            {t("result.closeBtn")}
           </Button>
           {!messageSent && (
             <Button variant="primary" onClick={handleSendEmail} disabled={!isValidEmail || isSending}>
@@ -100,7 +103,7 @@ export default function SendEmailButton({ sendEmail }) {
                    Sending...
                 </>
               ) : (
-                "Send Email"
+                  t("result.sendEmailBtn")
               )}
             </Button>
           )}
