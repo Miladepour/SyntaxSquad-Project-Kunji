@@ -11,6 +11,7 @@ export default function SendSmsButton({ sendSms , state }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const [isValidSms, setIsValidSms] = useState(true);
+  const [update,setUpdate]=useState(state?.phoneNumber);
 
   function handleClose() {
     setShowModal(false);
@@ -26,21 +27,23 @@ export default function SendSmsButton({ sendSms , state }) {
 
   async function handleSendSms() {
     try {
-      await smsSchema.validate(phoneNumber);
+      await smsSchema.validate(update);
       setIsValidSms(true);
-      sendSms(phoneNumber);
+      sendSms(update);
       setMessageSent(true);
+      setUpdate(update);
     } catch (error) {
       setIsValidSms(false);
     }
   }
 
   async function handleSmsChange(e) {
+    setUpdate("");
     const newSms = e.target.value;
-    setPhoneNumber(newSms);
+    setUpdate(newSms);
 
     try {
-      await smsSchema.validate(newSms);
+      await smsSchema.validate(update);
       setIsValidSms(true);
     } catch (error) {
       setIsValidSms(false);
@@ -52,7 +55,6 @@ export default function SendSmsButton({ sendSms , state }) {
       <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
         Send SMS
       </button>
-
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Enter your telephone number..</Modal.Title>
@@ -60,12 +62,12 @@ export default function SendSmsButton({ sendSms , state }) {
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
-            <p>SMS sent successfully to {phoneNumber} </p>
+            <p>SMS sent successfully to {update} </p>
           ) : (
             <>
               <FormControl
                 placeholder="Enter your telephone number"
-                value={state?.phoneNumber}
+                value={update}
                 onChange={handleSmsChange}
                 isInvalid={!isValidSms}
               />

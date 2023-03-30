@@ -11,6 +11,7 @@ export default function SendEmailButton({ sendEmail, state }) {
   const [messageSent, setMessageSent] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
   const [email,setEmail]=useState("");
+  const [update,setUpdate]=useState(state?.email);
   function handleClose() {
     setShowModal(false);
     setEmail("");
@@ -25,29 +26,28 @@ export default function SendEmailButton({ sendEmail, state }) {
 
   async function handleSendEmail() {
     try {
-      await emailSchema.validate(email);
+      await emailSchema.validate(update);
       setIsValidEmail(true);
-      sendEmail(email);
+      sendEmail(update);
       setMessageSent(true);
       setShowModal(false);
+      setUpdate(state?.email);
     } catch (error) {
       setIsValidEmail(false);
     }
   }
 
   async function handleEmailChange(e) {
+    setUpdate("");
     const newEmail = e.target.value;
-    setEmail(newEmail);
-
+    setUpdate(newEmail);
     try {
-      await emailSchema.validate(newEmail);
+      await emailSchema.validate(update);
       setIsValidEmail(true);
     } catch (error) {
       setIsValidEmail(false);
     }
   }
-
- console.log(email);
   return (
     <>
       <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
@@ -64,7 +64,7 @@ export default function SendEmailButton({ sendEmail, state }) {
             <>
               <FormControl
                 placeholder="Enter your email address"
-                value={state?.email}
+                value={update}
                 onChange={handleEmailChange}
                 isInvalid={!isValidEmail}
               />
