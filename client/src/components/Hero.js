@@ -70,8 +70,8 @@ function Hero() {
       </Row>
       <Row className="d-flex flex-row align-items-center my-5">
         <Col xs={12} md={6} className="order-md-2">
-          <h2 className={styles.titleMain}>Compassionate Guidance: Avnish Lends a Hand</h2>
-          <p>Avnish, our dedicated receptionist, helps the ex-prisoner navigate their situation, connecting them with the appropriate resources and support.</p>
+          <h2 className={styles.titleMain}>Compassionate Guidance: Puneet Lends a Hand</h2>
+          <p>Puneet, our dedicated receptionist, helps the ex-prisoner navigate their situation, connecting them with the appropriate resources and support.</p>
         </Col>
         <Col xs={12} md={6} className="order-md-1">
           <Image src={imgSeven} alt="helps the ex-prisoner navigate their situation" fluid className={styles.heroImages} />
