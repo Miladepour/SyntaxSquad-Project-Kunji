@@ -6,7 +6,6 @@ import SendSmsButton from "./button/SendSMSButton";
 import SendEmailButton from "./button/SendEmailButton";
 import LocationIcon from "../../components/LocationIcon";
 import MobileVersion from "./ResultMobV.js";
-import { style } from "@mui/system";
 
 export default function Result() {
 	let [searchParams, setSearchParams] = useSearchParams();

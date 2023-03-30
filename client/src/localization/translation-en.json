@@ -1,0 +1,78 @@
+{
+  "translation": {
+    "userNav": {
+      "linkHome": "Home",
+      "linkGetHelp": "Get help",
+      "linkCallHelpline": "Call Helpline",
+      "helpline": {
+        "text": "Help line",
+        "link": "toll-free 1800-313-4963"
+      }
+    },
+    "userFooter": {
+      "text": "Copyright reserved for Kunji"
+    },
+    "home": {
+			"hero1": {
+				"title": "Behind the Bars: Life in Indian Prisons",
+				"content": "Welcome to Kunji, a charity organization dedicated to assisting ex-prisoners in finding the help they need to reintegrate into society. Our mission is to connect ex-prisoners with various NGOs, resources, and support systems to empower them in building a better future for themselves and their families."
+			},
+			"hero2": {
+				"title": "Embracing Freedom: A New Chapter Begins",
+				"content": "A glimpse into the Indian prison system, where countless individuals seek a chance at a new beginning upon their release."
+			},
+			"hero3": {
+				"title": "Navigating Challenges: Seeking Solution",
+				"content": "A former inmate contemplates the many issues that need assistance, such as legal aid, healthcare, education, and more."
+			},
+			"hero4": {
+				"title": "Discovering Kunji: Hope on the Horizon",
+				"content": "The power of information: A passerby discovers Kunji's life-changing advertisement on a bustling street, opening the door to a world of support and resources for ex-prisoners."
+			},
+			"hero5": {
+				"title": "Reaching Out: A Call for Help and Guidance",
+				"content": "Taking the first step: A former inmate reaches out to the Kunji helpline, seeking guidance and assistance in their journey towards a brighter future."
+			},
+			"hero6": {
+				"title": "Opening Up: Sharing Struggles with Kunji",
+				"content": "A heartfelt conversation unfolds as the ex-prisoner explains the challenges they face to Kunji's empathetic receptionist."
+			},
+			"hero7": {
+				"title": "Compassionate Guidance: Avnish Lends a Hand",
+				"content": "Avnish, our dedicated receptionist, helps the ex-prisoner navigate their situation, connecting them with the appropriate resources and support."
+			},
+			"hero8": {
+				"title": "A New Lease on Life: Finding the Help They Need",
+				"content": "With the right assistance, the ex-prisoner embarks on a journey of hope, healing, and happiness, empowered to create a brighter future."
+			}
+		},
+    "userForm": {
+      "name": "Name",
+      "email": "Email",
+      "gender": "Gender",
+      "dateOfBirth": "Date of Birth",
+      "currentLocation": "Current Location",
+      "pinCode": "Pin Code",
+      "phoneNumber": "Phone Number",
+      "qualification": "Qualification",
+      "dateOfRelease": "Date of Release",
+      "caseStatus": "Case Status",
+      "submitBtn": "Next"
+    },
+    "userPreferences": {
+      "dropdown1": "Please select the service",
+      "dropdown2": "Please select preferred location for service",
+      "submitBtn": "Show Result"
+    },
+    "result": {
+      "heading": "List of NGOs",
+      "sendEmailBtn": "Send Email",
+      "sendSMSBtn": "Send SMS",
+      "address": "Address",
+      "website": "Website",
+      "closeBtn": "Close",
+      "enterEmail": "Enter your email address",
+      "enterPhone": "Enter your phone number"
+    }
+  }
+}

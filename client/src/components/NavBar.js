@@ -5,7 +5,11 @@ import { Image } from "react-bootstrap";
 import logo from "../assets/kunji-w-logo.svg";
 import styles from "./NavBar.module.css";
 import mobileMenuIcon from "../assets/menu-icon.svg";
+import { useTranslation } from 'react-i18next';
+
 function NavBar() {
+	const { t } = useTranslation();
+
 	return (
 		<>
 			<Navbar className={styles.navbarHero} expand="lg">
@@ -19,22 +23,23 @@ function NavBar() {
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="justify-content-end flex-grow-1 pe-3">
 							<Nav.Link href="/" className={styles.navbarLink}>
-								Home
+								{t("userNav.linkHome")}
 							</Nav.Link>
 							<Nav.Link href="/userform" className={styles.navbarLink}>
-								Get help
+								{t("userNav.linkGetHelp")}
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>
 					<div className="d-none d-md-block">
-						<button className={styles.buttonHelp}><a href="tel:18003134963" className="text-decoration-none text-white">Call Helpline</a></button>
+						<button className={styles.buttonHelp}><a href="tel:18003134963" className="text-decoration-none text-white">{t("userNav.linkCallHelpline")}</a></button>
 					</div>
 				</Container>
 			</Navbar>
 			<h5 className={styles.helpline}>
-				Help line (
+
+				{t("userNav.helpline.text")} (
 				<a href="tel:18003134963" className={styles.helplineLink}>
-					toll-free 1800-313-4963
+					{t("userNav.helpline.link")}
 				</a>
 				)
 			</h5>
