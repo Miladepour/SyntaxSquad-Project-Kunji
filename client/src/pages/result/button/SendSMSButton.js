@@ -6,9 +6,9 @@ import * as yup from "yup";
 
 const smsSchema = yup.string().min(5).max(20).required();
 
-export default function SendSmsButton({ sendSms , setPhoneNumber , phoneNumber }) {
+export default function SendSmsButton({ sendSms , state }) {
   const [showModal, setShowModal] = useState(false);
-  // const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const [isValidSms, setIsValidSms] = useState(true);
 
@@ -65,7 +65,7 @@ export default function SendSmsButton({ sendSms , setPhoneNumber , phoneNumber }
             <>
               <FormControl
                 placeholder="Enter your telephone number"
-                value={phoneNumber}
+                value={state?.phoneNumber}
                 onChange={handleSmsChange}
                 isInvalid={!isValidSms}
               />

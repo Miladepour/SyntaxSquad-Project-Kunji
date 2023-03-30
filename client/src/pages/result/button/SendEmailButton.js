@@ -53,7 +53,6 @@ export default function SendEmailButton({ sendEmail, state }) {
       <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
         Send Email
       </button>
-       (
         <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Enter your email address</Modal.Title>
@@ -86,7 +85,6 @@ export default function SendEmailButton({ sendEmail, state }) {
           )}
         </Modal.Footer>
       </Modal>
-        )
     </>
   );
 }
