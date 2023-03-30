@@ -24,6 +24,15 @@ function NavBar() {
 							<Nav.Link href="/userform" className={styles.navbarLink}>
 								Get help
 							</Nav.Link>
+							<Nav.Link href="#" className={styles.navbarLink}>
+								About Kunji
+							</Nav.Link>
+							<Nav.Link href="#" className={styles.navbarLink}>
+							Success Stories
+							</Nav.Link>
+							<Nav.Link href="#" className={styles.navbarLink}>
+							Impact
+							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>
 					<div className="d-none d-md-block">
