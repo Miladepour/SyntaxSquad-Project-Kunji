@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import Spinner from "react-bootstrap/Spinner";
+import Alert from "react-bootstrap/Alert";
 import * as yup from "yup";
 
 const emailSchema = yup.string().email().required();
@@ -14,12 +15,14 @@ export default function SendEmailButton({ sendEmail, state }) {
   const [email,setEmail]=useState("");
   const [update,setUpdate]=useState(state?.email);
   const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleClose() {
     setShowModal(false);
     setEmail("");
     setMessageSent(false);
     setIsSending(false);
+    setErrorMessage("");
   }
 
   function handleShow() {
@@ -27,19 +30,25 @@ export default function SendEmailButton({ sendEmail, state }) {
     setEmail("");
     setMessageSent(false);
     setIsSending(false);
+    setErrorMessage("");
   }
 
   async function handleSendEmail() {
     try {
-      setIsSending(true);
       await emailSchema.validate(update);
       setIsValidEmail(true);
+      setIsSending(true);
       await sendEmail(update);
       setMessageSent(true);
       setShowModal(false);
       setUpdate(state?.email);
     } catch (error) {
       setIsValidEmail(false);
+      if (error.status >= 400 && error.status < 500) {
+        setErrorMessage("Invalid email address or email sending failed.");
+      } else {
+        setErrorMessage("An error occurred while sending the email.");
+      }
     } finally {
       setIsSending(false);
     }
@@ -86,6 +95,7 @@ export default function SendEmailButton({ sendEmail, state }) {
               {!isValidEmail && (
                 <div className="invalid-feedback">Please enter a valid email address.</div>
               )}
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             </>
           )}
         </Modal.Body>

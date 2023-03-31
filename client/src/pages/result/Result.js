@@ -44,32 +44,37 @@ export default function Result(  ) {
 			});
 		}
 	}
-	function sendEmail(email) {
+	async function sendEmail(email) {
 		console.log(email);
 		if (!email) {
 			return;
 		}
-		fetch("/api/sendmail", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				to: email,
-				data: data,
-				service: service,
-				location: location,
-			}),
-		})
-			.then((response) => {
-				if (response.ok) {
-					setEmailSent(true);
-				} else {
-					throw new Error("Failed to send email");
-				}
-			})
-			.catch((error) => console.error(error));
+
+		try {
+			const response = await fetch("/api/sendmail", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					to: email,
+					data: data,
+					service: service,
+					location: location,
+				}),
+			});
+			if (!response.ok) {
+				const error = new Error("Failed to send email");
+				error.status = response.status;
+				throw error;
+			}
+			setEmailSent(true);
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	}
+
 	function sendSms(sms) {
 		if (!sms) {
 			return;
@@ -77,7 +82,7 @@ export default function Result(  ) {
 		fetch("/api/sendsms", {
 			method: "POST",
 			headers: {
-				"Content-Type": "application/json"
+				"Content-Type": "application/json",
 			},
 			body: JSON.stringify({
 				to: sms,
@@ -142,7 +147,7 @@ export default function Result(  ) {
 			<div className="d-flex justify-content-center">
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
-          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp}/>
+          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp} />
 			</div>
 				<MobileVersion onServiceChange={handleServiceChange} onLocationChange={handleLocationChange} />
 			</div>
@@ -150,7 +155,7 @@ export default function Result(  ) {
 		<div className="col-3">
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
-          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp}/>
+          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp} />
 		</div>
 		</div>
 		<div className={`d-flex ${styles.page}`}>
