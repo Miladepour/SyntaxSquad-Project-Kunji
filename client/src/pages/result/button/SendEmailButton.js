@@ -5,10 +5,12 @@ import FormControl from "react-bootstrap/FormControl";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import * as yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const emailSchema = yup.string().email().required();
 
 export default function SendEmailButton({ sendEmail, state }) {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const [messageSent, setMessageSent] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
@@ -44,9 +46,9 @@ export default function SendEmailButton({ sendEmail, state }) {
     } catch (error) {
       setIsValidEmail(false);
       if (error.status >= 400 && error.status < 500) {
-        setErrorMessage("Invalid email address or email sending failed.");
+        setErrorMessage(t("errors.sendEmail.1"));
       } else {
-        setErrorMessage("An error occurred while sending the email.");
+        setErrorMessage(t("errors.sendEmail.2"));
       }
     } finally {
       setIsSending(false);
@@ -73,12 +75,12 @@ export default function SendEmailButton({ sendEmail, state }) {
              Sending...
           </>
         ) : (
-          "Send Email"
+            t("result.sendEmailBtn")
         )}
       </button>
         <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Enter your email address</Modal.Title>
+          <Modal.Title>{t("result.enterEmail")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
@@ -86,7 +88,7 @@ export default function SendEmailButton({ sendEmail, state }) {
           ) :  (
             <>
               <FormControl
-                placeholder="Enter your email address"
+                placeholder={t("result.sendEmailBtn")}
                 value={update}
                 onChange={handleEmailChange}
                 isInvalid={!isValidEmail}
@@ -100,7 +102,7 @@ export default function SendEmailButton({ sendEmail, state }) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose} disabled={isSending}>
-            Close
+            {t("result.closeBtn")}
           </Button>
           {!messageSent && (
             <Button variant="primary" onClick={handleSendEmail} disabled={!isValidEmail || isSending}>
@@ -110,7 +112,7 @@ export default function SendEmailButton({ sendEmail, state }) {
                    Sending...
                 </>
               ) : (
-                "Send Email"
+                  t("result.sendEmailBtn")
               )}
             </Button>
           )}

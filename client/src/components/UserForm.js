@@ -7,6 +7,7 @@ import { parse, isDate } from "date-fns";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useTranslation } from "react-i18next";
 import styles from "./UserForm.module.css";
 import Alert from 'react-bootstrap/Alert';
 
@@ -42,6 +43,7 @@ const schema = yup.object({
 }).required();
 
 export default function UserForm() {
+  const { t } = useTranslation();
   const [recaptchaError, setRecaptchaError] = useState("");
   const navigate = useNavigate();
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
@@ -75,7 +77,7 @@ export default function UserForm() {
        console.log(error.message);
       }
     } else {
-      setRecaptchaError("Please complete the reCAPTCHA challenge.")
+      setRecaptchaError(t("errors.reCaptcha.1"));
     }
     
   };
@@ -90,14 +92,14 @@ export default function UserForm() {
   };
 
   const handleCaptchaError = () => {
-    setRecaptchaError("There was an error with the reCAPTCHA challenge. Please try again.");
+    setRecaptchaError(t("errors.reCaptcha.2"));
   };
 
   return (
     <>
     <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className={styles.formGroup} controlId="name">
-        <Form.Label>Name</Form.Label>
+        <Form.Label>{t("userForm.name")}</Form.Label>
         <div className="w-50">
           <Form.Control
             type="text"
@@ -112,7 +114,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className={styles.formGroup} controlId="email">
-        <Form.Label>Email</Form.Label>
+        <Form.Label>{t("userForm.email")}</Form.Label>
         <div className="w-50">
           <Form.Control
             type="email"
@@ -128,7 +130,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className={styles.formGroup} controlId="gender">
-        <Form.Label>Gender</Form.Label>
+        <Form.Label>{t("userForm.gender")}</Form.Label>
         <div className="w-50">
           <Form.Select
             aria-label="gender"
@@ -148,7 +150,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className={styles.formGroup} controlId="dateOfBirth">
-        <Form.Label>Date of Birth</Form.Label>
+        <Form.Label>{t("userForm.dateOfBirth")}</Form.Label>
         <div className="w-50">
           <Form.Control
             type="date"
@@ -162,7 +164,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className={styles.formGroup} controlId="currentLocation">
-        <Form.Label>Current Location</Form.Label>
+        <Form.Label>{t("userForm.currentLocation")}</Form.Label>
         <div className="w-50">
           <Form.Control
             type="text"
@@ -177,7 +179,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className={styles.formGroup} controlId="pinCode">
-        <Form.Label>Pin Code</Form.Label>
+        <Form.Label>{t("userForm.pinCode")}</Form.Label>
         <div className="w-50">
           <Form.Control
             type="text"
@@ -192,7 +194,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className={styles.formGroup} controlId="phoneNumber">
-        <Form.Label>Phone Number</Form.Label>
+        <Form.Label>{t("userForm.phoneNumber")}</Form.Label>
         <div className="w-50">
           <Form.Control
             type="text"
@@ -207,7 +209,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className={styles.formGroup} controlId="qualification">
-        <Form.Label>Qualification</Form.Label>
+        <Form.Label>{t("userForm.qualification")}</Form.Label>
         <div className="w-50">
           <Form.Select
             aria-label="qualification"
@@ -230,7 +232,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className={styles.formGroup} controlId="dateOfRelease">
-        <Form.Label>Date of Release</Form.Label>
+        <Form.Label>{t("userForm.dateOfRelease")}</Form.Label>
         <div className="w-50">
           <Form.Control
             type="date"
@@ -244,7 +246,7 @@ export default function UserForm() {
       </Form.Group>
 
       <Form.Group className={styles.formGroup} controlId="caseStatus">
-        <Form.Label>Case Status</Form.Label>
+        <Form.Label>{t("userForm.caseStatus")}</Form.Label>
         <div className="w-50">
           <Form.Select
             aria-label="caseStatus"
@@ -275,7 +277,7 @@ export default function UserForm() {
       </div>
       <div className="text-center mb-4 mt-3">
         <Button variant="primary" type="submit">
-          Next
+          {t("userForm.submitBtn")}
         </Button>
       </div>
     </Form>

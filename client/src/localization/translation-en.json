@@ -1,0 +1,112 @@
+{
+  "translation": {
+    "userNav": {
+      "linkHome": "Home",
+      "linkGetHelp": "Get help",
+      "linkAbout": "About Kunji",
+      "linkSuccessStories": "Success Stories",
+      "linkImpact": "Impact",
+      "linkCallHelpline": "Call Helpline",
+      "helpline": {
+        "text": "Help line",
+        "link": "toll-free 1800-313-4963"
+      }
+    },
+    "userFooter": {
+      "text": "Copyright reserved for Kunji"
+    },
+    "home": {
+			"hero1": {
+				"title": "Behind the Bars: Life in Indian Prisons",
+				"content": "Welcome to Kunji, a charity organization dedicated to assisting ex-prisoners in finding the help they need to reintegrate into society. Our mission is to connect ex-prisoners with various NGOs, resources, and support systems to empower them in building a better future for themselves and their families."
+			},
+			"hero2": {
+				"title": "Embracing Freedom: A New Chapter Begins",
+				"content": "A glimpse into the Indian prison system, where countless individuals seek a chance at a new beginning upon their release."
+			},
+			"hero3": {
+				"title": "Navigating Challenges: Seeking Solution",
+				"content": "A former inmate contemplates the many issues that need assistance, such as legal aid, healthcare, education, and more."
+			},
+			"hero4": {
+				"title": "Discovering Kunji: Hope on the Horizon",
+				"content": "The power of information: A passerby discovers Kunji's life-changing advertisement on a bustling street, opening the door to a world of support and resources for ex-prisoners."
+			},
+			"hero5": {
+				"title": "Reaching Out: A Call for Help and Guidance",
+				"content": "Taking the first step: A former inmate reaches out to the Kunji helpline, seeking guidance and assistance in their journey towards a brighter future."
+			},
+			"hero6": {
+				"title": "Opening Up: Sharing Struggles with Kunji",
+				"content": "A heartfelt conversation unfolds as the ex-prisoner explains the challenges they face to Kunji's empathetic receptionist."
+			},
+			"hero7": {
+				"title": "Compassionate Guidance: Puneet Lends a Hand",
+				"content": "Puneet, our dedicated receptionist, helps the ex-prisoner navigate their situation, connecting them with the appropriate resources and support."
+			},
+			"hero8": {
+				"title": "A New Lease on Life: Finding the Help They Need",
+				"content": "With the right assistance, the ex-prisoner embarks on a journey of hope, healing, and happiness, empowered to create a brighter future."
+			}
+		},
+    "about": {
+      "kunji": {
+        "heading": "About Kunji",
+        "content": "Kunji is a need-based helpline to support ex-inmates with immediate challenges they face post their release with regard to shelter, employment, legal assistance, etc. Released prisoners can call on the toll free number (1800-313-4963) to receive post release support."
+      },
+      "secondChance": {
+        "heading": "About Second Chance",
+        "content1": "Project Second Chance, India is a civil society initiative working on reimagining prisons in India. We work with young and passionate individuals and marginalised current/ex incarcerated populations on guiding them to be change agents within the prison system.",
+        "content2": "They are shaped to become social entrepreneurs with the objective of bringing systematic and structured impact to the prison landscape. At Project Second Chance, ex prisoners are offered a full time fellowship engagement under a program called Second Chance Fellowship, these fellows are paired with a set of young criminal justice practitioners who have background of working in the space, collectively these two groups identify systemic problems within the system in first 3 months and envision a scalable on-the-ground solution, and implement a pilot project to test their solution in last 9 months. On completion of the pilot, the selected pairs and the interventions are incubated and mentored by the team to further become full-fledged new programmes. In the past 5 years, 25+ fellows have graduated who have established 7 initiatives which have supported 10000+ prisoners on systemic issues like Mental health of prisoners and prison staff, Reducing recidivism in violence and crime against women cases, Data and Evidence based Programming in Prison Welfare, Post Release Support through Helpline etc."
+      }
+    },
+    "userForm": {
+      "name": "Name",
+      "email": "Email",
+      "gender": "Gender",
+      "dateOfBirth": "Date of Birth",
+      "currentLocation": "Current Location",
+      "pinCode": "Pin Code",
+      "phoneNumber": "Phone Number",
+      "qualification": "Qualification",
+      "dateOfRelease": "Date of Release",
+      "caseStatus": "Case Status",
+      "submitBtn": "Next"
+    },
+    "userPreferences": {
+      "dropdown1": "Please select the service",
+      "dropdown2": "Please select preferred location for service",
+      "submitBtn": "Show Result"
+    },
+    "result": {
+      "heading": "List of NGOs",
+      "sendEmailBtn": "Send Email",
+      "sendSMSBtn": "Send SMS",
+      "sendWhatsAppBtn": "Send SMS",
+      "address": "Address",
+      "website": "Website",
+      "closeBtn": "Close",
+      "enterEmail": "Enter your email address",
+      "enterPhone": "Enter your phone number",
+      "enterWhatsApp": "Enter your WhatsApp number"
+    },
+    "errors": {
+			"reCaptcha": {
+				"1": "Please complete the reCAPTCHA challenge.",
+				"2": "There was an error with the reCAPTCHA challenge. Please try again."
+			},
+			"sendEmail": {
+				"1": "Invalid email address or email sending failed.",
+				"2": "An error occurred while sending the email."
+			},
+			"sendSMS": {
+				"1": "Invalid phone number or SMS sending failed.",
+				"2": "An error occurred while sending the SMS."
+			},
+			"sendWhatsApp": {
+				"1": "Invalid phone number or WhatsApp message sending failed.",
+				"2": "An error occurred while sending the WhatsApp message."
+			}
+		}
+  }
+}

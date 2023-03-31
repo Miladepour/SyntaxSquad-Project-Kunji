@@ -5,10 +5,12 @@ import FormControl from "react-bootstrap/FormControl";
 import * as yup from "yup";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
+import { useTranslation } from "react-i18next";
 
 const whatsappSchema = yup.string().min(10).max(13).required();
 
 export default function SendWhatsappButton({ sendWhatsapp, state }) {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [messageSent, setMessageSent] = useState(false);
@@ -44,9 +46,9 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
     } catch (error) {
       setIsValidWhatsapp(false);
       if (error.status >= 400 && error.status < 500) {
-        setErrorMessage("Invalid phone number or Whatsapp message sending failed.");
+        setErrorMessage(t("errors.sendWhatsApp.1"));
       } else {
-        setErrorMessage("An error occurred while sending the Whatsapp message.");
+        setErrorMessage(t("errors.sendWhatsApp.2"));
       }
     } finally {
       setIsSending(false);
@@ -75,13 +77,13 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
               Sending...
           </>
         ) : (
-          "Send Whatsapp"
+            t("result.sendWhatsAppBtn")
         )}
       </button>
 
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Enter your telephone number..</Modal.Title>
+          <Modal.Title>{t("result.enterWhatsApp")}</Modal.Title>
           <Modal.Body></Modal.Body>
         </Modal.Header>
         <Modal.Body>
@@ -90,7 +92,7 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
           ) : (
             <>
               <FormControl
-                placeholder="Enter phone number ( Ex. +9199999999999 )"
+                placeholder="( Eg. +9199999999999 )"
                 value={update}
                 onChange={handleWhatsappChange}
                 isInvalid={!isValidWhatsapp}
@@ -104,11 +106,11 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            {t("result.closeBtn")}
           </Button>
           {!messageSent && (
             <Button variant="primary" onClick={handleSendWhatsapp} disabled={!isValidWhatsapp}>
-              Send
+              {t("result.sendWhatsAppBtn")}
             </Button>
           )}
         </Modal.Footer>

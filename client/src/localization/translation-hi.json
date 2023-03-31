@@ -1,0 +1,112 @@
+{
+	"translation": {
+		"userNav": {
+			"linkHome": "प्लेसहोल्डर",
+			"linkGetHelp": "प्लेसहोल्डर",
+			"linkAbout": "प्लेसहोल्डर",
+			"linkSuccessStories": "प्लेसहोल्डर",
+			"linkImpact": "प्लेसहोल्डर",
+			"linkCallHelpline": "प्लेसहोल्डर",
+			"helpline": {
+				"text": "प्लेसहोल्डर",
+				"link": "प्लेसहोल्डर"
+			}
+		},
+		"userFooter": {
+			"text": "प्लेसहोल्डर"
+		},
+		"home": {
+			"hero1": {
+				"title": "प्लेसहोल्डर",
+				"content": "प्लेसहोल्डर"
+			},
+			"hero2": {
+				"title": "प्लेसहोल्डर",
+				"content": "प्लेसहोल्डर"
+			},
+			"hero3": {
+				"title": "प्लेसहोल्डर",
+				"content": "प्लेसहोल्डर"
+			},
+			"hero4": {
+				"title": "प्लेसहोल्डर",
+				"content": "प्लेसहोल्डर"
+			},
+			"hero5": {
+				"title": "प्लेसहोल्डर",
+				"content": "प्लेसहोल्डर"
+			},
+			"hero6": {
+				"title": "प्लेसहोल्डर",
+				"content": "प्लेसहोल्डर"
+			},
+			"hero7": {
+				"title": "प्लेसहोल्डर",
+				"content": "प्लेसहोल्डर"
+			},
+			"hero8": {
+				"title": "प्लेसहोल्डर",
+				"content": "प्लेसहोल्डर"
+			}
+		},
+		"about": {
+			"kunji": {
+				"heading": "प्लेसहोल्डर",
+				"content": "प्लेसहोल्डर"
+			},
+			"secondChance": {
+				"heading": "प्लेसहोल्डर",
+				"content1": "प्लेसहोल्डर",
+				"content2": "प्लेसहोल्डर"
+			}
+		},
+		"userForm": {
+			"name": "प्लेसहोल्डर",
+			"email": "प्लेसहोल्डर",
+			"gender": "प्लेसहोल्डर",
+			"dateOfBirth": "प्लेसहोल्डर",
+			"currentLocation": "प्लेसहोल्डर",
+			"pinCode": "प्लेसहोल्डर",
+			"phoneNumber": "प्लेसहोल्डर",
+			"qualification": "प्लेसहोल्डर",
+			"dateOfRelease": "प्लेसहोल्डर",
+			"caseStatus": "प्लेसहोल्डर",
+			"submitBtn": "प्लेसहोल्डर"
+		},
+		"userPreferences": {
+			"dropdown1": "प्लेसहोल्डर",
+			"dropdown2": "प्लेसहोल्डर",
+			"submitBtn": "प्लेसहोल्डर"
+		},
+		"result": {
+			"heading": "प्लेसहोल्डर",
+			"sendEmailBtn": "प्लेसहोल्डर",
+			"sendSMSBtn": "प्लेसहोल्डर",
+			"sendWhatsAppBtn": "प्लेसहोल्डर",
+			"address": "प्लेसहोल्डर",
+			"website": "प्लेसहोल्डर",
+			"closeBtn": "प्लेसहोल्डर",
+			"enterEmail": "प्लेसहोल्डर",
+			"enterPhone": "प्लेसहोल्डर",
+			"enterWhatsApp": "प्लेसहोल्डर"
+		},
+		"errors": {
+			"reCaptcha": {
+				"1": "प्लेसहोल्डर",
+				"2": "प्लेसहोल्डर"
+			},
+			"sendEmail": {
+				"1": "प्लेसहोल्डर",
+				"2": "प्लेसहोल्डर"
+			},
+			"sendSMS": {
+				"1": "प्लेसहोल्डर",
+				"2": "प्लेसहोल्डर"
+			},
+			"sendWhatsApp": {
+				"1": "प्लेसहोल्डर",
+				"2": "प्लेसहोल्डर"
+			}
+		}
+	}
+}

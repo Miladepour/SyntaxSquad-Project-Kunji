@@ -3,11 +3,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
 import Data from "../../components/form-data/formdata";
+import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import styles from "./UserPreferences.module.css";
 
 export default function UserPreferences() {
-
+  const { t } = useTranslation();
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const {
@@ -21,7 +22,7 @@ export default function UserPreferences() {
 	return (
 		<Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 			<Form.Group className={styles.formGroup} controlId="service">
-				<Form.Label>Please select the service:</Form.Label>
+				<Form.Label>{t("userPreferences.dropdown1")}:</Form.Label>
 				<Form.Select
 					aria-label="Default select example"
 					className="w-50"
@@ -44,7 +45,7 @@ export default function UserPreferences() {
           </Form.Control.Feedback>
 			</Form.Group>
 			<Form.Group className={styles.formGroup} controlId="location">
-				<Form.Label>Please select preferred location for service:</Form.Label>
+				<Form.Label>{t("userPreferences.dropdown2")}:</Form.Label>
 				<Form.Select
 					aria-label="Default select example"
 					className="w-50"
@@ -68,7 +69,7 @@ export default function UserPreferences() {
 			</Form.Group>
 			<div className={styles.containerBtn}>
 				<Button type="submit">
-					Show Result
+					{t("userPreferences.submitBtn")}
 				</Button>
 			</div>
 		</Form>
