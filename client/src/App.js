@@ -6,6 +6,7 @@ import UserPreferences from "./pages/user-preferences/UserPreferences";
 import Result from "./pages/result/Result";
 import UserView from "./pages/admin/UserView";
 import NGOs from "./pages/admin/NGOs";
+import About from "./pages/about/About.js";
 import "bootstrap/dist/css/bootstrap.min.css";
 import WrapperAdmin from "./components/wrappers/WrapperAdmin";
 import Admin from "./pages/admin/Admin";
@@ -17,6 +18,7 @@ const App = () => (
 		<Routes>
 			<Route path="/" element={<WrapperUser />}>
 				<Route path="/" element={<Home />} />
+				<Route path="/about-kunji" element={<About />} />
 				<Route path="/userform" element={<UserForm />} />
 				<Route path="/user-preferences" element={<UserPreferences />} />
 				<Route path="/result" element={<Result />} />
