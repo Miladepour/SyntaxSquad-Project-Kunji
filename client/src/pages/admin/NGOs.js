@@ -160,6 +160,8 @@ export function NGOs() {
                 <th>Contact</th>
                 <th>Website</th>
                 <th>Email</th>
+                <th>Email Status</th>
+                <th>Call Response</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -185,6 +187,8 @@ export function NGOs() {
                   </td>
                   <td>{ngo.website}</td>
                   <td>{ngo.email}</td>
+                  <td>{ngo.email_status}</td>
+                  <td>{ngo.call_response}</td>
                   <td>
                     <Stack direction="horizontal" gap={3}>
                       <PenPaperIcon onClick={() => update(ngo.id)} />
