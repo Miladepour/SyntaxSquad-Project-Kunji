@@ -11,7 +11,7 @@ CREATE TABLE public."user_informations" (
     phone_number VARCHAR ( 20 ) NOT NULL,
     qualification VARCHAR ( 50 ) NOT NULL,
     date_of_release date NOT NULL,
-    case_status VARCHAR NOT NULL,
+    case_status VARCHAR NOT NULL
    
 );
 
