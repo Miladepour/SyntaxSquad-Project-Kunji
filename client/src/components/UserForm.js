@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./UserForm.module.css";
+import Alert from 'react-bootstrap/Alert';
 
 const today = new Date();
 
@@ -41,6 +42,7 @@ const schema = yup.object({
 }).required();
 
 export default function UserForm() {
+  const [recaptchaError, setRecaptchaError] = useState("");
   const navigate = useNavigate();
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
   const {
@@ -73,8 +75,9 @@ export default function UserForm() {
        console.log(error.message);
       }
     } else {
-      alert("Please complete the reCAPTCHA challenge.");
+      setRecaptchaError("Please complete the reCAPTCHA challenge.")
     }
+    
   };
   const handleCaptchaChange = (value) => {
     if (value) {
@@ -87,7 +90,7 @@ export default function UserForm() {
   };
 
   const handleCaptchaError = () => {
-    alert("There was an error with the reCAPTCHA challenge. Please try again.");
+    setRecaptchaError("There was an error with the reCAPTCHA challenge. Please try again.");
   };
 
   return (
@@ -136,7 +139,7 @@ export default function UserForm() {
             <option value="male">Male</option>
             <option value="Female">Female</option>
             <option value="Transgender">Transgender</option>
-            <option value="Other'">Other</option>
+            <option value="Other">Other</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.gender?.message}
@@ -264,7 +267,11 @@ export default function UserForm() {
       onChange={handleCaptchaChange}
       onExpired={handleCaptchaExpired}
       onError={handleCaptchaError}
-        />
+        />{isCaptchaVerified ? "" : recaptchaError && (
+          <Alert variant="danger" onClose={() => setRecaptchaError("")} dismissible>
+            {recaptchaError}
+          </Alert>
+        )}
       </div>
       <div className="text-center mb-4 mt-3">
         <Button variant="primary" type="submit">

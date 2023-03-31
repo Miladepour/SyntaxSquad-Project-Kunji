@@ -3,9 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import Spinner from "react-bootstrap/Spinner";
+import Alert from "react-bootstrap/Alert";
 import * as yup from "yup";
 
-const smsSchema = yup.string().min(13).max(13).required();
+const smsSchema = yup.string().min(10).max(13).required();
 
 export default function SendSmsButton({ sendSms , state }) {
   const [showModal, setShowModal] = useState(false);
@@ -14,13 +15,14 @@ export default function SendSmsButton({ sendSms , state }) {
   const [isValidSms, setIsValidSms] = useState(true);
   const [update,setUpdate]=useState(state?.phoneNumber);
   const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleClose() {
     setShowModal(false);
     setPhoneNumber("");
     setMessageSent(false);
     setIsSending(false);
-    console.log(phoneNumber);
+    setErrorMessage("");
   }
 
   function handleShow() {
@@ -28,18 +30,24 @@ export default function SendSmsButton({ sendSms , state }) {
     setPhoneNumber("");
     setMessageSent(false);
     setIsSending(false);
+    setErrorMessage("");
   }
 
   async function handleSendSms() {
     try {
-      setIsSending(true);
       await smsSchema.validate(update);
       setIsValidSms(true);
-      sendSms(update);
+      setIsSending(true);
+      await sendSms(update);
       setMessageSent(true);
-      setUpdate(update);
+      setUpdate(state?.phoneNumber);
     } catch (error) {
       setIsValidSms(false);
+      if (error.status >= 400 && error.status < 500) {
+        setErrorMessage("Invalid phone number or SMS sending failed.");
+      } else {
+        setErrorMessage("An error occurred while sending the SMS.");
+      }
     } finally {
       setIsSending(false);
     }
@@ -53,6 +61,7 @@ export default function SendSmsButton({ sendSms , state }) {
     try {
       await smsSchema.validate(update);
       setIsValidSms(true);
+      setErrorMessage(null);
     } catch (error) {
       setIsValidSms(false);
     }
@@ -89,6 +98,7 @@ export default function SendSmsButton({ sendSms , state }) {
               {!isValidSms && (
                 <div className="invalid-feedback">Please enter a valid telephone number.</div>
               )}
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             </>
           )}
         </Modal.Body>
