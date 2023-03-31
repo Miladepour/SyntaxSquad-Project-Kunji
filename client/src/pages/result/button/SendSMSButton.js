@@ -20,6 +20,7 @@ export default function SendSmsButton({ sendSms , state }) {
     setPhoneNumber("");
     setMessageSent(false);
     setIsSending(false);
+    console.log(phoneNumber);
   }
 
   function handleShow() {
