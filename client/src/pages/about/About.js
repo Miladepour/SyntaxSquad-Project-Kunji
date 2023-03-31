@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/kunji-w-logo.svg";
+import logo from "../../assets/kunji-b-logo.svg";
 import logoPSC from "../../assets/second-project-chance.png";
 import { Image } from "react-bootstrap";
 
