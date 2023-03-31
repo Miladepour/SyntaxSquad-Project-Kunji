@@ -7,6 +7,7 @@ import Stack from "react-bootstrap/Stack";
 import CreateNGO from "./components/CreateNGO";
 import BinIcon from "./components/BinIcon";
 import PenPaperIcon from "./components/PenPaperIcon";
+import Spinner from "react-bootstrap/Spinner";
 
 export function NGOs() {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -15,6 +16,7 @@ export function NGOs() {
   const [showFormModal, setShowFormModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState([false, 0]);
   const [formAction, setFormAction] = useState("");
+  const [reqInProcess, setReqInProcess] = useState(false);
 
   useEffect(() => {
     async function getNGOs() {
@@ -34,14 +36,14 @@ export function NGOs() {
 
   const create = () => {
     setFormAction("create");
+    setReqInProcess(false);
     setShowFormModal(true);
   };
 
   const update = (id) => {
-    console.log(id);
     setFormAction("update");
     setSingleNGO(ngos.filter((ngo) => ngo.id === id));
-    console.log(ngos.filter((ngo) => ngo.id === id));
+    setReqInProcess(false);
     setShowFormModal(true);
   };
 
@@ -56,6 +58,8 @@ export function NGOs() {
   };
 
   const deleteNGO = async (id) => {
+    setReqInProcess(true);
+
     try {
       const accessToken = await getAccessTokenSilently({
         authorizationParams: {
@@ -75,10 +79,14 @@ export function NGOs() {
         await res.json();
         setNGOs(ngos.filter((ngo) => ngo.id !== id));
         setShowDeleteModal([false, 0]);
-
+      } else {
+        const data = await res.json();
+        console.log(data);
+        setReqInProcess(false);
       }
     } catch (e) {
       console.log(e.message);
+      setReqInProcess(false);
     }
   };
 
@@ -96,7 +104,10 @@ export function NGOs() {
                 singleNGO={singleNGO}
                 createNGO={createNGO}
                 updateNGO={updateNGO}
-                setShowFormModal={setShowFormModal} />
+                setShowFormModal={setShowFormModal}
+                reqInProcess={reqInProcess}
+                setReqInProcess={setReqInProcess}
+              />
             </Modal.Body>
             <Modal.Footer>
             </Modal.Footer>
@@ -110,7 +121,13 @@ export function NGOs() {
               Are You Sure?
             </Modal.Body>
             <Modal.Footer>
-              <Button variant="danger" onClick={() => deleteNGO(showDeleteModal[1])}>Yes</Button>
+            <Button variant="danger" onClick={() => deleteNGO(showDeleteModal[1])} disabled={reqInProcess}>
+              Yes
+              {reqInProcess &&
+                <Spinner className="ms-2" animation="border" role="status" size="sm">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>}
+            </Button>
             </Modal.Footer>
           </Modal>
 
@@ -158,7 +175,7 @@ export function NGOs() {
                   <td>
                     <Stack direction="horizontal" gap={3}>
                       <PenPaperIcon onClick={() => update(ngo.id)} />
-                      <BinIcon onClick={() => setShowDeleteModal([true, ngo.id])} />
+                      <BinIcon onClick={() => { setReqInProcess(false); setShowDeleteModal([true, ngo.id]); }} />
                     </Stack>
                   </td>
                 </tr>

@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import BinIcon from "./BinIcon";
 import PlusIcon from "./PlusIcon";
+import Spinner from "react-bootstrap/Spinner";
 
 const schema = yup.object({
   service: yup.array().min(1, "Please add at least one service.").of(
@@ -29,7 +30,7 @@ const schema = yup.object({
   call_response: yup.string().required().label("Call Response"),
 }).required();
 
-export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal }) {
+export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal, reqInProcess, setReqInProcess }) {
   const { getAccessTokenSilently } = useAuth0();
 
   const {
@@ -70,7 +71,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
 
   const onSubmit = async (data) => {
     data.service = data.service.map((service) => service.service);
-    console.log(data);
+    setReqInProcess(true);
 
     if (formAction === "create") {
       try {
@@ -96,9 +97,11 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
         } else {
           const data = await res.json();
           console.log(data);
+          setReqInProcess(false);
         }
       } catch (e) {
         console.log(e.message);
+        setReqInProcess(false);
       }
     }
     if (formAction === "update") {
@@ -125,9 +128,11 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
         } else {
           const data = await res.json();
           console.log(data);
+          setReqInProcess(false);
         }
       } catch (e) {
         console.log(e.message);
+        setReqInProcess(false);
       }
     }
   };
@@ -349,8 +354,22 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
       </Form.Group>
 
       <div className="container-btn mt-4 mb-2">
-        {formAction === "create" && <Button variant="success" type="submit">Add</Button>}
-        {formAction === "update" && <Button variant="warning" type="submit">Save</Button>}
+        {formAction === "create" &&
+          <Button variant="success" type="submit" disabled={reqInProcess}>
+            Add
+            {reqInProcess &&
+              <Spinner className="ms-2" animation="border" role="status" size="sm">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>}
+          </Button>}
+        {formAction === "update" && 
+          <Button variant="warning" type="submit" disabled={reqInProcess}>
+            Save
+            {reqInProcess &&
+              <Spinner className="ms-2" animation="border" role="status" size="sm">
+                <span className="visually-hidden">Loading...</span>
+              </Spinner>}
+          </Button>}
       </div>
     </Form>
   );
