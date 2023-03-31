@@ -5,7 +5,7 @@ import FormControl from "react-bootstrap/FormControl";
 import Spinner from "react-bootstrap/Spinner";
 import * as yup from "yup";
 
-const smsSchema = yup.string().min(5).max(20).required();
+const smsSchema = yup.string().min(13).max(13).required();
 
 export default function SendSmsButton({ sendSms }) {
   const [showModal, setShowModal] = useState(false);
@@ -78,7 +78,7 @@ export default function SendSmsButton({ sendSms }) {
           ) : (
             <>
               <FormControl
-                placeholder="Enter your telephone number"
+                placeholder="Enter phone number ( Ex. +9199999999999 )"
                 value={phoneNumber}
                 onChange={handleSmsChange}
                 isInvalid={!isValidSms}
