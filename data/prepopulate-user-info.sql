@@ -1,19 +1,34 @@
-
-
-CREATE TABLE public."user_informations" (
-    user_id serial PRIMARY KEY,
-    name VARCHAR ( 50 ) NOT NULL,
-    email VARCHAR,
-    gender VARCHAR (20) NOT NULL,
+CREATE TABLE public.user_informations (
+    user_id integer NOT NULL,
+    name character varying(50) NOT NULL,
+    email character varying,
+    gender character varying(20) NOT NULL,
     date_of_birth date NOT NULL,
-    current_location VARCHAR ( 50 ) NOT NULL,
-    pin_code integer NOT NULL,
-    phone_number VARCHAR ( 20 ) NOT NULL,
-    qualification VARCHAR ( 50 ) NOT NULL,
+    current_location character varying(50) NOT NULL,
+    pin_code integer ,
+    phone_number character varying(20) NOT NULL,
+    qualification character varying(50) NOT NULL,
     date_of_release date NOT NULL,
-    case_status VARCHAR NOT NULL,
-   
+    case_status character varying NOT NULL
 );
+
+ALTER TABLE public.user_informations OWNER TO postgres;
+
+
+CREATE SEQUENCE public.user_informations_user_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.user_informations_user_id_seq OWNER TO postgres;
+
+ALTER SEQUENCE public.user_informations_user_id_seq OWNED BY public.user_informations.user_id;
+
+ALTER TABLE ONLY public.user_informations ALTER COLUMN user_id SET DEFAULT nextval('public.user_informations_user_id_seq'::regclass);
 
 INSERT INTO public.user_informations (user_id, name, email, gender, date_of_birth, current_location, pin_code, phone_number, qualification, date_of_release, case_status) VALUES (1, 'Kandace Hanley', 'khanley0@nifty.com', 'Genderqueer', '1994-06-21', 'Saint-Ouen', 68718, '+33 (144) 103-3479', 'Graphic Designer', '2022-09-19', 'true');
 INSERT INTO public.user_informations (user_id, name, email, gender, date_of_birth, current_location, pin_code, phone_number, qualification, date_of_release, case_status) VALUES (2, 'Darell Dodd', 'ddodd1@hc360.com', 'Female', '1990-05-08', 'Priboj', 83220, '+381 (454) 830-9718', 'Internal Auditor', '2022-12-18', 'true');
@@ -25,6 +40,14 @@ INSERT INTO public.user_informations (user_id, name, email, gender, date_of_birt
 INSERT INTO public.user_informations (user_id, name, email, gender, date_of_birth, current_location, pin_code, phone_number, qualification, date_of_release, case_status) VALUES (8, 'Filberte Claus', 'fclaus7@usda.gov', 'Male', '1985-09-15', 'Fanzhuang', 36267, '+86 (658) 884-4296', 'Sales Representative', '2022-08-19', 'true');
 INSERT INTO public.user_informations (user_id, name, email, gender, date_of_birth, current_location, pin_code, phone_number, qualification, date_of_release, case_status) VALUES (9, 'Fanchette Puvia', 'fpuvia8@ebay.co.uk', 'Female', '1993-12-19', 'Pagsanahan Norte', 85674, '+63 (706) 260-1370', 'Developer IV', '2022-07-25', 'true');
 INSERT INTO public.user_informations (user_id, name, email, gender, date_of_birth, current_location, pin_code, phone_number, qualification, date_of_release, case_status) VALUES (10, 'Zollie Blacklock', 'zblacklock9@telegraph.co.uk', 'Male', '1982-10-20', 'Espinillo', 87111, '+54 (125) 287-0511', 'Analyst Programmer', '2023-03-11', 'false');
+
+
+
+
+SELECT pg_catalog.setval('public.user_informations_user_id_seq', 12, true);
+
+ALTER TABLE ONLY public.user_informations
+    ADD CONSTRAINT user_informations_pkey PRIMARY KEY (user_id);
 
 
 

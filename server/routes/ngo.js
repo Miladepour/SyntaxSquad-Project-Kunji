@@ -75,7 +75,7 @@ router.delete("/:id", jwtCheck, async (req, res) => {
     }
     res.json(`${id} has been deleted!`);
   } catch (err) {
-    res.status(500).json({ error: "Failed to delete NGO" });
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -102,7 +102,7 @@ router.get("/", async (req, res) => {
     const { rows } = await db.query(query, params);
     res.json(rows);
   } catch (err) {
-    res.status(500).json({ error: "Failed to get NGO data" });
+    res.status(500).json({ error: err.message });
   }
 });
 

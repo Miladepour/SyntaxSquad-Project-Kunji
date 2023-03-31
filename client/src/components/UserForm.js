@@ -9,6 +9,8 @@ import Button from "react-bootstrap/Button";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useTranslation } from "react-i18next";
 import styles from "./UserForm.module.css";
+import Alert from 'react-bootstrap/Alert';
+
 const today = new Date();
 
 function parseDateString(value, originalValue) {
@@ -42,7 +44,7 @@ const schema = yup.object({
 
 export default function UserForm() {
   const { t } = useTranslation();
-
+  const [recaptchaError, setRecaptchaError] = useState("");
   const navigate = useNavigate();
   const [isCaptchaVerified, setIsCaptchaVerified] = useState(false);
   const {
@@ -52,7 +54,6 @@ export default function UserForm() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
   const onSubmit = async (formData) => {
     if (isCaptchaVerified) {
       formData.dateOfBirth=new Date(formData.dateOfBirth).toISOString().split("T")[0];
@@ -67,7 +68,7 @@ export default function UserForm() {
         });
 
         if (response.status === 201) {
-          navigate("/user-preferences");
+          navigate("/user-preferences", { state : formData });
         } else {
           const data=await response.json();
           console.log(data);
@@ -76,8 +77,9 @@ export default function UserForm() {
        console.log(error.message);
       }
     } else {
-      alert("Please complete the reCAPTCHA challenge.");
+      setRecaptchaError("Please complete the reCAPTCHA challenge.")
     }
+    
   };
   const handleCaptchaChange = (value) => {
     if (value) {
@@ -90,10 +92,11 @@ export default function UserForm() {
   };
 
   const handleCaptchaError = () => {
-    alert("There was an error with the reCAPTCHA challenge. Please try again.");
+    setRecaptchaError("There was an error with the reCAPTCHA challenge. Please try again.");
   };
 
   return (
+    <>
     <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className={styles.formGroup} controlId="name">
         <Form.Label>{t("userForm.name")}</Form.Label>
@@ -118,6 +121,7 @@ export default function UserForm() {
             placeholder="Email@domain.com"
             {...register("email")}
             isInvalid={errors.email?.message}
+
           />
           <Form.Control.Feedback type="invalid">
             {errors.email?.message}
@@ -137,7 +141,7 @@ export default function UserForm() {
             <option value="male">Male</option>
             <option value="Female">Female</option>
             <option value="Transgender">Transgender</option>
-            <option value="Other'">Other</option>
+            <option value="Other">Other</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.gender?.message}
@@ -265,7 +269,11 @@ export default function UserForm() {
       onChange={handleCaptchaChange}
       onExpired={handleCaptchaExpired}
       onError={handleCaptchaError}
-        />
+        />{isCaptchaVerified ? "" : recaptchaError && (
+          <Alert variant="danger" onClose={() => setRecaptchaError("")} dismissible>
+            {recaptchaError}
+          </Alert>
+        )}
       </div>
       <div className="text-center mb-4 mt-3">
         <Button variant="primary" type="submit">
@@ -273,5 +281,6 @@ export default function UserForm() {
         </Button>
       </div>
     </Form>
+    </>
   );
 }

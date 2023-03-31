@@ -6,6 +6,7 @@ import logo from "../assets/kunji-w-logo.svg";
 import styles from "./NavBar.module.css";
 import mobileMenuIcon from "../assets/menu-icon.svg";
 import { useTranslation } from 'react-i18next';
+import { PersonGear } from "react-bootstrap-icons";
 
 function NavBar() {
 	const { t } = useTranslation();
@@ -28,10 +29,29 @@ function NavBar() {
 							<Nav.Link href="/userform" className={styles.navbarLink}>
 								{t("userNav.linkGetHelp")}
 							</Nav.Link>
+							<Nav.Link href="/about-kunji" className={styles.navbarLink}>
+								About Kunji
+							</Nav.Link>
+							<Nav.Link href="#" className={styles.navbarLink}>
+								Success Stories
+							</Nav.Link>
+							<Nav.Link href="#" className={styles.navbarLink}>
+								Impact
+							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>
 					<div className="d-none d-md-block">
-						<button className={styles.buttonHelp}><a href="tel:18003134963" className="text-decoration-none text-white">{t("userNav.linkCallHelpline")}</a></button>
+						<button className={styles.buttonHelp}>
+							<a
+								href="tel:18003134963"
+								className="text-decoration-none text-white"
+							>
+								{t("userNav.linkCallHelpline")}
+							</a>
+						</button>
+						<a href="/admin" className="ms-3">
+						<PersonGear size={32} color="white" />
+						</a>
 					</div>
 				</Container>
 			</Navbar>

@@ -4,19 +4,20 @@ import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
 import Data from "../../components/form-data/formdata";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 import styles from "./UserPreferences.module.css";
 
 export default function UserPreferences() {
-	const { t } = useTranslation();
-
+  const { t } = useTranslation();
 	const navigate = useNavigate();
+	const { state } = useLocation();
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
   const onSubmit = (data) => {
-    navigate(`/result?service=${encodeURIComponent(data.service)}&location=${data.location}`);
+    navigate(`/result?service=${data.service}&location=${data.location}` , { state :state } );
   };
 	return (
 		<Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>

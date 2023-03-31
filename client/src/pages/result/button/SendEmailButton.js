@@ -3,25 +3,28 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import Spinner from "react-bootstrap/Spinner";
+import Alert from "react-bootstrap/Alert";
 import * as yup from "yup";
 import { useTranslation } from "react-i18next";
 
 const emailSchema = yup.string().email().required();
 
-export default function SendEmailButton({ sendEmail }) {
+export default function SendEmailButton({ sendEmail, state }) {
   const { t } = useTranslation();
-
   const [showModal, setShowModal] = useState(false);
-  const [email, setEmail] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [email,setEmail]=useState("");
+  const [update,setUpdate]=useState(state?.email);
   const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleClose() {
     setShowModal(false);
     setEmail("");
     setMessageSent(false);
     setIsSending(false);
+    setErrorMessage("");
   }
 
   function handleShow() {
@@ -29,34 +32,40 @@ export default function SendEmailButton({ sendEmail }) {
     setEmail("");
     setMessageSent(false);
     setIsSending(false);
+    setErrorMessage("");
   }
 
   async function handleSendEmail() {
     try {
-      setIsSending(true);
-      await emailSchema.validate(email);
+      await emailSchema.validate(update);
       setIsValidEmail(true);
-      await sendEmail(email);
+      setIsSending(true);
+      await sendEmail(update);
       setMessageSent(true);
+      setUpdate(state?.email);
     } catch (error) {
       setIsValidEmail(false);
+      if (error.status >= 400 && error.status < 500) {
+        setErrorMessage("Invalid email address or email sending failed.");
+      } else {
+        setErrorMessage("An error occurred while sending the email.");
+      }
     } finally {
       setIsSending(false);
     }
   }
 
   async function handleEmailChange(e) {
+    setUpdate("");
     const newEmail = e.target.value;
-    setEmail(newEmail);
-
+    setUpdate(newEmail);
     try {
-      await emailSchema.validate(newEmail);
+      await emailSchema.validate(update);
       setIsValidEmail(true);
     } catch (error) {
       setIsValidEmail(false);
     }
   }
-
   return (
     <>
       <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
@@ -69,25 +78,25 @@ export default function SendEmailButton({ sendEmail }) {
             t("result.sendEmailBtn")
         )}
       </button>
-
-      <Modal show={showModal} onHide={handleClose}>
+        <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>{t("result.enterEmail")}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
             <p>Email sent successfully.</p>
-          ) : (
+          ) :  (
             <>
               <FormControl
                 placeholder="Enter your email address"
-                value={email}
+                value={update}
                 onChange={handleEmailChange}
                 isInvalid={!isValidEmail}
               />
               {!isValidEmail && (
                 <div className="invalid-feedback">Please enter a valid email address.</div>
               )}
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             </>
           )}
         </Modal.Body>
