@@ -20,7 +20,7 @@ function parseDateString(value, originalValue) {
 
 const schema = yup.object({
   name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, "Name must be letters only.").required().label("Name"),
-  email: yup.string().email().required().label("Email"),
+  email: yup.string().email().label("Email"),
 
   gender: yup.string().required("Please select a gender.").label("Gender"),
 
@@ -28,11 +28,11 @@ const schema = yup.object({
 
   currentLocation: yup.string().min(3).max(50).required().label("Current Location"),
 
-  pinCode: yup.number().typeError("Pin code must be a number.").min(100000).max(999999).required().label("Pin Code"),
+  pinCode: yup.number().typeError("Pin code must be a number.").transform((_, val) => val === "" ? null : Number(val) ? Number(val) : val).min(100000).max(999999).nullable(true).label("Pin Code"),
 
   phoneNumber: yup.string().min(5).max(20).required().label("Phone Number"),
 
-  qualification: yup.string().min(3).max(50).required().label("Qualification"),
+  qualification: yup.string().required().label("Qualification"),
 
   dateOfRelease: yup.date().transform(parseDateString).max(today).label("Date of Release"),
 
@@ -97,6 +97,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
+            placeholder="E.g. Shah Rukh Khan"
             {...register("name")}
             isInvalid={errors.name?.message}
           />
@@ -111,6 +112,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="email"
+            placeholder="Email@domain.com"
             {...register("email")}
             isInvalid={errors.email?.message}
           />
@@ -131,6 +133,8 @@ export default function UserForm() {
             <option value="">Select...</option>
             <option value="male">Male</option>
             <option value="Female">Female</option>
+            <option value="Transgender">Transgender</option>
+            <option value="Other'">Other</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.gender?.message}
@@ -157,6 +161,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
+            placeholder="E.g. Delhi"
             {...register("currentLocation")}
             isInvalid={errors.currentLocation?.message}
           />
@@ -171,6 +176,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
+            placeholder="Enter your six digit pin code"
             {...register("pinCode")}
             isInvalid={errors.pinCode?.message}
           />
@@ -185,6 +191,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
+            placeholder="+91 xxxx-nnnnnn"
             {...register("phoneNumber")}
             isInvalid={errors.phoneNumber?.message}
           />
@@ -197,11 +204,20 @@ export default function UserForm() {
       <Form.Group className={styles.formGroup} controlId="qualification">
         <Form.Label>Qualification</Form.Label>
         <div className="w-50">
-          <Form.Control
-            type="text"
+          <Form.Select
+            aria-label="qualification"
             {...register("qualification")}
-            isInvalid={errors.qualification?.message}
-          />
+            isInvalid={errors?.qualification}
+          >
+            <option value="">Select...</option>
+            <option value="Cannot read or write">Cannot read or write</option>
+            <option value="8th">8th</option>
+            <option value="10th'">10th</option>
+            <option value="12th'">12th</option>
+            <option value="Graduate'">Graduate</option>
+            <option value="Postgraduate'">Postgraduate</option>
+            <option value="Other'">Other</option>
+          </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.qualification?.message}
           </Form.Control.Feedback>
@@ -232,7 +248,8 @@ export default function UserForm() {
           >
             <option value="">Select...</option>
             <option value="ongoing">Ongoing</option>
-            <option value="complete">Complete</option>
+            <option value="Acquitted">Acquitted</option>
+            <option value="Convicted">Convicted</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.caseStatus?.message}
@@ -247,7 +264,7 @@ export default function UserForm() {
       onError={handleCaptchaError}
         />
       </div>
-      <div className="text-center mb-4">
+      <div className="text-center mb-4 mt-3">
         <Button variant="primary" type="submit">
           Next
         </Button>

@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const requestSource = require("../middlewares/requestSource");
 const sgMail = require("@sendgrid/mail");
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-router.post("/", async (req, res) => {
+router.post("/", requestSource, async (req, res) => {
   const { body } = req;
-  const { service, location } = body;
+  const { service, location } = body;  
 
   const formatData = (data) => {
     let result = "";
