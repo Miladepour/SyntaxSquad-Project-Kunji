@@ -7,7 +7,7 @@ import SendEmailButton from "./button/SendEmailButton";
 import SendWhatsappButton from "./button/SendWhatsappButton";
 import LocationIcon from "../../components/LocationIcon";
 import MobileVersion from "./ResultMobV.js";
-import { style } from "@mui/system";
+
 
 export default function Result() {
 	let [searchParams, setSearchParams] = useSearchParams();
@@ -140,6 +140,7 @@ export default function Result() {
 			<div className="d-flex justify-content-center">
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
+					<SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp}/>
 			</div>
 				<MobileVersion onServiceChange={handleServiceChange} onLocationChange={handleLocationChange} />
 			</div>
@@ -147,6 +148,7 @@ export default function Result() {
 		<div className="col-3">
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
+					<SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp}/>
 		</div>
 		</div>
 		<div className={`d-flex ${styles.page}`}>
