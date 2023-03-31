@@ -5,7 +5,8 @@ import { Image } from "react-bootstrap";
 import logo from "../assets/kunji-w-logo.svg";
 import styles from "./NavBar.module.css";
 import mobileMenuIcon from "../assets/menu-icon.svg";
-import LoginIcon from "../assets/lock.png";
+import { PersonGear } from "react-bootstrap-icons";
+
 function NavBar() {
 	return (
 		<>
@@ -46,7 +47,7 @@ function NavBar() {
 							</a>
 						</button>
 						<a href="/admin" className="ms-3">
-							<Image src={LoginIcon} alt="Login Icon" height={40} />
+						<PersonGear size={32} color="white" />
 						</a>
 					</div>
 				</Container>
