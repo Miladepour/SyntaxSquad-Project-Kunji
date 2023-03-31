@@ -5,7 +5,7 @@ CREATE TABLE public.user_informations (
     gender character varying(20) NOT NULL,
     date_of_birth date NOT NULL,
     current_location character varying(50) NOT NULL,
-    pin_code integer NOT NULL,
+    pin_code integer ,
     phone_number character varying(20) NOT NULL,
     qualification character varying(50) NOT NULL,
     date_of_release date NOT NULL,
