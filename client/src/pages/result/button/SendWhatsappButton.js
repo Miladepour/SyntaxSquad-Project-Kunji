@@ -3,35 +3,42 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import * as yup from "yup";
+import Spinner from "react-bootstrap/Spinner";
 
-const whatsappSchema = yup.string().min(5).max(20).required();
+const whatsappSchema = yup.string().min(13).max(13).required();
 
 export default function SendWhatsappButton({ sendWhatsapp }) {
   const [showModal, setShowModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const [isValidWhatsapp, setIsValidWhatsapp] = useState(true);
+  const [isSending, setIsSending] = useState(false);
 
   function handleClose() {
     setShowModal(false);
     setPhoneNumber("");
     setMessageSent(false);
+    setIsSending(false);
   }
 
   function handleShow() {
     setShowModal(true);
     setPhoneNumber("");
     setMessageSent(false);
+    setIsSending(false);
   }
 
   async function handleSendWhatsapp() {
     try {
+      setIsSending(true);
       await whatsappSchema.validate(phoneNumber);
       setIsValidWhatsapp(true);
       sendWhatsapp(phoneNumber);
       setMessageSent(true);
     } catch (error) {
       setIsValidWhatsapp(false);
+    } finally {
+      setIsSending(false)
     }
   }
 
@@ -50,7 +57,14 @@ export default function SendWhatsappButton({ sendWhatsapp }) {
   return (
     <>
       <button className="btn text-white m-2" type="button" style={{backgroundColor: "#004e87"}} onClick={handleShow}>
-        Send Whatsapp
+        {isSending ? (
+          <>
+          <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+              Sending...
+          </>
+        ) : (
+          "Send Whatsapp"
+        )}
       </button>
 
       <Modal show={showModal} onHide={handleClose}>
@@ -64,7 +78,7 @@ export default function SendWhatsappButton({ sendWhatsapp }) {
           ) : (
             <>
               <FormControl
-                placeholder="Enter your telephone number"
+                placeholder="Enter phone number ( Ex. +9199999999999 )"
                 value={phoneNumber}
                 onChange={handleWhatsappChange}
                 isInvalid={!isValidWhatsapp}
