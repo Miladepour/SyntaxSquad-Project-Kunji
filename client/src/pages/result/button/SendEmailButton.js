@@ -7,11 +7,12 @@ import * as yup from "yup";
 
 const emailSchema = yup.string().email().required();
 
-export default function SendEmailButton({ sendEmail }) {
+export default function SendEmailButton({ sendEmail, state }) {
   const [showModal, setShowModal] = useState(false);
-  const [email, setEmail] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [email,setEmail]=useState("");
+  const [update,setUpdate]=useState(state?.email);
   const [isSending, setIsSending] = useState(false);
 
   function handleClose() {
@@ -31,10 +32,12 @@ export default function SendEmailButton({ sendEmail }) {
   async function handleSendEmail() {
     try {
       setIsSending(true);
-      await emailSchema.validate(email);
+      await emailSchema.validate(update);
       setIsValidEmail(true);
-      await sendEmail(email);
+      await sendEmail(update);
       setMessageSent(true);
+      setShowModal(false);
+      setUpdate(state?.email);
     } catch (error) {
       setIsValidEmail(false);
     } finally {
@@ -43,17 +46,16 @@ export default function SendEmailButton({ sendEmail }) {
   }
 
   async function handleEmailChange(e) {
+    setUpdate("");
     const newEmail = e.target.value;
-    setEmail(newEmail);
-
+    setUpdate(newEmail);
     try {
-      await emailSchema.validate(newEmail);
+      await emailSchema.validate(update);
       setIsValidEmail(true);
     } catch (error) {
       setIsValidEmail(false);
     }
   }
-
   return (
     <>
       <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
@@ -66,19 +68,18 @@ export default function SendEmailButton({ sendEmail }) {
           "Send Email"
         )}
       </button>
-
-      <Modal show={showModal} onHide={handleClose}>
+        <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Enter your email address</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
             <p>Email sent successfully.</p>
-          ) : (
+          ) :  (
             <>
               <FormControl
                 placeholder="Enter your email address"
-                value={email}
+                value={update}
                 onChange={handleEmailChange}
                 isInvalid={!isValidEmail}
               />

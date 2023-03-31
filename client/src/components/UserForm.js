@@ -8,6 +8,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import ReCAPTCHA from "react-google-recaptcha";
 import styles from "./UserForm.module.css";
+
 const today = new Date();
 
 function parseDateString(value, originalValue) {
@@ -49,7 +50,6 @@ export default function UserForm() {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
   const onSubmit = async (formData) => {
     if (isCaptchaVerified) {
       formData.dateOfBirth=new Date(formData.dateOfBirth).toISOString().split("T")[0];
@@ -64,7 +64,7 @@ export default function UserForm() {
         });
 
         if (response.status === 201) {
-          navigate("/user-preferences");
+          navigate("/user-preferences", { state : formData });
         } else {
           const data=await response.json();
           console.log(data);
@@ -91,6 +91,7 @@ export default function UserForm() {
   };
 
   return (
+    <>
     <Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <Form.Group className={styles.formGroup} controlId="name">
         <Form.Label>Name</Form.Label>
@@ -115,6 +116,7 @@ export default function UserForm() {
             placeholder="Email@domain.com"
             {...register("email")}
             isInvalid={errors.email?.message}
+
           />
           <Form.Control.Feedback type="invalid">
             {errors.email?.message}
@@ -270,5 +272,6 @@ export default function UserForm() {
         </Button>
       </div>
     </Form>
+    </>
   );
 }

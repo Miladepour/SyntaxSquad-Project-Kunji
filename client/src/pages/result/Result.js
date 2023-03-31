@@ -5,16 +5,19 @@ import { useSearchParams } from "react-router-dom";
 import SendSmsButton from "./button/SendSMSButton";
 import SendEmailButton from "./button/SendEmailButton";
 import LocationIcon from "../../components/LocationIcon";
+import { useLocation } from "react-router-dom";
 import MobileVersion from "./ResultMobV.js";
-import { style } from "@mui/system";
 
-export default function Result() {
+export default function Result(  ) {
+    const { state } = useLocation();
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [service, setService] = useState(searchParams.get("service"));
 	const [location, setLocation] = useState(searchParams.get("location"));
 	const [data, setData] = useState([]);
 	const [emailSent, setEmailSent] = useState(false);
 	const [smsSent, setSmsSent] = useState(false);
+
+
 	useEffect(() => {
 		fetch(`/api/ngo?service=${encodeURIComponent(service)}&location=${location}`)
 			.then((response) => response.json())
@@ -22,7 +25,6 @@ export default function Result() {
 				setData(data);
 			});
 	}, [service, location]);
-
 	function selectService(e) {
 		if (e.target.checked) {
 			setService(e.target.id);
@@ -42,6 +44,7 @@ export default function Result() {
 		}
 	}
 	function sendEmail(email) {
+		console.log(email);
 		if (!email) {
 			return;
 		}
@@ -111,15 +114,15 @@ export default function Result() {
 		<h3 className="text-center" style={{ color:"#004e87" }}>List of NGOs</h3>
 			<div className="d-md-none">
 			<div className="d-flex justify-content-center">
-					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
-					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
+					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
+					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
 			</div>
 				<MobileVersion onServiceChange={handleServiceChange} onLocationChange={handleLocationChange} />
 			</div>
 			<div className="d-none d-md-block">
 		<div className="col-3">
-					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} />
-					<SendSmsButton smsSent={smsSent} sendSms={sendSms} />
+					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
+					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
 		</div>
 		</div>
 		<div className={`d-flex ${styles.page}`}>
@@ -148,7 +151,6 @@ export default function Result() {
 									name="service"
 									id={`${type}`}
 									onChange={selectService}
-
 									checked={service === type && true}
 								/>
 								<span className="mx-2">{type}</span>
