@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import Spinner from "react-bootstrap/Spinner";
+import Alert from "react-bootstrap/Alert";
 import * as yup from "yup";
 
 const smsSchema = yup.string().min(13).max(13).required();
@@ -14,12 +15,14 @@ export default function SendSmsButton({ sendSms , state }) {
   const [isValidSms, setIsValidSms] = useState(true);
   const [update,setUpdate]=useState(state?.phoneNumber);
   const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleClose() {
     setShowModal(false);
     setPhoneNumber("");
     setMessageSent(false);
     setIsSending(false);
+    setErrorMessage("");
   }
 
   function handleShow() {
@@ -27,6 +30,7 @@ export default function SendSmsButton({ sendSms , state }) {
     setPhoneNumber("");
     setMessageSent(false);
     setIsSending(false);
+    setErrorMessage("");
   }
 
   async function handleSendSms() {
@@ -39,6 +43,7 @@ export default function SendSmsButton({ sendSms , state }) {
       setUpdate(update);
     } catch (error) {
       setIsValidSms(false);
+      setErrorMessage("Problem with sending SMS");
     } finally {
       setIsSending(false);
     }
@@ -52,6 +57,7 @@ export default function SendSmsButton({ sendSms , state }) {
     try {
       await smsSchema.validate(update);
       setIsValidSms(true);
+      setErrorMessage(null);
     } catch (error) {
       setIsValidSms(false);
     }
@@ -88,6 +94,7 @@ export default function SendSmsButton({ sendSms , state }) {
               {!isValidSms && (
                 <div className="invalid-feedback">Please enter a valid telephone number.</div>
               )}
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             </>
           )}
         </Modal.Body>
