@@ -40,7 +40,6 @@ export default function SendEmailButton({ sendEmail, state }) {
       setIsSending(true);
       await sendEmail(update);
       setMessageSent(true);
-      setShowModal(false);
       setUpdate(state?.email);
     } catch (error) {
       setIsValidEmail(false);

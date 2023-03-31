@@ -75,31 +75,38 @@ export default function Result(  ) {
 		}
 	}
 
-	function sendSms(sms) {
+	async function sendSms(sms) {
 		if (!sms) {
 			return;
 		}
-		fetch("/api/sendsms", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				to: sms,
-				data: data,
-				service: service,
-				location: location,
-			}),
-		})
-			.then((response) => {
-				if (response.ok) {
-					setSmsSent(true);
-				} else {
-					throw new Error("Failed to send SMS");
-				}
-			})
-			.catch((error) => console.error(error));
+
+		try {
+			const response = await fetch("/api/sendsms", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					to: sms,
+					data: data,
+					service: service,
+					location: location,
+				}),
+			});
+
+			if (!response.ok) {
+				const error = new Error("Failed to send SMS");
+				error.status = response.status;
+				throw error;
+			}
+
+			setSmsSent(true);
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	}
+
 	function sendWhatsapp(number) {
 		if (!number) {
 			return;

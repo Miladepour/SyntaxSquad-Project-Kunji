@@ -35,15 +35,19 @@ export default function SendSmsButton({ sendSms , state }) {
 
   async function handleSendSms() {
     try {
-      setIsSending(true);
       await smsSchema.validate(update);
       setIsValidSms(true);
-      sendSms(update);
+      setIsSending(true);
+      await sendSms(update);
       setMessageSent(true);
-      setUpdate(update);
+      setUpdate(state?.phoneNumber);
     } catch (error) {
       setIsValidSms(false);
-      setErrorMessage("Problem with sending SMS");
+      if (error.status >= 400 && error.status < 500) {
+        setErrorMessage("Invalid phone number or SMS sending failed.");
+      } else {
+        setErrorMessage("An error occurred while sending the SMS.");
+      }
     } finally {
       setIsSending(false);
     }
