@@ -46,9 +46,9 @@ export default function SendEmailButton({ sendEmail, state }) {
     } catch (error) {
       setIsValidEmail(false);
       if (error.status >= 400 && error.status < 500) {
-        setErrorMessage("Invalid email address or email sending failed.");
+        setErrorMessage(t("errors.sendEmail.1"));
       } else {
-        setErrorMessage("An error occurred while sending the email.");
+        setErrorMessage(t("errors.sendEmail.2"));
       }
     } finally {
       setIsSending(false);
@@ -88,7 +88,7 @@ export default function SendEmailButton({ sendEmail, state }) {
           ) :  (
             <>
               <FormControl
-                placeholder="Enter your email address"
+                placeholder={t("result.sendEmailBtn")}
                 value={update}
                 onChange={handleEmailChange}
                 isInvalid={!isValidEmail}

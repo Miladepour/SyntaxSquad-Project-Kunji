@@ -7,8 +7,6 @@ export default function ResultMobV(props) {
   const [service, setService] = useState(searchParams.get("service"));
   const [location, setLocation] = useState(searchParams.get("location"));
 
-  console.log(service);
-
   function handleServiceChange(e) {
     setService(e.target.value);
     props.onServiceChange(e.target.value);

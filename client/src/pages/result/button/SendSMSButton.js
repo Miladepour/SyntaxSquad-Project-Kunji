@@ -46,9 +46,9 @@ export default function SendSmsButton({ sendSms , state }) {
     } catch (error) {
       setIsValidSms(false);
       if (error.status >= 400 && error.status < 500) {
-        setErrorMessage("Invalid phone number or SMS sending failed.");
+        setErrorMessage(t("errors.sendSMS.1"));
       } else {
-        setErrorMessage("An error occurred while sending the SMS.");
+        setErrorMessage(t("errors.sendSMS.2"));
       }
     } finally {
       setIsSending(false);
@@ -92,7 +92,7 @@ export default function SendSmsButton({ sendSms , state }) {
           ) : (
             <>
               <FormControl
-                placeholder="Enter phone number ( Ex. +9199999999999 )"
+                placeholder="( Eg. +9199999999999 )"
                 value={update}
                 onChange={handleSmsChange}
                 isInvalid={!isValidSms}

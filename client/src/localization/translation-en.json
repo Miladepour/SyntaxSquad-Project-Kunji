@@ -3,6 +3,9 @@
     "userNav": {
       "linkHome": "Home",
       "linkGetHelp": "Get help",
+      "linkAbout": "About Kunji",
+      "linkSuccessStories": "Success Stories",
+      "linkImpact": "Impact",
       "linkCallHelpline": "Call Helpline",
       "helpline": {
         "text": "Help line",
@@ -38,14 +41,25 @@
 				"content": "A heartfelt conversation unfolds as the ex-prisoner explains the challenges they face to Kunji's empathetic receptionist."
 			},
 			"hero7": {
-				"title": "Compassionate Guidance: Avnish Lends a Hand",
-				"content": "Avnish, our dedicated receptionist, helps the ex-prisoner navigate their situation, connecting them with the appropriate resources and support."
+				"title": "Compassionate Guidance: Puneet Lends a Hand",
+				"content": "Puneet, our dedicated receptionist, helps the ex-prisoner navigate their situation, connecting them with the appropriate resources and support."
 			},
 			"hero8": {
 				"title": "A New Lease on Life: Finding the Help They Need",
 				"content": "With the right assistance, the ex-prisoner embarks on a journey of hope, healing, and happiness, empowered to create a brighter future."
 			}
 		},
+    "about": {
+      "kunji": {
+        "heading": "About Kunji",
+        "content": "Kunji is a need-based helpline to support ex-inmates with immediate challenges they face post their release with regard to shelter, employment, legal assistance, etc. Released prisoners can call on the toll free number (1800-313-4963) to receive post release support."
+      },
+      "secondChance": {
+        "heading": "About Second Chance",
+        "content1": "Project Second Chance, India is a civil society initiative working on reimagining prisons in India. We work with young and passionate individuals and marginalised current/ex incarcerated populations on guiding them to be change agents within the prison system.",
+        "content2": "They are shaped to become social entrepreneurs with the objective of bringing systematic and structured impact to the prison landscape. At Project Second Chance, ex prisoners are offered a full time fellowship engagement under a program called Second Chance Fellowship, these fellows are paired with a set of young criminal justice practitioners who have background of working in the space, collectively these two groups identify systemic problems within the system in first 3 months and envision a scalable on-the-ground solution, and implement a pilot project to test their solution in last 9 months. On completion of the pilot, the selected pairs and the interventions are incubated and mentored by the team to further become full-fledged new programmes. In the past 5 years, 25+ fellows have graduated who have established 7 initiatives which have supported 10000+ prisoners on systemic issues like Mental health of prisoners and prison staff, Reducing recidivism in violence and crime against women cases, Data and Evidence based Programming in Prison Welfare, Post Release Support through Helpline etc."
+      }
+    },
     "userForm": {
       "name": "Name",
       "email": "Email",
@@ -68,11 +82,31 @@
       "heading": "List of NGOs",
       "sendEmailBtn": "Send Email",
       "sendSMSBtn": "Send SMS",
+      "sendWhatsAppBtn": "Send SMS",
       "address": "Address",
       "website": "Website",
       "closeBtn": "Close",
       "enterEmail": "Enter your email address",
-      "enterPhone": "Enter your phone number"
-    }
+      "enterPhone": "Enter your phone number",
+      "enterWhatsApp": "Enter your WhatsApp number"
+    },
+    "errors": {
+			"reCaptcha": {
+				"1": "Please complete the reCAPTCHA challenge.",
+				"2": "There was an error with the reCAPTCHA challenge. Please try again."
+			},
+			"sendEmail": {
+				"1": "Invalid email address or email sending failed.",
+				"2": "An error occurred while sending the email."
+			},
+			"sendSMS": {
+				"1": "Invalid phone number or SMS sending failed.",
+				"2": "An error occurred while sending the SMS."
+			},
+			"sendWhatsApp": {
+				"1": "Invalid phone number or WhatsApp message sending failed.",
+				"2": "An error occurred while sending the WhatsApp message."
+			}
+		}
   }
 }

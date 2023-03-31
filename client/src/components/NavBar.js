@@ -30,13 +30,13 @@ function NavBar() {
 								{t("userNav.linkGetHelp")}
 							</Nav.Link>
 							<Nav.Link href="/about-kunji" className={styles.navbarLink}>
-								About Kunji
+								{t("userNav.linkAbout")}
 							</Nav.Link>
 							<Nav.Link href="#" className={styles.navbarLink}>
-								Success Stories
+								{t("userNav.linkSuccessStories")}
 							</Nav.Link>
 							<Nav.Link href="#" className={styles.navbarLink}>
-								Impact
+								{t("userNav.linkImpact")}
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>

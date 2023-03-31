@@ -77,7 +77,7 @@ export default function UserForm() {
        console.log(error.message);
       }
     } else {
-      setRecaptchaError("Please complete the reCAPTCHA challenge.")
+      setRecaptchaError(t("errors.reCaptcha.1"));
     }
     
   };
@@ -92,7 +92,7 @@ export default function UserForm() {
   };
 
   const handleCaptchaError = () => {
-    setRecaptchaError("There was an error with the reCAPTCHA challenge. Please try again.");
+    setRecaptchaError(t("errors.reCaptcha.2"));
   };
 
   return (
