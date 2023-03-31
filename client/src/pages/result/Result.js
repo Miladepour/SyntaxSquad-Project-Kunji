@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import { useSearchParams } from "react-router-dom";
 import SendSmsButton from "./button/SendSMSButton";
 import SendEmailButton from "./button/SendEmailButton";
+import SendWhatsappButton from "./button/SendWhatsappButton";
 import LocationIcon from "../../components/LocationIcon";
 import { useLocation } from "react-router-dom";
 import MobileVersion from "./ResultMobV.js";
@@ -16,7 +17,7 @@ export default function Result(  ) {
 	const [data, setData] = useState([]);
 	const [emailSent, setEmailSent] = useState(false);
 	const [smsSent, setSmsSent] = useState(false);
-
+	const [whatsappSent, setWhatsappSent] = useState(false);
 
 	useEffect(() => {
 		fetch(`/api/ngo?service=${encodeURIComponent(service)}&location=${location}`)
@@ -94,6 +95,31 @@ export default function Result(  ) {
 			})
 			.catch((error) => console.error(error));
 	}
+	function sendWhatsapp(number) {
+		if (!number) {
+			return;
+		}
+		fetch("/api/sendwhatsapp", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				to: number,
+				data: data,
+				service: service,
+				location: location,
+			}),
+		})
+			.then((response) => {
+				if (response.ok) {
+					setWhatsappSent(true);
+				} else {
+					throw new Error("Failed to send Whatsapp message");
+				}
+			})
+			.catch((error) => console.error(error));
+	}
 	function handleServiceChange(selectedService) {
     setService(selectedService);
     setSearchParams({
@@ -116,6 +142,7 @@ export default function Result(  ) {
 			<div className="d-flex justify-content-center">
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
+          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp}/>
 			</div>
 				<MobileVersion onServiceChange={handleServiceChange} onLocationChange={handleLocationChange} />
 			</div>
@@ -123,6 +150,7 @@ export default function Result(  ) {
 		<div className="col-3">
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
+          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp}/>
 		</div>
 		</div>
 		<div className={`d-flex ${styles.page}`}>

@@ -2,17 +2,16 @@ import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
-import Spinner from "react-bootstrap/Spinner";
 import * as yup from "yup";
+import Spinner from "react-bootstrap/Spinner";
 
-const smsSchema = yup.string().min(13).max(13).required();
+const whatsappSchema = yup.string().min(13).max(13).required();
 
-export default function SendSmsButton({ sendSms , state }) {
+export default function SendWhatsappButton({ sendWhatsapp }) {
   const [showModal, setShowModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [messageSent, setMessageSent] = useState(false);
-  const [isValidSms, setIsValidSms] = useState(true);
-  const [update,setUpdate]=useState(state?.phoneNumber);
+  const [isValidWhatsapp, setIsValidWhatsapp] = useState(true);
   const [isSending, setIsSending] = useState(false);
 
   function handleClose() {
@@ -29,46 +28,45 @@ export default function SendSmsButton({ sendSms , state }) {
     setIsSending(false);
   }
 
-  async function handleSendSms() {
+  async function handleSendWhatsapp() {
     try {
       setIsSending(true);
-      await smsSchema.validate(update);
-      setIsValidSms(true);
-      sendSms(update);
+      await whatsappSchema.validate(phoneNumber);
+      setIsValidWhatsapp(true);
+      sendWhatsapp(phoneNumber);
       setMessageSent(true);
-      setUpdate(update);
     } catch (error) {
-      setIsValidSms(false);
+      setIsValidWhatsapp(false);
     } finally {
-      setIsSending(false);
+      setIsSending(false)
     }
   }
 
-  async function handleSmsChange(e) {
-    setUpdate("");
-    const newSms = e.target.value;
-    setUpdate(newSms);
+  async function handleWhatsappChange(e) {
+    const newWhatsapp = e.target.value;
+    setPhoneNumber(newWhatsapp);
 
     try {
-      await smsSchema.validate(update);
-      setIsValidSms(true);
+      await whatsappSchema.validate(newWhatsapp);
+      setIsValidWhatsapp(true);
     } catch (error) {
-      setIsValidSms(false);
+      setIsValidWhatsapp(false);
     }
   }
 
   return (
     <>
-      <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
+      <button className="btn text-white m-2" type="button" style={{backgroundColor: "#004e87"}} onClick={handleShow}>
         {isSending ? (
           <>
-            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+          <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
               Sending...
           </>
         ) : (
-          "Send SMS"
+          "Send Whatsapp"
         )}
       </button>
+
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Enter your telephone number..</Modal.Title>
@@ -76,35 +74,28 @@ export default function SendSmsButton({ sendSms , state }) {
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
-            <p>SMS sent successfully to {update} </p>
+            <p>Whatsapp message sent successfully.</p>
           ) : (
             <>
               <FormControl
                 placeholder="Enter phone number ( Ex. +9199999999999 )"
-                value={update}
-                onChange={handleSmsChange}
-                isInvalid={!isValidSms}
+                value={phoneNumber}
+                onChange={handleWhatsappChange}
+                isInvalid={!isValidWhatsapp}
               />
-              {!isValidSms && (
+              {!isValidWhatsapp && (
                 <div className="invalid-feedback">Please enter a valid telephone number.</div>
               )}
             </>
           )}
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose} disabled={isSending}>
+          <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
           {!messageSent && (
-            <Button variant="primary" onClick={handleSendSms} disabled={!isValidSms || isSending}>
-              {isSending ? (
-                <>
-                  <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-                    Sending...
-                </>
-              ) : (
-                "Send SMS"
-              )}
+            <Button variant="primary" onClick={handleSendWhatsapp} disabled={!isValidWhatsapp}>
+              Send
             </Button>
           )}
         </Modal.Footer>

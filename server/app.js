@@ -4,6 +4,7 @@ import apiRouter from "./api";
 import config from "./utils/config";
 const sendMail = require("./routes/sendMail");
 const sendSms = require("./routes/sendSms");
+const sendWhatsapp = require("./routes/sendWhatsapp")
 const ngo = require("./routes/ngo");
 const user= require ("./routes/user");
 
@@ -32,6 +33,7 @@ app.use("/api/user", user);
 app.use("/api/ngo", ngo);
 app.use("/api/sendmail", sendMail);
 app.use("/api/sendsms", sendSms);
+app.use("/api/sendwhatsapp", sendWhatsapp);
 app.use(clientRouter(apiRoot));
 app.use(logErrors());
 
