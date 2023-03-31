@@ -9,8 +9,8 @@ import LocationIcon from "../../components/LocationIcon";
 import { useLocation } from "react-router-dom";
 import MobileVersion from "./ResultMobV.js";
 
-export default function Result(  ) {
-    const { state } = useLocation();
+export default function Result() {
+  const { state } = useLocation();
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [service, setService] = useState(searchParams.get("service"));
 	const [location, setLocation] = useState(searchParams.get("location"));
@@ -44,82 +44,101 @@ export default function Result(  ) {
 			});
 		}
 	}
-	function sendEmail(email) {
+	async function sendEmail(email) {
 		console.log(email);
 		if (!email) {
 			return;
 		}
-		fetch("/api/sendmail", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				to: email,
-				data: data,
-				service: service,
-				location: location,
-			}),
-		})
-			.then((response) => {
-				if (response.ok) {
-					setEmailSent(true);
-				} else {
-					throw new Error("Failed to send email");
-				}
-			})
-			.catch((error) => console.error(error));
+
+		try {
+			const response = await fetch("/api/sendmail", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					to: email,
+					data: data,
+					service: service,
+					location: location,
+				}),
+			});
+			if (!response.ok) {
+				const error = new Error("Failed to send email");
+				error.status = response.status;
+				throw error;
+			}
+			setEmailSent(true);
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	}
-	function sendSms(sms) {
+
+	async function sendSms(sms) {
 		if (!sms) {
 			return;
 		}
-		fetch("/api/sendsms", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				to: sms,
-				data: data,
-				service: service,
-				location: location,
-			}),
-		})
-			.then((response) => {
-				if (response.ok) {
-					setSmsSent(true);
-				} else {
-					throw new Error("Failed to send SMS");
-				}
-			})
-			.catch((error) => console.error(error));
+
+		try {
+			const response = await fetch("/api/sendsms", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					to: sms,
+					data: data,
+					service: service,
+					location: location,
+				}),
+			});
+
+			if (!response.ok) {
+				const error = new Error("Failed to send SMS");
+				error.status = response.status;
+				throw error;
+			}
+
+			setSmsSent(true);
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	}
-	function sendWhatsapp(number) {
+
+	async function sendWhatsapp(number) {
 		if (!number) {
 			return;
 		}
-		fetch("/api/sendwhatsapp", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				to: number,
-				data: data,
-				service: service,
-				location: location,
-			}),
-		})
-			.then((response) => {
-				if (response.ok) {
-					setWhatsappSent(true);
-				} else {
-					throw new Error("Failed to send Whatsapp message");
-				}
-			})
-			.catch((error) => console.error(error));
+
+		try {
+			const response = await fetch("/api/sendwhatsapp", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					to: number,
+					data: data,
+					service: service,
+					location: location,
+				}),
+			});
+
+			if (!response.ok) {
+				const error = new Error("Failed to send Whatsapp message");
+				error.status = response.status;
+				throw error;
+			}
+
+			setWhatsappSent(true);
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	}
+
 	function handleServiceChange(selectedService) {
     setService(selectedService);
     setSearchParams({
@@ -135,6 +154,7 @@ export default function Result(  ) {
       location: selectedLocation,
     });
   }
+
 	return (
 		<>
 		<h3 className="text-center" style={{ color:"#004e87" }}>List of NGOs</h3>
@@ -142,7 +162,7 @@ export default function Result(  ) {
 			<div className="d-flex justify-content-center">
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
-          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp}/>
+          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp} state={state} />
 			</div>
 				<MobileVersion onServiceChange={handleServiceChange} onLocationChange={handleLocationChange} />
 			</div>
@@ -150,7 +170,7 @@ export default function Result(  ) {
 		<div className="col-3">
 					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
 					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
-          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp}/>
+          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp} state={state} />
 		</div>
 		</div>
 		<div className={`d-flex ${styles.page}`}>
