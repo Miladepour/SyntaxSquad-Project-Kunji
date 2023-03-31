@@ -7,10 +7,11 @@ import Spinner from "react-bootstrap/Spinner";
 
 const whatsappSchema = yup.string().min(13).max(13).required();
 
-export default function SendWhatsappButton({ sendWhatsapp }) {
+export default function SendWhatsappButton({ sendWhatsapp, state }) {
   const [showModal, setShowModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [messageSent, setMessageSent] = useState(false);
+  const [update,setUpdate]=useState(state?.phoneNumber);
   const [isValidWhatsapp, setIsValidWhatsapp] = useState(true);
   const [isSending, setIsSending] = useState(false);
 
@@ -30,24 +31,26 @@ export default function SendWhatsappButton({ sendWhatsapp }) {
 
   async function handleSendWhatsapp() {
     try {
-      setIsSending(true);
-      await whatsappSchema.validate(phoneNumber);
+      await whatsappSchema.validate(update);
       setIsValidWhatsapp(true);
-      sendWhatsapp(phoneNumber);
+      setIsSending(true);
+      await sendWhatsapp(update);
       setMessageSent(true);
+      setUpdate(state?.phoneNumber);
     } catch (error) {
       setIsValidWhatsapp(false);
     } finally {
-      setIsSending(false)
+      setIsSending(false);
     }
   }
 
   async function handleWhatsappChange(e) {
+    setUpdate("");
     const newWhatsapp = e.target.value;
-    setPhoneNumber(newWhatsapp);
+    setUpdate(newWhatsapp);
 
     try {
-      await whatsappSchema.validate(newWhatsapp);
+      await whatsappSchema.validate(update);
       setIsValidWhatsapp(true);
     } catch (error) {
       setIsValidWhatsapp(false);
@@ -56,7 +59,7 @@ export default function SendWhatsappButton({ sendWhatsapp }) {
 
   return (
     <>
-      <button className="btn text-white m-2" type="button" style={{backgroundColor: "#004e87"}} onClick={handleShow}>
+      <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
         {isSending ? (
           <>
           <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
@@ -74,12 +77,12 @@ export default function SendWhatsappButton({ sendWhatsapp }) {
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
-            <p>Whatsapp message sent successfully.</p>
+            <p>Whatsapp message sent successfully to {update}.</p>
           ) : (
             <>
               <FormControl
                 placeholder="Enter phone number ( Ex. +9199999999999 )"
-                value={phoneNumber}
+                value={update}
                 onChange={handleWhatsappChange}
                 isInvalid={!isValidWhatsapp}
               />
