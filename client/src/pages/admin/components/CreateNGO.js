@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import BinIcon from "./BinIcon";
 import PlusIcon from "./PlusIcon";
 import Spinner from "react-bootstrap/Spinner";
+import Alert from 'react-bootstrap/Alert';
 
 const schema = yup.object({
   service: yup.array().min(1, "Please add at least one service.").of(
@@ -30,7 +31,7 @@ const schema = yup.object({
   call_response: yup.string().required().label("Call Response"),
 }).required();
 
-export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal, reqInProcess, setReqInProcess }) {
+export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal, reqInProcess, setReqInProcess, errorAlert, setErrorAlert }) {
   const { getAccessTokenSilently } = useAuth0();
 
   const {
@@ -72,6 +73,9 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
   const onSubmit = async (data) => {
     data.service = data.service.map((service) => service.service);
     setReqInProcess(true);
+    setErrorAlert(false);
+
+    console.log("hi");
 
     if (formAction === "create") {
       try {
@@ -98,10 +102,12 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
           const data = await res.json();
           console.log(data);
           setReqInProcess(false);
+          setErrorAlert(true);
         }
       } catch (e) {
         console.log(e.message);
         setReqInProcess(false);
+        setErrorAlert(true);
       }
     }
     if (formAction === "update") {
@@ -129,10 +135,12 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
           const data = await res.json();
           console.log(data);
           setReqInProcess(false);
+          setErrorAlert(true);
         }
       } catch (e) {
         console.log(e.message);
         setReqInProcess(false);
+        setErrorAlert(true);
       }
     }
   };
@@ -148,7 +156,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
               <Form.Select
                 aria-label="gender"
                 {...register(`service.${index}.service`)}
-                isInvalid={(errors.service && errors.service[index]) ? true : false}
+                isInvalid={errors.service?.[index]?.service}
               >
                 <option value="">Select...</option>
                 <option value="Legal Aid">Legal Aid</option>
@@ -162,7 +170,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
                 <option value="Important Documents">Important Documents</option>
               </Form.Select>
               <Form.Control.Feedback type="invalid">
-                {(errors.service && errors.service[index]) && errors.service[index].service.message}
+                {errors.service?.[index]?.service?.message}
               </Form.Control.Feedback>
             </Col>
             <Col>
@@ -370,6 +378,11 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
                 <span className="visually-hidden">Loading...</span>
               </Spinner>}
           </Button>}
+
+        {errorAlert &&
+          <Alert className="mt-3" variant="danger">
+            There was a problem. Please try again.
+          </Alert>}
       </div>
     </Form>
   );

@@ -41,7 +41,7 @@ router.put("/:id", jwtCheck, validation(ngoSchema) , async (req, res) => {
 
   try {
     const result = await db.query(
-      "UPDATE ngo SET service=$1, zone=$2, organization=$3, address=$4, contact=$5, website=$6, email=$7, email_status=$8, call_response=$9 WHERE id=$10 RETURNING *",
+      "UPDdATE ngo SET service=$1, zone=$2, organization=$3, address=$4, contact=$5, website=$6, email=$7, email_status=$8, call_response=$9 WHERE id=$10 RETURNING *",
       [
         body.service,
         body.zone,
