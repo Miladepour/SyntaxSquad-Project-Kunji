@@ -5,6 +5,7 @@ import { Image } from "react-bootstrap";
 import logo from "../assets/kunji-w-logo.svg";
 import styles from "./NavBar.module.css";
 import mobileMenuIcon from "../assets/menu-icon.svg";
+import LoginIcon from "../assets/lock.png";
 function NavBar() {
 	return (
 		<>
@@ -28,15 +29,25 @@ function NavBar() {
 								About Kunji
 							</Nav.Link>
 							<Nav.Link href="#" className={styles.navbarLink}>
-							Success Stories
+								Success Stories
 							</Nav.Link>
 							<Nav.Link href="#" className={styles.navbarLink}>
-							Impact
+								Impact
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>
 					<div className="d-none d-md-block">
-						<button className={styles.buttonHelp}><a href="tel:18003134963" className="text-decoration-none text-white">Call Helpline</a></button>
+						<button className={styles.buttonHelp}>
+							<a
+								href="tel:18003134963"
+								className="text-decoration-none text-white"
+							>
+								Call Helpline
+							</a>
+						</button>
+						<a href="/admin" className="ms-3">
+							<Image src={LoginIcon} alt="Login Icon" height={40} />
+						</a>
 					</div>
 				</Container>
 			</Navbar>
