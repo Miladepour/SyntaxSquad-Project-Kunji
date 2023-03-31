@@ -107,31 +107,38 @@ export default function Result() {
 		}
 	}
 
-	function sendWhatsapp(number) {
+	async function sendWhatsapp(number) {
 		if (!number) {
 			return;
 		}
-		fetch("/api/sendwhatsapp", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				to: number,
-				data: data,
-				service: service,
-				location: location,
-			}),
-		})
-			.then((response) => {
-				if (response.ok) {
-					setWhatsappSent(true);
-				} else {
-					throw new Error("Failed to send Whatsapp message");
-				}
-			})
-			.catch((error) => console.error(error));
+
+		try {
+			const response = await fetch("/api/sendwhatsapp", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					to: number,
+					data: data,
+					service: service,
+					location: location,
+				}),
+			});
+
+			if (!response.ok) {
+				const error = new Error("Failed to send Whatsapp message");
+				error.status = response.status;
+				throw error;
+			}
+
+			setWhatsappSent(true);
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
 	}
+
 	function handleServiceChange(selectedService) {
     setService(selectedService);
     setSearchParams({
@@ -147,6 +154,7 @@ export default function Result() {
       location: selectedLocation,
     });
   }
+
 	return (
 		<>
 		<h3 className="text-center" style={{ color:"#004e87" }}>List of NGOs</h3>

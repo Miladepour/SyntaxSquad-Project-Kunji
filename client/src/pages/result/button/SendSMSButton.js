@@ -6,7 +6,7 @@ import Spinner from "react-bootstrap/Spinner";
 import Alert from "react-bootstrap/Alert";
 import * as yup from "yup";
 
-const smsSchema = yup.string().min(13).max(13).required();
+const smsSchema = yup.string().min(10).max(13).required();
 
 export default function SendSmsButton({ sendSms , state }) {
   const [showModal, setShowModal] = useState(false);

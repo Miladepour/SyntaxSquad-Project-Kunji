@@ -4,8 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import FormControl from "react-bootstrap/FormControl";
 import * as yup from "yup";
 import Spinner from "react-bootstrap/Spinner";
+import Alert from "react-bootstrap/Alert";
 
-const whatsappSchema = yup.string().min(13).max(13).required();
+const whatsappSchema = yup.string().min(10).max(13).required();
 
 export default function SendWhatsappButton({ sendWhatsapp, state }) {
   const [showModal, setShowModal] = useState(false);
@@ -14,12 +15,14 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
   const [update,setUpdate]=useState(state?.phoneNumber);
   const [isValidWhatsapp, setIsValidWhatsapp] = useState(true);
   const [isSending, setIsSending] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   function handleClose() {
     setShowModal(false);
     setPhoneNumber("");
     setMessageSent(false);
     setIsSending(false);
+    setErrorMessage("");
   }
 
   function handleShow() {
@@ -27,6 +30,7 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
     setPhoneNumber("");
     setMessageSent(false);
     setIsSending(false);
+    setErrorMessage("");
   }
 
   async function handleSendWhatsapp() {
@@ -39,6 +43,11 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
       setUpdate(state?.phoneNumber);
     } catch (error) {
       setIsValidWhatsapp(false);
+      if (error.status >= 400 && error.status < 500) {
+        setErrorMessage("Invalid phone number or Whatsapp message sending failed.");
+      } else {
+        setErrorMessage("An error occurred while sending the Whatsapp message.");
+      }
     } finally {
       setIsSending(false);
     }
@@ -89,6 +98,7 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
               {!isValidWhatsapp && (
                 <div className="invalid-feedback">Please enter a valid telephone number.</div>
               )}
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             </>
           )}
         </Modal.Body>
