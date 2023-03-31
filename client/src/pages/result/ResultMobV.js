@@ -1,9 +1,13 @@
 import React, { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import styles from "./ResultMobV.module.css";
 
 export default function ResultMobV(props) {
-  const [service, setService] = useState("");
-  const [location, setLocation] = useState("");
+  let [searchParams, setSearchParams] = useSearchParams();
+  const [service, setService] = useState(searchParams.get("service"));
+  const [location, setLocation] = useState(searchParams.get("location"));
+
+  console.log(service);
 
   function handleServiceChange(e) {
     setService(e.target.value);
@@ -18,7 +22,6 @@ export default function ResultMobV(props) {
   return (
     <div className={`d-md-none ${styles.form} mt-4 mb-4`}>
       <select className={`form-select mb-2 ${styles.formGroup}`} value={service} onChange={handleServiceChange}>
-        <option value="">Select Service</option>
         <option value="Legal Aid">Legal Aid</option>
         <option value="Drug De-Addiction">Drug De-Addiction</option>
         <option value="Education">Education</option>
@@ -30,7 +33,6 @@ export default function ResultMobV(props) {
         <option value="Important Documents">Important Documents</option>
       </select>
       <select className="form-select" value={location} onChange={handleLocationChange}>
-        <option value="">Select Location</option>
         <option value="North">North</option>
         <option value="East">East</option>
         <option value="West">West</option>
