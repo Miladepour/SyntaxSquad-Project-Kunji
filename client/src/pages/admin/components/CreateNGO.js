@@ -57,7 +57,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
       call_response: formAction === "update" ? singleNGO[0].call_response : "",
     },
   });
-
+console.log(errors);
   const {
     fields: serviceFields,
     append: serviceAppend,
@@ -71,7 +71,8 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
   } = useFieldArray({ control, name: "contact" });
 
   const onSubmit = async (data) => {
-    data.service = data.service.map((service) => service.service);
+    const newData = { ...data };
+    newData.service = data.service.map((service) => service.service);
     setReqInProcess(true);
     setErrorAlert(false);
 
@@ -91,7 +92,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(newData),
         });
 
         if (res.status === 200) {
@@ -124,12 +125,12 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify(data),
+          body: JSON.stringify(newData),
         });
 
         if (res.status === 200) {
           await res.json();
-          updateNGO(singleNGO[0].id, data);
+          updateNGO(singleNGO[0].id, newData);
           setShowFormModal(false);
         } else {
           const data = await res.json();
@@ -149,14 +150,14 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
     <Form className="w-75 mx-auto mt-3" onSubmit={handleSubmit(onSubmit)}>
       <div>
         <h5>Services</h5>
-        <p className="text-danger">{(errors.service && errors.service.message) && errors.service.message}</p>
+        <p className="text-danger">{errors?.service?.message}</p>
         {serviceFields.map((field, index) => (
           <Row key={field.id} className="mb-3">
             <Col>
               <Form.Select
                 aria-label="gender"
                 {...register(`service.${index}.service`)}
-                isInvalid={errors.service?.[index]?.service}
+                isInvalid={errors?.service?.[index]?.message}
               >
                 <option value="">Select...</option>
                 <option value="Legal Aid">Legal Aid</option>
@@ -170,7 +171,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
                 <option value="Important Documents">Important Documents</option>
               </Form.Select>
               <Form.Control.Feedback type="invalid">
-                {errors.service?.[index]?.service?.message}
+                {errors?.service?.[index]?.service?.message}
               </Form.Control.Feedback>
             </Col>
             <Col>
@@ -252,7 +253,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
 
       <div>
         <h5>Contacts</h5>
-        <p className="text-danger">{(errors.contact && errors.contact.message) && errors.contact.message}</p>
+        <p className="text-danger">{errors?.contact?.message}</p>
         {contactFields.map((field, index) => (
           <Row key={field.id} className="mb-3">
             <Col>
@@ -260,10 +261,10 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
                 type="text"
                 placeholder="Phone Number"
                 {...register(`contact.${index}.phone_number`)}
-                isInvalid={(errors.contact && errors.contact[index]) ? true : false}
+                isInvalid={errors?.contact?.[index]?.contact?.message}
               />
               <Form.Control.Feedback type="invalid">
-                {(errors.contact && errors.contact[index]) && errors.contact[index].phone_number.message}
+                {errors?.contact?.[index]?.contact?.message}
               </Form.Control.Feedback>
             </Col>
             <Col>
