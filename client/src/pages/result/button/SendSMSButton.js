@@ -7,11 +7,12 @@ import * as yup from "yup";
 
 const smsSchema = yup.string().min(13).max(13).required();
 
-export default function SendSmsButton({ sendSms }) {
+export default function SendSmsButton({ sendSms , state }) {
   const [showModal, setShowModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [messageSent, setMessageSent] = useState(false);
   const [isValidSms, setIsValidSms] = useState(true);
+  const [update,setUpdate]=useState(state?.phoneNumber);
   const [isSending, setIsSending] = useState(false);
 
   function handleClose() {
@@ -31,10 +32,11 @@ export default function SendSmsButton({ sendSms }) {
   async function handleSendSms() {
     try {
       setIsSending(true);
-      await smsSchema.validate(phoneNumber);
+      await smsSchema.validate(update);
       setIsValidSms(true);
-      sendSms(phoneNumber);
+      sendSms(update);
       setMessageSent(true);
+      setUpdate(update);
     } catch (error) {
       setIsValidSms(false);
     } finally {
@@ -43,11 +45,12 @@ export default function SendSmsButton({ sendSms }) {
   }
 
   async function handleSmsChange(e) {
+    setUpdate("");
     const newSms = e.target.value;
-    setPhoneNumber(newSms);
+    setUpdate(newSms);
 
     try {
-      await smsSchema.validate(newSms);
+      await smsSchema.validate(update);
       setIsValidSms(true);
     } catch (error) {
       setIsValidSms(false);
@@ -66,7 +69,6 @@ export default function SendSmsButton({ sendSms }) {
           "Send SMS"
         )}
       </button>
-
       <Modal show={showModal} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Enter your telephone number..</Modal.Title>
@@ -74,12 +76,12 @@ export default function SendSmsButton({ sendSms }) {
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
-            <p>SMS sent successfully.</p>
+            <p>SMS sent successfully to {update} </p>
           ) : (
             <>
               <FormControl
                 placeholder="Enter phone number ( Ex. +9199999999999 )"
-                value={phoneNumber}
+                value={update}
                 onChange={handleSmsChange}
                 isInvalid={!isValidSms}
               />
