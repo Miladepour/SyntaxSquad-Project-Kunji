@@ -51,6 +51,7 @@ export function NGOs() {
   };
 
   const updateNGO = (id, data) => {
+    data.id = id;
     setNGOs(ngos.map((ngo) => (ngo.id === id ? data : ngo)));
   };
 
