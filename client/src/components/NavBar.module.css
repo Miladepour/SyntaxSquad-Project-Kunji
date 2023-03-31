@@ -1,7 +1,7 @@
 .buttonHelp {
   min-width: 130px;
   height: 40px;
-  color: #fff;
+  color: #fff!important;
   padding: 5px 10px;
   cursor: pointer;
   transition: all 0.3s ease;

@@ -3,8 +3,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
 import Data from "../../components/form-data/formdata";
-import "./UserPreferences.css";
 import { useLocation } from "react-router-dom";
+import styles from "./UserPreferences.module.css";
 
 export default function UserPreferences() {
 
@@ -19,8 +19,8 @@ export default function UserPreferences() {
     navigate(`/result?service=${data.service}&location=${data.location}` , { state :state } );
   };
 	return (
-		<Form className="form" onSubmit={handleSubmit(onSubmit)}>
-			<Form.Group className="form-group" controlId="service">
+		<Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+			<Form.Group className={styles.formGroup} controlId="service">
 				<Form.Label>Please select the service:</Form.Label>
 				<Form.Select
 					aria-label="Default select example"
@@ -43,7 +43,7 @@ export default function UserPreferences() {
             {errors.service?.message}
           </Form.Control.Feedback>
 			</Form.Group>
-			<Form.Group className="form-group" controlId="location">
+			<Form.Group className={styles.formGroup} controlId="location">
 				<Form.Label>Please select preferred location for service:</Form.Label>
 				<Form.Select
 					aria-label="Default select example"
@@ -66,7 +66,7 @@ export default function UserPreferences() {
             {errors.location?.message}
           </Form.Control.Feedback>
 			</Form.Group>
-			<div className="container-btn">
+			<div className={styles.containerBtn}>
 				<Button type="submit">
 					Show Result
 				</Button>
