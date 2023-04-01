@@ -158,7 +158,7 @@ console.log(errors);
               <Form.Select
                 aria-label="gender"
                 {...register(`service.${index}.service`)}
-                isInvalid={errors?.service?.[index]?.message}
+                isInvalid={errors?.['service']?.[index]?.['service']?.['message']}
               >
                 <option value="">Select...</option>
                 {fieldData.services.map(service => (
@@ -166,7 +166,7 @@ console.log(errors);
                 ))}
               </Form.Select>
               <Form.Control.Feedback type="invalid">
-                {errors?.service?.[index]?.service?.message}
+                {errors?.['service']?.[index]?.['service']?.['message']}
               </Form.Control.Feedback>
             </Col>
             <Col>
@@ -256,10 +256,10 @@ console.log(errors);
                 type="text"
                 placeholder="Phone Number"
                 {...register(`contact.${index}.phone_number`)}
-                isInvalid={errors?.contact?.[index]?.contact?.message}
+                isInvalid={errors?.['contact']?.[index]?.['phone_number']?.['message']}
               />
               <Form.Control.Feedback type="invalid">
-                {errors?.contact?.[index]?.contact?.message}
+                {errors?.['contact']?.[index]?.['phone_number']?.['message']}
               </Form.Control.Feedback>
             </Col>
             <Col>
