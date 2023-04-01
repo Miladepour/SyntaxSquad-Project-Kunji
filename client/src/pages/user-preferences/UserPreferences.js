@@ -17,7 +17,7 @@ export default function UserPreferences() {
 		formState: { errors },
 	} = useForm();
   const onSubmit = (data) => {
-    navigate(`/result?service=${data.service}&location=${data.location}` , { state :state } );
+    navigate(`/result?service=${encodeURIComponent(data.service)}&location=${data.location}` , { state :state } );
   };
 	return (
 		<Form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
