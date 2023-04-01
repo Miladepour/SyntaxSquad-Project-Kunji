@@ -6,10 +6,10 @@ CREATE TABLE public.ngo (
     organization character varying(100) NOT NULL,
     address character varying(300) NOT NULL,
     contact jsonb NOT NULL,
-    website character varying(50),
+    website character varying(100),
     email character varying(256),
-    email_status character varying(50),
-    call_response character varying(50)
+    email_status character varying(100),
+    call_response character varying(100)
 );
 ALTER TABLE public.ngo OWNER TO postgres;
 
