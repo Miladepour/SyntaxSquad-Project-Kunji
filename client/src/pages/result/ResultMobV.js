@@ -20,7 +20,7 @@ export default function ResultMobV(props) {
 
   return (
     <div className={`d-md-none ${styles.form} mt-4 mb-4`}>
-      <select className={`form-select mb-2 ${styles.formGroup}`} value={service} onChange={handleServiceChange}>
+      <select className="form-select mb-4" value={service} onChange={handleServiceChange}>
         {fieldData.services.map((service) => {
           return (
             <option key={service} value={service}>
