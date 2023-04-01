@@ -36,7 +36,7 @@ export function UserView() {
     <div>
       {isAuthenticated &&
 
-        <Table className='resize' striped bordered responsive="lg" size="xl">
+        <Table className='resize' striped bordered responsive="lg" size="xl" style={{ tableLayout: "fixed", wordWrap: "break-word" }}>
           <thead>
             <tr>
               <th>User ID</th>
