@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 import styles from "./UserPreferences.module.css";
 
 export default function UserPreferences() {
-  const { t } = useTranslation();
+    const { t } = useTranslation();
 	const navigate = useNavigate();
 	const { state } = useLocation();
 	const {

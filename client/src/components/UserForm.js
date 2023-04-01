@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useTranslation } from "react-i18next";
 import styles from "./UserForm.module.css";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
 
 const today = new Date();
 
@@ -79,7 +79,6 @@ export default function UserForm() {
     } else {
       setRecaptchaError(t("errors.reCaptcha.1"));
     }
-    
   };
   const handleCaptchaChange = (value) => {
     if (value) {
@@ -138,7 +137,7 @@ export default function UserForm() {
             isInvalid={errors?.gender}
           >
             <option value="">Select...</option>
-            <option value="male">Male</option>
+            <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Transgender">Transgender</option>
             <option value="Other">Other</option>
@@ -219,11 +218,11 @@ export default function UserForm() {
             <option value="">Select...</option>
             <option value="Cannot read or write">Cannot read or write</option>
             <option value="8th">8th</option>
-            <option value="10th'">10th</option>
-            <option value="12th'">12th</option>
-            <option value="Graduate'">Graduate</option>
-            <option value="Postgraduate'">Postgraduate</option>
-            <option value="Other'">Other</option>
+            <option value="10th">10th</option>
+            <option value="12th">12th</option>
+            <option value="Graduate">Graduate</option>
+            <option value="Postgraduate">Postgraduate</option>
+            <option value="Other">Other</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.qualification?.message}
@@ -254,7 +253,7 @@ export default function UserForm() {
             isInvalid={errors?.caseStatus}
           >
             <option value="">Select...</option>
-            <option value="ongoing">Ongoing</option>
+            <option value="Ongoing">Ongoing</option>
             <option value="Acquitted">Acquitted</option>
             <option value="Convicted">Convicted</option>
           </Form.Select>
