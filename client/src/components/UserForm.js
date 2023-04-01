@@ -197,7 +197,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
-            placeholder="+91 xxxx-nnnnnn"
+            placeholder="+91xxxxnnnnnn"
             {...register("phoneNumber")}
             isInvalid={errors.phoneNumber?.message}
           />

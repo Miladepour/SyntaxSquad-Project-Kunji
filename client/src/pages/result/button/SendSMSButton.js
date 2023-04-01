@@ -88,11 +88,11 @@ export default function SendSmsButton({ sendSms , state }) {
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
-            <p>SMS sent successfully to {update} </p>
+            <p>SMS sent successfully.</p>
           ) : (
             <>
               <FormControl
-                placeholder="( Eg. +9199999999999 )"
+                placeholder="(+91xxxxnnnnnn)"
                 value={update}
                 onChange={handleSmsChange}
                 isInvalid={!isValidSms}
