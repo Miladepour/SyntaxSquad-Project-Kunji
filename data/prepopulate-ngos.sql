@@ -1,4 +1,3 @@
-
 CREATE TABLE public.ngo (
     id integer NOT NULL,
     service character varying(50)[] NOT NULL,
