@@ -27,10 +27,10 @@ const schema = yup.object({
       description: yup.string().max(50).label("Description")
     })
   ),
-  website: yup.string().max(50).label("Website"),
+  website: yup.string().max(100).label("Website"),
   email: yup.string().email().max(256).label("Email"),
-  email_status: yup.string().max(50).label("Email Status"),
-  call_response: yup.string().max(50).label("Call Response"),
+  email_status: yup.string().max(100).label("Email Status"),
+  call_response: yup.string().max(100).label("Call Response"),
 }).required();
 
 export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal, reqInProcess, setReqInProcess, errorAlert, setErrorAlert }) {
