@@ -10,6 +10,7 @@ import BinIcon from "./BinIcon";
 import PlusIcon from "./PlusIcon";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from 'react-bootstrap/Alert';
+import fieldData from "../../../../../data/fieldData";
 
 const schema = yup.object({
   service: yup.array().min(1, "Please add at least one service.").of(
@@ -19,16 +20,17 @@ const schema = yup.object({
   ),
   zone: yup.string().required("Please select zone.").label("Zone"),
   organization: yup.string().min(3).max(100).required().label("Organization"),
-  address: yup.string().min(3).max(100).required().label("Address"),
+  address: yup.string().min(3).max(300).required().label("Address"),
   contact: yup.array().min(1, "Please add at least one contact.").of(
     yup.object().shape({
       phone_number: yup.string().min(3).max(50).required().label("Phone Number"),
+      description: yup.string().max(50).label("Description")
     })
   ),
-  website: yup.string().min(3).max(50).required().label("Website"),
-  email: yup.string().email().min(3).max(50).required().label("Email"),
-  email_status: yup.string().required().label("Email Status"),
-  call_response: yup.string().required().label("Call Response"),
+  website: yup.string().max(50).label("Website"),
+  email: yup.string().email().max(256).label("Email"),
+  email_status: yup.string().max(50).label("Email Status"),
+  call_response: yup.string().max(50).label("Call Response"),
 }).required();
 
 export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal, reqInProcess, setReqInProcess, errorAlert, setErrorAlert }) {
@@ -157,21 +159,15 @@ console.log(errors);
               <Form.Select
                 aria-label="gender"
                 {...register(`service.${index}.service`)}
-                isInvalid={errors?.service?.[index]?.message}
+                isInvalid={errors?.['service']?.[index]?.['service']?.['message']}
               >
                 <option value="">Select...</option>
-                <option value="Legal Aid">Legal Aid</option>
-                <option value="Drug De-Addiction">Drug De-Addiction</option>
-                <option value="Education">Education</option>
-                <option value="Employment & Life Skills">Employment & Life Skills</option>
-                <option value="Education for children">Education for children</option>
-                <option value="Health Care">Health Care</option>
-                <option value="Mental Health">Mental Health</option>
-                <option value="Food/Shelter/Clothing assistance">Food/Shelter/Clothing assistance</option>
-                <option value="Important Documents">Important Documents</option>
+                {fieldData.services.map(service => (
+                  <option key={service} value={service}>{service}</option>
+                ))}
               </Form.Select>
               <Form.Control.Feedback type="invalid">
-                {errors?.service?.[index]?.service?.message}
+                {errors?.['service']?.[index]?.['service']?.['message']}
               </Form.Control.Feedback>
             </Col>
             <Col>
@@ -261,10 +257,10 @@ console.log(errors);
                 type="text"
                 placeholder="Phone Number"
                 {...register(`contact.${index}.phone_number`)}
-                isInvalid={errors?.contact?.[index]?.contact?.message}
+                isInvalid={errors?.['contact']?.[index]?.['phone_number']?.['message']}
               />
               <Form.Control.Feedback type="invalid">
-                {errors?.contact?.[index]?.contact?.message}
+                {errors?.['contact']?.[index]?.['phone_number']?.['message']}
               </Form.Control.Feedback>
             </Col>
             <Col>
@@ -272,7 +268,11 @@ console.log(errors);
                 type="text"
                 placeholder="Description"
                 {...register(`contact.${index}.description`)}
+                isInvalid={errors?.['contact']?.[index]?.['description']?.['message']}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors?.['contact']?.[index]?.['description']?.['message']}
+              </Form.Control.Feedback>
             </Col>
             <Col>
               <BinIcon onClick={() => contactRemove(index)} />

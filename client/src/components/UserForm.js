@@ -9,7 +9,7 @@ import Button from "react-bootstrap/Button";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useTranslation } from "react-i18next";
 import styles from "./UserForm.module.css";
-import Alert from 'react-bootstrap/Alert';
+import Alert from "react-bootstrap/Alert";
 
 const today = new Date();
 
@@ -22,8 +22,8 @@ function parseDateString(value, originalValue) {
 }
 
 const schema = yup.object({
-  name: yup.string().min(3).max(50).matches(/^[a-zA-Z\s]+$/, "Name must be letters only.").required().label("Name"),
-  email: yup.string().email().label("Email"),
+  name: yup.string().min(3).max(300).matches(/^[a-zA-Z\s]+$/, "Name must be letters only.").required().label("Name"),
+  email: yup.string().max(256).email().label("Email"),
 
   gender: yup.string().required("Please select a gender.").label("Gender"),
 
@@ -33,9 +33,9 @@ const schema = yup.object({
 
   pinCode: yup.number().typeError("Pin code must be a number.").transform((_, val) => val === "" ? null : Number(val) ? Number(val) : val).min(100000).max(999999).nullable(true).label("Pin Code"),
 
-  phoneNumber: yup.string().min(5).max(20).required().label("Phone Number"),
+  phoneNumber: yup.string().min(10).max(13).required().label("Phone Number"),
 
-  qualification: yup.string().required().label("Qualification"),
+  qualification: yup.string().min(3).max(50).required().label("Qualification"),
 
   dateOfRelease: yup.date().transform(parseDateString).max(today).label("Date of Release"),
 
@@ -79,7 +79,6 @@ export default function UserForm() {
     } else {
       setRecaptchaError(t("errors.reCaptcha.1"));
     }
-    
   };
   const handleCaptchaChange = (value) => {
     if (value) {
@@ -138,7 +137,7 @@ export default function UserForm() {
             isInvalid={errors?.gender}
           >
             <option value="">Select...</option>
-            <option value="male">Male</option>
+            <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Transgender">Transgender</option>
             <option value="Other">Other</option>
@@ -198,7 +197,7 @@ export default function UserForm() {
         <div className="w-50">
           <Form.Control
             type="text"
-            placeholder="+91 xxxx-nnnnnn"
+            placeholder="+91xxxxnnnnnn"
             {...register("phoneNumber")}
             isInvalid={errors.phoneNumber?.message}
           />
@@ -219,11 +218,11 @@ export default function UserForm() {
             <option value="">Select...</option>
             <option value="Cannot read or write">Cannot read or write</option>
             <option value="8th">8th</option>
-            <option value="10th'">10th</option>
-            <option value="12th'">12th</option>
-            <option value="Graduate'">Graduate</option>
-            <option value="Postgraduate'">Postgraduate</option>
-            <option value="Other'">Other</option>
+            <option value="10th">10th</option>
+            <option value="12th">12th</option>
+            <option value="Graduate">Graduate</option>
+            <option value="Postgraduate">Postgraduate</option>
+            <option value="Other">Other</option>
           </Form.Select>
           <Form.Control.Feedback type="invalid">
             {errors.qualification?.message}
@@ -254,7 +253,7 @@ export default function UserForm() {
             isInvalid={errors?.caseStatus}
           >
             <option value="">Select...</option>
-            <option value="ongoing">Ongoing</option>
+            <option value="Ongoing">Ongoing</option>
             <option value="Acquitted">Acquitted</option>
             <option value="Convicted">Convicted</option>
           </Form.Select>

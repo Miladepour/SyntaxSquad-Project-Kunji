@@ -88,11 +88,11 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
         </Modal.Header>
         <Modal.Body>
           {messageSent ? (
-            <p>Whatsapp message sent successfully to {update}.</p>
+            <p>Whatsapp message sent successfully.</p>
           ) : (
             <>
               <FormControl
-                placeholder="( Eg. +9199999999999 )"
+                placeholder="(+91xxxxnnnnnn)"
                 value={update}
                 onChange={handleWhatsappChange}
                 isInvalid={!isValidWhatsapp}

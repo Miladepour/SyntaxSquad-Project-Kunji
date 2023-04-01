@@ -9,6 +9,7 @@ import LocationIcon from "../../components/LocationIcon";
 import { useLocation } from "react-router-dom";
 import MobileVersion from "./ResultMobV.js";
 import { useTranslation } from "react-i18next";
+import fieldData from "../../../../data/fieldData";
 
 export default function Result() {
   const { t } = useTranslation();
@@ -184,17 +185,7 @@ export default function Result() {
 						controlId="service"
 					>
 						<Form.Label className="fw-bolder">Service :</Form.Label>
-						{[
-							"Legal Aid",
-							"Drug De-Addiction",
-							"Education",
-							"Employment & Life Skills",
-							"Education for children",
-							"Health Care",
-							"Mental Health",
-							"Shelter, Food and Clothing Assistance",
-							"Important Documents",
-						].map((type) => (
+						{fieldData.services.map((type) => (
 							<div key={`${type}`} className=" d-flex mb-3">
 								<Form.Check
 									type="radio"

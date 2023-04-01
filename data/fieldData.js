@@ -7,7 +7,7 @@ const data = {
      "Education for children",
      "Health Care",
      "Mental Health",
-     "Food/Shelter/Clothing assistance",
+     "Shelter, Food and Clothing Assistance",
      "Important Documents",
    ],
    location: [

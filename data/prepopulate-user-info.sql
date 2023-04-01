@@ -1,15 +1,15 @@
 CREATE TABLE public.user_informations (
     user_id integer NOT NULL,
-    name character varying(50) NOT NULL,
-    email character varying,
-    gender character varying(20) NOT NULL,
+    name character varying(300) NOT NULL,
+    email character varying(256),
+    gender character varying(50) NOT NULL,
     date_of_birth date NOT NULL,
     current_location character varying(50) NOT NULL,
-    pin_code integer ,
-    phone_number character varying(20) NOT NULL,
+    pin_code integer,
+    phone_number character varying(13) NOT NULL,
     qualification character varying(50) NOT NULL,
     date_of_release date NOT NULL,
-    case_status character varying NOT NULL
+    case_status character varying(50) NOT NULL
 );
 
 ALTER TABLE public.user_informations OWNER TO postgres;
