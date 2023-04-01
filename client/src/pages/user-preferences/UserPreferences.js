@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm } from "react-hook-form";
-import Data from "../../components/form-data/formdata";
+import fieldData from "../../../../data/fieldData";
 import { useTranslation } from "react-i18next";
 import { useLocation } from "react-router-dom";
 import styles from "./UserPreferences.module.css";
@@ -32,7 +32,7 @@ export default function UserPreferences() {
 					isInvalid={errors?.service}
 				>
 					<option value="">Select here...</option>
-					{Data.services.map((service) => {
+					{fieldData.services.map((service) => {
 						return (
 							<option key={service} value={service}>
 								{service}
@@ -55,7 +55,7 @@ export default function UserPreferences() {
 					isInvalid={errors?.location}
 				>
 					<option value="">Select here...</option>
-					{Data.location.map((location) => {
+					{fieldData.location.map((location) => {
 						return (
 							<option key={location} value={location}>
 								{location}

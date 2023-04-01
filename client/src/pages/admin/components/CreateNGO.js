@@ -10,6 +10,7 @@ import BinIcon from "./BinIcon";
 import PlusIcon from "./PlusIcon";
 import Spinner from "react-bootstrap/Spinner";
 import Alert from 'react-bootstrap/Alert';
+import fieldData from "../../../../../data/fieldData";
 
 const schema = yup.object({
   service: yup.array().min(1, "Please add at least one service.").of(
@@ -160,15 +161,9 @@ console.log(errors);
                 isInvalid={errors?.service?.[index]?.message}
               >
                 <option value="">Select...</option>
-                <option value="Legal Aid">Legal Aid</option>
-                <option value="Drug De-Addiction">Drug De-Addiction</option>
-                <option value="Education">Education</option>
-                <option value="Employment & Life Skills">Employment & Life Skills</option>
-                <option value="Education for children">Education for children</option>
-                <option value="Health Care">Health Care</option>
-                <option value="Mental Health">Mental Health</option>
-                <option value="Food/Shelter/Clothing assistance">Food/Shelter/Clothing assistance</option>
-                <option value="Important Documents">Important Documents</option>
+                {fieldData.services.map(service => (
+                  <option key={service} value={service}>{service}</option>
+                ))}
               </Form.Select>
               <Form.Control.Feedback type="invalid">
                 {errors?.service?.[index]?.service?.message}
