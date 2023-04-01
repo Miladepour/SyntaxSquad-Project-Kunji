@@ -1,15 +1,15 @@
 
 CREATE TABLE public.ngo (
     id integer NOT NULL,
-    service character varying[],
+    service character varying(50)[],
     zone character varying(50),
-    organization character varying,
-    address character varying,
+    organization character varying(100),
+    address character varying(300),
     contact jsonb,
-    website character varying,
-    email character varying,
-    email_status character varying,
-    call_response character varying
+    website character varying(50),
+    email character varying(256),
+    email_status character varying(50),
+    call_response character varying(50)
 );
 ALTER TABLE public.ngo OWNER TO postgres;
 
