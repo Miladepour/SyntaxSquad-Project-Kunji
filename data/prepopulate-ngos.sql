@@ -1,11 +1,11 @@
 
 CREATE TABLE public.ngo (
     id integer NOT NULL,
-    service character varying(50)[],
-    zone character varying(50),
-    organization character varying(100),
-    address character varying(300),
-    contact jsonb,
+    service character varying(50)[] NOT NULL,
+    zone character varying(50) NOT NULL,
+    organization character varying(100) NOT NULL,
+    address character varying(300) NOT NULL,
+    contact jsonb NOT NULL,
     website character varying(50),
     email character varying(256),
     email_status character varying(50),

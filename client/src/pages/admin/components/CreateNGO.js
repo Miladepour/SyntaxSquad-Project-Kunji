@@ -23,13 +23,14 @@ const schema = yup.object({
   address: yup.string().min(3).max(300).required().label("Address"),
   contact: yup.array().min(1, "Please add at least one contact.").of(
     yup.object().shape({
-      phone_number: yup.string().min(3).max(50).required().label("Phone Number")
+      phone_number: yup.string().min(3).max(50).required().label("Phone Number"),
+      description: yup.string().max(50).label("Description")
     })
   ),
-  website: yup.string().min(3).max(50).required().label("Website"),
-  email: yup.string().email().min(3).max(256).required().label("Email"),
-  email_status: yup.string().min(3).max(50).required().label("Email Status"),
-  call_response: yup.string().min(3).max(50).required().label("Call Response"),
+  website: yup.string().max(50).label("Website"),
+  email: yup.string().email().max(256).label("Email"),
+  email_status: yup.string().max(50).label("Email Status"),
+  call_response: yup.string().max(50).label("Call Response"),
 }).required();
 
 export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO, setShowFormModal, reqInProcess, setReqInProcess, errorAlert, setErrorAlert }) {
@@ -267,7 +268,11 @@ console.log(errors);
                 type="text"
                 placeholder="Description"
                 {...register(`contact.${index}.description`)}
+                isInvalid={errors?.['contact']?.[index]?.['description']?.['message']}
               />
+              <Form.Control.Feedback type="invalid">
+                {errors?.['contact']?.[index]?.['description']?.['message']}
+              </Form.Control.Feedback>
             </Col>
             <Col>
               <BinIcon onClick={() => contactRemove(index)} />

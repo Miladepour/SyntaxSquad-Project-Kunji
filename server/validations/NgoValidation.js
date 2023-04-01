@@ -10,10 +10,10 @@ const ngoSchema = yup.object({
       phone_number: yup.string().min(3).max(50).required().label("Phone Number")
     })
   ),
-  website: yup.string().min(3).max(50).required().label("Website"),
-  email: yup.string().email().min(3).max(256).required().label("Email"),
-  email_status: yup.string().min(3).max(50).required().label("Email Status"),
-  call_response: yup.string().min(3).max(50).required().label("Call Response"),
+  website: yup.string().max(50).label("Website"),
+  email: yup.string().email().max(256).label("Email"),
+  email_status: yup.string().max(50).label("Email Status"),
+  call_response: yup.string().max(50).label("Call Response"),
 }).required();
 
 
