@@ -2,13 +2,13 @@ import React from "react";
 import logo from "../../assets/kunji-b-logo.svg";
 import logoPSC from "../../assets/second-project-chance.png";
 import { Image } from "react-bootstrap";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 const About = () => {
   const { t } = useTranslation();
 
   return(
-    <div className="container my-5">
+    <div className="container my-5" style={{ minHeight:"100vh" }}>
       <div className="row">
         <div className="col-md-6">
         <Image src={logo} alt="Logo Kunji" height={70} />
