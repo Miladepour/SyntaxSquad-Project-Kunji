@@ -26,6 +26,7 @@ export function NGOs() {
         const res = await fetch("/api/ngo");
 
         const ngos = await res.json();
+        console.log(ngos);
         setNGOs(ngos);
 
       } catch (e) {
@@ -186,7 +187,13 @@ export function NGOs() {
                     </Stack>
                   </td>
                   <td>{ngo.website}</td>
-                  <td>{ngo.email}</td>
+                  <td>
+                    <Stack gap={3}>
+                      {ngo.email && ngo.email.map((email, i) => (
+                        email && <div key={i} className="border">{email}</div>
+                      ))}
+                    </Stack>
+                  </td>
                   <td>{ngo.email_status}</td>
                   <td>{ngo.call_response}</td>
                   <td>
