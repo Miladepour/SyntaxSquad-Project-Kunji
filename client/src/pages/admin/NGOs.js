@@ -26,7 +26,6 @@ export function NGOs() {
         const res = await fetch("/api/ngo");
 
         const ngos = await res.json();
-        console.log(ngos);
         setNGOs(ngos);
 
       } catch (e) {

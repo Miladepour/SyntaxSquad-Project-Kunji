@@ -58,12 +58,14 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
         return { phone_number: contact.phone_number, description: contact.description };
       }) : [{ phone_number: "", description: "" }],
       website: formAction === "update" ? singleNGO[0].website : "",
-      email: formAction === "update" ? singleNGO[0].email : "",
+      email: formAction === "update" ? singleNGO[0].email.map((email) => {
+        return { email };
+      }) : "",
       email_status: formAction === "update" ? singleNGO[0].email_status : "",
       call_response: formAction === "update" ? singleNGO[0].call_response : "",
     },
   });
-console.log(errors);
+
   const {
     fields: serviceFields,
     append: serviceAppend,
