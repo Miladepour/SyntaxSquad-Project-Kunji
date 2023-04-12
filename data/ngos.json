@@ -14,7 +14,9 @@
 			{ "phone_number": "314-857-7967", "description": "venenatis turpis" }
 		],
 		"website": "gpowderham0@slate.com",
-		"email": "eswait0@thetimes.co.uk",
+		"email": [
+			"eswait0@thetimes.co.uk"
+		],
 		"email_status": false,
 		"call_response": false
 	},
@@ -29,7 +31,11 @@
 			{ "phone_number": "962-220-3762", "description": "ipsum primis in" }
 		],
 		"website": "sconvery1@upenn.edu",
-		"email": "lscolts1@hhs.gov",
+		"email": [
+			"eswait0@thetimes.co.uk",
+			"eswait0@thetimes.co.uk",
+			"eswait0@thetimes.co.uk"
+		],
 		"email_status": false,
 		"call_response": true
 	},
@@ -53,7 +59,11 @@
 			}
 		],
 		"website": "rdadley2@scientificamerican.com",
-		"email": "mgonnelly2@ebay.co.uk",
+		"email": [
+			"eswait0@thetimes.co.uk",
+			"eswait0@thetimes.co.uk",
+			"eswait0@thetimes.co.uk"
+		],
 		"email_status": false,
 		"call_response": true
 	},
@@ -73,7 +83,11 @@
 			{ "phone_number": "675-373-6121", "description": "in libero" }
 		],
 		"website": "wkissock3@nbcnews.com",
-		"email": "bfindley3@disqus.com",
+		"email": [
+			"eswait0@thetimes.co.uk",
+			"eswait0@thetimes.co.uk",
+			"eswait0@thetimes.co.uk"
+		],
 		"email_status": true,
 		"call_response": true
 	},
@@ -87,7 +101,11 @@
 			{ "phone_number": "410-180-5751", "description": "metus sapien" }
 		],
 		"website": "ebarbery4@rediff.com",
-		"email": "sgraalmans4@wsj.com",
+		"email": [
+			"eswait0@thetimes.co.uk",
+			"eswait0@thetimes.co.uk",
+			"eswait0@thetimes.co.uk"
+		],
 		"email_status": true,
 		"call_response": false
 	}

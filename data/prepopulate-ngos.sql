@@ -6,7 +6,7 @@ CREATE TABLE public.ngo (
     address character varying(300) NOT NULL,
     contact jsonb NOT NULL,
     website character varying(100),
-    email character varying(256),
+    email character varying(256)[],
     email_status character varying(100),
     call_response character varying(100)
 );
