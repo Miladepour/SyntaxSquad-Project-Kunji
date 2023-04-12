@@ -91,8 +91,6 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
     setReqInProcess(true);
     setErrorAlert(false);
 
-    console.log("hi");
-
     if (formAction === "create") {
       try {
         const accessToken = await getAccessTokenSilently({
