@@ -5,9 +5,9 @@ import { Image } from "react-bootstrap";
 import logo from "../assets/kunji-w-logo.svg";
 import styles from "./NavBar.module.css";
 import mobileMenuIcon from "../assets/menu-icon.svg";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import { PersonGear } from "react-bootstrap-icons";
-
+import { Link } from "react-router-dom";
 function NavBar() {
 	const { t } = useTranslation();
 
@@ -23,20 +23,20 @@ function NavBar() {
 					</Navbar.Toggle>
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="justify-content-end flex-grow-1 pe-3">
-							<Nav.Link href="/" className={styles.navbarLink}>
-								{t("userNav.linkHome")}
+							<Nav.Link  as={Link} to="/" className={styles.navbarLink}>
+								Home
 							</Nav.Link>
-							<Nav.Link href="/userform" className={styles.navbarLink}>
-								{t("userNav.linkGetHelp")}
+							<Nav.Link  as={Link} to="/userform" className={styles.navbarLink}>
+								Get Help
 							</Nav.Link>
-							<Nav.Link href="/about-kunji" className={styles.navbarLink}>
-								{t("userNav.linkAbout")}
+							<Nav.Link  as={Link} to="/about-kunji" className={styles.navbarLink}>
+								About Kunji
 							</Nav.Link>
-							<Nav.Link href="#" className={styles.navbarLink}>
-								{t("userNav.linkSuccessStories")}
+							<Nav.Link as={Link} to="#" className={styles.navbarLink}>
+							Success Stories
 							</Nav.Link>
-							<Nav.Link href="#" className={styles.navbarLink}>
-								{t("userNav.linkImpact")}
+							<Nav.Link as={Link} to="#" className={styles.navbarLink}>
+								Impact
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>
