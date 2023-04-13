@@ -38,6 +38,9 @@ function NavBar() {
 							<Nav.Link as={Link} to="#" className={styles.navbarLink}>
 								Impact
 							</Nav.Link>
+							<Nav.Link as={Link} to="https://docs.google.com/forms/d/e/1FAIpQLSfuGPaUTzOXexwl5fzEDMQ7iHPK3vMzi14HkuDvTGW8lqDU1A/viewform?usp=sf_link" className={styles.navbarLink}>
+								Feedback
+							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>
 					<div className="d-none d-md-block">
