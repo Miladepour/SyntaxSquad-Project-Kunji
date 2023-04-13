@@ -49,9 +49,9 @@ function NavBar() {
 								{t("userNav.linkCallHelpline")}
 							</a>
 						</button>
-						<a href="/admin" className="ms-3">
-						<PersonGear size={32} color="white" />
-						</a>
+						<Link to="/admin" className="ms-3">
+							<PersonGear size={32} color="white" />
+						</Link>
 					</div>
 				</Container>
 			</Navbar>
