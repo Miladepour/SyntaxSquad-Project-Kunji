@@ -28,7 +28,11 @@ const schema = yup.object({
     })
   ),
   website: yup.string().max(100).label("Website"),
-  email: yup.string().email().max(256).label("Email"),
+  email: yup.array().of(
+    yup.object().shape({
+      email: yup.string().email().max(256).label("Email"),
+    })
+  ),
   email_status: yup.string().max(100).label("Email Status"),
   call_response: yup.string().max(100).label("Call Response"),
 }).required();
@@ -54,12 +58,14 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
         return { phone_number: contact.phone_number, description: contact.description };
       }) : [{ phone_number: "", description: "" }],
       website: formAction === "update" ? singleNGO[0].website : "",
-      email: formAction === "update" ? singleNGO[0].email : "",
+      email: formAction === "update" ? singleNGO[0].email.map((email) => {
+        return { email };
+      }) : "",
       email_status: formAction === "update" ? singleNGO[0].email_status : "",
       call_response: formAction === "update" ? singleNGO[0].call_response : "",
     },
   });
-console.log(errors);
+
   const {
     fields: serviceFields,
     append: serviceAppend,
@@ -72,13 +78,18 @@ console.log(errors);
     remove: contactRemove,
   } = useFieldArray({ control, name: "contact" });
 
+  const {
+    fields: emailFields,
+    append: emailAppend,
+    remove: emailRemove,
+  } = useFieldArray({ control, name: "email" });
+
   const onSubmit = async (data) => {
     const newData = { ...data };
     newData.service = data.service.map((service) => service.service);
+    newData.email = data.email.map((email) => email.email);
     setReqInProcess(true);
     setErrorAlert(false);
-
-    console.log("hi");
 
     if (formAction === "create") {
       try {
@@ -157,7 +168,7 @@ console.log(errors);
           <Row key={field.id} className="mb-3">
             <Col>
               <Form.Select
-                aria-label="gender"
+                aria-label="service"
                 {...register(`service.${index}.service`)}
                 isInvalid={errors?.['service']?.[index]?.['service']?.['message']}
               >
@@ -308,23 +319,36 @@ console.log(errors);
         </Row>
       </Form.Group>
 
-      <Form.Group className="mb-3" controlId="email">
+      <div>
+        <h5>Email</h5>
+        {emailFields.map((field, index) => (
+          <Row key={field.id} className="mb-3">
+            <Col>
+              <Form.Control
+                type="text"
+                placeholder="Email"
+                {...register(`email.${index}.email`)}
+                isInvalid={errors?.['email']?.[index]?.['email']?.['message']}
+              />
+              <Form.Control.Feedback type="invalid">
+                {errors?.['email']?.[index]?.['email']?.['message']}
+              </Form.Control.Feedback>
+            </Col>
+            <Col>
+              <BinIcon onClick={() => emailRemove(index)} />
+            </Col>
+          </Row>
+        ))}
         <Row>
-          <Col>
-            <Form.Label>Email</Form.Label>
+          <Col className="mb-3" style={{ textAlign: "right" }}>
+            <Button variant="outline-primary" size="sm" onClick={() => emailAppend({ email: "" })}>
+              <PlusIcon />
+              Add New
+            </Button>
           </Col>
-          <Col>
-            <Form.Control
-              type="text"
-              {...register("email")}
-              isInvalid={errors.email?.message}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.email?.message}
-            </Form.Control.Feedback>
-          </Col>
+          <Col></Col>
         </Row>
-      </Form.Group>
+      </div>
 
       <Form.Group className="mb-3" controlId="email_status">
         <Row>

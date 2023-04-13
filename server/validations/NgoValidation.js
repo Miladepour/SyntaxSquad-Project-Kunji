@@ -11,7 +11,9 @@ const ngoSchema = yup.object({
     })
   ),
   website: yup.string().max(100).label("Website"),
-  email: yup.string().email().max(256).label("Email"),
+  email: yup.array().of(
+    yup.string().email().max(256).label("Email")
+  ),
   email_status: yup.string().max(100).label("Email Status"),
   call_response: yup.string().max(100).label("Call Response"),
 }).required();
