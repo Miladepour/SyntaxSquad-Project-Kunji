@@ -21,7 +21,7 @@ function NavBar() {
 					</Navbar.Brand>
 					<Form.Select
 						value={i18n.language}
-						aria-label="Default select example"
+						aria-label="Language selector"
 						style={{ width: "150px", marginLeft: "25px" }}
 						onChange={(e) => { i18n.changeLanguage(e.target.value); }}
 					>
