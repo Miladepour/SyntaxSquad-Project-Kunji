@@ -34,22 +34,22 @@ function NavBar() {
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="justify-content-end flex-grow-1 pe-3">
 							<Nav.Link  as={Link} to="/" className={styles.navbarLink}>
-								Home
+							{t("userNav.linkHome")}
 							</Nav.Link>
 							<Nav.Link  as={Link} to="/userform" className={styles.navbarLink}>
-								Get Help
+							{t("userNav.linkGetHelp")}
 							</Nav.Link>
 							<Nav.Link  as={Link} to="/about-kunji" className={styles.navbarLink}>
-								About Kunji
+							{t("userNav.linkAbout")}
 							</Nav.Link>
 							<Nav.Link as={Link} to="#" className={styles.navbarLink}>
-							Success Stories
+							{t("userNav.linkSuccessStories")}
 							</Nav.Link>
 							<Nav.Link as={Link} to="#" className={styles.navbarLink}>
-								Impact
+							{t("userNav.linkImpact")}
 							</Nav.Link>
 							<Nav.Link as={Link} to="https://docs.google.com/forms/d/e/1FAIpQLSfuGPaUTzOXexwl5fzEDMQ7iHPK3vMzi14HkuDvTGW8lqDU1A/viewform?usp=sf_link" className={styles.navbarLink}>
-								Feedback
+							{t("userNav.linkFeedback")}
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>
