@@ -1,4 +1,5 @@
 import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Image } from "react-bootstrap";
@@ -9,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { PersonGear } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 function NavBar() {
-	const { t } = useTranslation();
+	const { t, i18n } = useTranslation();
 
 	return (
 		<>
@@ -18,6 +19,15 @@ function NavBar() {
 					<Navbar.Brand href="/">
 						<Image src={logo} alt="Logo" height={70} />
 					</Navbar.Brand>
+					<Form.Select
+						value={i18n.language}
+						aria-label="Default select example"
+						style={{ width: "150px", marginLeft: "25px" }}
+						onChange={(e) => { i18n.changeLanguage(e.target.value); }}
+					>
+						<option value="en">English</option>
+						<option value="hi">Hindi</option>
+					</Form.Select>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0">
 						<Image src={mobileMenuIcon} alt="Mobile Menu Icon" height={25} />
 					</Navbar.Toggle>
@@ -56,6 +66,7 @@ function NavBar() {
 							<PersonGear size={32} color="white" />
 						</Link>
 					</div>
+					
 				</Container>
 			</Navbar>
 			<h5 className={styles.helpline}>
