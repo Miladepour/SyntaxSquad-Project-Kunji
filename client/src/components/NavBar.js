@@ -1,4 +1,5 @@
 import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Image } from "react-bootstrap";
@@ -9,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { PersonGear } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 function NavBar() {
-	const { t } = useTranslation();
+	const { t, i18n } = useTranslation();
 
 	return (
 		<>
@@ -18,28 +19,37 @@ function NavBar() {
 					<Navbar.Brand href="/">
 						<Image src={logo} alt="Logo" height={70} />
 					</Navbar.Brand>
+					<Form.Select
+						value={i18n.language}
+						aria-label="Language selector"
+						style={{ width: "150px", marginLeft: "25px" }}
+						onChange={(e) => { i18n.changeLanguage(e.target.value); }}
+					>
+						<option value="en">English</option>
+						<option value="hi">Hindi</option>
+					</Form.Select>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" className="border-0">
 						<Image src={mobileMenuIcon} alt="Mobile Menu Icon" height={25} />
 					</Navbar.Toggle>
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="justify-content-end flex-grow-1 pe-3">
 							<Nav.Link  as={Link} to="/" className={styles.navbarLink}>
-								Home
+							{t("userNav.linkHome")}
 							</Nav.Link>
 							<Nav.Link  as={Link} to="/userform" className={styles.navbarLink}>
-								Get Help
+							{t("userNav.linkGetHelp")}
 							</Nav.Link>
 							<Nav.Link  as={Link} to="/about-kunji" className={styles.navbarLink}>
-								About Kunji
+							{t("userNav.linkAbout")}
 							</Nav.Link>
 							<Nav.Link as={Link} to="#" className={styles.navbarLink}>
-							Success Stories
+							{t("userNav.linkSuccessStories")}
 							</Nav.Link>
 							<Nav.Link as={Link} to="#" className={styles.navbarLink}>
-								Impact
+							{t("userNav.linkImpact")}
 							</Nav.Link>
 							<Nav.Link as={Link} to="https://docs.google.com/forms/d/e/1FAIpQLSfuGPaUTzOXexwl5fzEDMQ7iHPK3vMzi14HkuDvTGW8lqDU1A/viewform?usp=sf_link" className={styles.navbarLink}>
-								Feedback
+							{t("userNav.linkFeedback")}
 							</Nav.Link>
 						</Nav>
 					</Navbar.Collapse>
@@ -56,6 +66,7 @@ function NavBar() {
 							<PersonGear size={32} color="white" />
 						</Link>
 					</div>
+					
 				</Container>
 			</Navbar>
 			<h5 className={styles.helpline}>
