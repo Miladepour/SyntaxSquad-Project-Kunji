@@ -1,4 +1,5 @@
 const { defineConfig } = require("cypress");
+const db = require('./cypress/db');
 require('dotenv').config();
 
 module.exports = defineConfig({
@@ -10,7 +11,17 @@ module.exports = defineConfig({
       auth0_domain: process.env.REACT_APP_AUTH0_DOMAIN,
     },
     setupNodeEvents(on, config) {
-      // implement node event listeners here
+      on('task', {
+        'seedDB': async () => {
+          const result = await db.seed();
+          
+          if (result === "ok") {
+            return null;
+          } else {
+            throw new Error('Database transaction failed.');
+          }
+        },
+      })
     },
   },
 });
