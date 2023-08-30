@@ -1,4 +1,4 @@
-CREATE TABLE public.user_informations (
+CREATE TABLE IF NOT EXISTS public.user_informations (
     user_id SERIAL PRIMARY KEY,
     name character varying(300) NOT NULL,
     email character varying(256),

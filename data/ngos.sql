@@ -1,4 +1,4 @@
-CREATE TABLE public.ngo (
+CREATE TABLE IF NOT EXISTS public.ngo (
     id SERIAL PRIMARY KEY,
     service character varying(50)[] NOT NULL,
     zone character varying(50) NOT NULL,
