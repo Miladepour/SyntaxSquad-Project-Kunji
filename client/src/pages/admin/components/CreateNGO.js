@@ -169,6 +169,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
             <Col>
               <Form.Select
                 aria-label="service"
+                id='serviceDropdown'
                 {...register(`service.${index}.service`)}
                 isInvalid={errors?.['service']?.[index]?.['service']?.['message']}
               >
@@ -267,6 +268,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
               <Form.Control
                 type="text"
                 placeholder="Phone Number"
+                id="contact"
                 {...register(`contact.${index}.phone_number`)}
                 isInvalid={errors?.['contact']?.[index]?.['phone_number']?.['message']}
               />

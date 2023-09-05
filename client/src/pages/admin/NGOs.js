@@ -134,7 +134,7 @@ export function NGOs() {
                 </Alert>}
             </Modal.Body>
             <Modal.Footer>
-            <Button variant="danger" onClick={() => deleteNGO(showDeleteModal[1])} disabled={reqInProcess}>
+            <Button id='deleteBtn' variant="danger" onClick={() => deleteNGO(showDeleteModal[1])} disabled={reqInProcess}>
               Yes
               {reqInProcess &&
                 <Spinner className="ms-2" animation="border" role="status" size="sm">
@@ -196,9 +196,14 @@ export function NGOs() {
                   <td>{ngo.email_status}</td>
                   <td>{ngo.call_response}</td>
                   <td>
+                    
                     <Stack direction="horizontal" gap={3}>
-                      <PenPaperIcon onClick={() => update(ngo.id)} />
+                    <div id='updateIcon'>
+                      <PenPaperIcon  onClick={() => update(ngo.id)} />
+                    </div>
+                    <div id='deleteIcon'>
                       <BinIcon onClick={() => { setReqInProcess(false); setErrorAlert(false); setShowDeleteModal([true, ngo.id]); }} />
+                    </div>
                     </Stack>
                   </td>
                 </tr>
