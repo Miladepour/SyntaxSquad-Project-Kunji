@@ -1,5 +1,3 @@
-const { be } = require("date-fns/locale");
-
 describe('Admin ngos', () => {
     beforeEach(() => {
       cy.task('seedDB');
@@ -35,7 +33,7 @@ describe('Admin ngos', () => {
     })
     })
 
-  describe('CRUD', () => {  
+  describe('Create NGO', () => {  
     beforeEach(() => {
         cy.task('seedDB');
         cy.loginToAuth0(
@@ -57,11 +55,29 @@ describe('Admin ngos', () => {
         cy.get('[type=submit]').contains('Add').click();
         cy.contains('Good People').should('exist');
     })
-    it('Update NGO', () => {
-        cy.contains('Swaniawski-Roob', { timeout: 10000 }).closest('tr').within(() => { 
-            cy.get('#updateIcon').click();
+    })
+
+    describe('Update & Delete NGO', () => {
+    beforeEach(() => {
+        cy.loginToAuth0(
+            Cypress.env('auth0_username'),
+            Cypress.env('auth0_password')
+        )
+        cy.visit('/admin/ngos');
         });
-        cy.get('#serviceDropdown').select('Health Care');
-        cy.get('[type=submit]').contains('Save').click();
-    });
+        it('Update NGO', () => {
+            cy.contains('Good People', { timeout: 10000 }).closest('tr').within(() => { 
+                cy.get('#updateIcon').click();
+            });
+            cy.get('#serviceDropdown').select('Health Care');
+            cy.get('[type=submit]').contains('Save').click();
+        });
+        it('Delete NGO', () => {
+            cy.contains('Good People', { timeout: 10000 }).closest('tr').within(() => { 
+                cy.get('#deleteIcon').click();
+            });
+            cy.contains('Are You Sure?').should('exist');
+            cy.get('#deleteBtn').click();           
+            cy.contains('Good People').should('not.exist');
+        })
     })
