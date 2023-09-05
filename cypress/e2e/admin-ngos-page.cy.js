@@ -54,5 +54,14 @@ describe('Admin ngos', () => {
         cy.get('#website').type('www.goodpeople.com');
         cy.get('#email_status').type('Yes');
         cy.get('#call_response').type('Yes');
-        cy.get('[type=submit]').contains('Add').click();    })
+        cy.get('[type=submit]').contains('Add').click();
+        cy.contains('Good People').should('exist');
+    })
+    it('Update NGO', () => {
+        cy.contains('Swaniawski-Roob', { timeout: 10000 }).closest('tr').within(() => { 
+            cy.get('#updateIcon').click();
+        });
+        cy.get('#serviceDropdown').select('Health Care');
+        cy.get('[type=submit]').contains('Save').click();
+    });
     })

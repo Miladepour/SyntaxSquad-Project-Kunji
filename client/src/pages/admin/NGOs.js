@@ -196,8 +196,11 @@ export function NGOs() {
                   <td>{ngo.email_status}</td>
                   <td>{ngo.call_response}</td>
                   <td>
+                    
                     <Stack direction="horizontal" gap={3}>
-                      <PenPaperIcon onClick={() => update(ngo.id)} />
+                    <div id='updateIcon'>
+                      <PenPaperIcon  onClick={() => update(ngo.id)} />
+                    </div>
                       <BinIcon onClick={() => { setReqInProcess(false); setErrorAlert(false); setShowDeleteModal([true, ngo.id]); }} />
                     </Stack>
                   </td>
