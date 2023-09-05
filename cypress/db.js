@@ -27,6 +27,8 @@ async function seed() {
         await client.query(users);
         await client.query(ngos);
 
+        await client.query('UPDATE ngo SET service[1] = $1, zone = $2 WHERE id = $3', ["Legal Aid", "North", 1]);
+
         await client.query("COMMIT");
 
         result = "ok";
