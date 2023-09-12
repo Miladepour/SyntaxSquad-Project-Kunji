@@ -70,7 +70,7 @@ export default function SendWhatsappButton({ sendWhatsapp, state }) {
 
   return (
     <>
-      <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87" }} onClick={handleShow}>
+      <button className="btn text-white m-2" type="button" style={{ backgroundColor: "#004e87", display: "none" }} onClick={handleShow}>
         {isSending ? (
           <>
           <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
