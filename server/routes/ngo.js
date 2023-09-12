@@ -6,7 +6,7 @@ const ngoSchema = require("../validations/NgoValidation");
 const { auth } = require('express-oauth2-jwt-bearer');
 
 const jwtCheck = auth({
-  audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
+  audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://kunji-398816.nw.r.appspot.com/api/",
   issuerBaseURL: 'https://dev-smy0lct7oni31spt.us.auth0.com/',
   tokenSigningAlg: 'RS256'
 });

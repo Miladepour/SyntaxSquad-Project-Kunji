@@ -95,7 +95,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
       try {
         const accessToken = await getAccessTokenSilently({
           authorizationParams: {
-            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
+            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://kunji-398816.nw.r.appspot.com/api/",
           },
         });
 
@@ -128,7 +128,7 @@ export default function CreateNGO({ formAction, singleNGO, createNGO, updateNGO,
       try {
         const accessToken = await getAccessTokenSilently({
           authorizationParams: {
-            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
+            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://kunji-398816.nw.r.appspot.com/api/",
           },
         });
 

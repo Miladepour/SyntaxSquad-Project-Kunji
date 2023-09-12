@@ -18,7 +18,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
       clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin + "/admin/users",
-        audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
+        audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://kunji-398816.nw.r.appspot.com/api/"
       }}
       onRedirectCallback={onRedirectCallback}
     >
