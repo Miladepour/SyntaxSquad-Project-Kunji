@@ -17,16 +17,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+
+      - name: Create production build
+        run: npm ci --include dev; npm run build; npm prune --omit dev
+      
       - name: Login to GCP
         uses: google-github-actions/auth@v1
         id: 'auth'
         with:
           credentials_json: ${{ secrets.GCP_SA_KEY_PERSONAL }}
+      
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@v1.2.7
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID_PERSONAL }}
           deliverables: app.yaml, cloudbuild.yaml
           env_vars: ${{ secrets.GCP_ENV_PERSONAL }}
+      
       - name: Print to console
         run: echo "Deployed!"
