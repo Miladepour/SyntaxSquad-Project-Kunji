@@ -26,7 +26,7 @@ jobs:
         uses: google-github-actions/deploy-appengine@v1.2.7
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID_PERSONAL }}
-          deliverables: app.yaml
+          deliverables: app.yaml, cloudbuild.yaml
           env_vars: ${{ secrets.GCP_ENV_PERSONAL }}
       - name: Print to console
         run: echo "Deployed!"
