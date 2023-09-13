@@ -1,10 +1,10 @@
 steps:
 - name: 'node'
   entrypoint: 'npm'
-  args: ['ci', '--include dev']
+  args: ['ci', '--include', 'dev']
 - name: 'node'
   entrypoint: 'npm'
-  args: ['run', build']
+  args: ['run', 'build']
 - name: 'node'
   entrypoint: 'npm'
-  args: ['prune',  '--omit dev']
+  args: ['prune', '--omit', 'dev']
