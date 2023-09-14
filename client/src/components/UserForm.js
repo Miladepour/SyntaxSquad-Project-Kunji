@@ -264,7 +264,7 @@ export default function UserForm() {
       </Form.Group>
       <div className="w-50">
       <ReCAPTCHA
-       sitekey="6LfUTRElAAAAAGygougsf9-TgpDcXrONCKzZGqJP"
+       sitekey="6Ler3iUoAAAAACyQjLgv8-iQswr8qx6wqciJof_q"
       onChange={handleCaptchaChange}
       onExpired={handleCaptchaExpired}
       onError={handleCaptchaError}
