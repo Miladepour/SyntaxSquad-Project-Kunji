@@ -36,3 +36,6 @@ Admins can effortlessly compile a comprehensive list of NGOs offering legal advi
 
 ## :wrench: Additional Tech
 Auth0, Google ReCaptcha, SendGrid API, Twilio API, React Hook Form, Yup, GitHub Actions.
+
+## :gear: Automated Tests
+- End-to-End tests with Cypress.
