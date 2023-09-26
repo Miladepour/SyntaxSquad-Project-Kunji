@@ -1,4 +1,5 @@
 # 🔑 Kunji
+An agile/SCRUM four-member team project.
 Streamline access to vital legal advice for ex-prisoners through NGO data management.
 
 ## :computer: Demo
