@@ -35,7 +35,18 @@ Admins can effortlessly compile a comprehensive list of NGOs offering legal advi
 [![My Skills](https://skillicons.dev/icons?i=html,css,js,react,nodejs,postgres,gcp)](https://skillicons.dev)
 
 ## :wrench: Additional Tech
-Auth0, Google ReCaptcha, SendGrid API, Twilio API, React Hook Form, Yup, GitHub Actions.
+Auth0, Google ReCaptcha, SendGrid API, Twilio API, React Hook Form, Yup, ElephantSQL, GitHub Actions.
 
 ## :gear: Automated Tests
 - End-to-End tests with Cypress.
+
+## :earth_americas: Deployment
+- Application deployed to GCP.
+- Database deployed to ElephantSQL.
+
+### :earth_americas: Links
+- [Deployed Showcase Application](https://kunji-398816.nw.r.appspot.com)
+
+### :earth_americas: Auth0 login details for Showcase application
+- Email: haroon@gmail.com
+- Password: password321@
