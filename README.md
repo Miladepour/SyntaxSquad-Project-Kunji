@@ -25,7 +25,8 @@ Admins can effortlessly compile a comprehensive list of NGOs offering legal advi
 ## :bookmark_tabs: Utilization
 - Full responsive.
 - Admin panel fully secured with Auth0.
-- Email, SMS and WhatsApp intergations.
+- Email integration with SendGrid.
+- SMS and WhatsApp integrations with Twilio.
 - Localization with full English and Hindi support.
 - Complete form validation using React Hook Form and Yup.
 - User details form protected with Google ReCaptcha.
@@ -34,4 +35,4 @@ Admins can effortlessly compile a comprehensive list of NGOs offering legal advi
 [![My Skills](https://skillicons.dev/icons?i=html,css,js,react,nodejs,postgres,gcp)](https://skillicons.dev)
 
 ## :wrench: Additional Tech
-React Hook Form, Yup, GitHub Actions.
+Auth0, Google ReCaptcha, SendGrid API, Twilio API, React Hook Form, Yup, GitHub Actions.
