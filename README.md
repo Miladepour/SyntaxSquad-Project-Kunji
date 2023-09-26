@@ -3,3 +3,9 @@ Streamline access to vital legal advice for ex-prisoners through NGO data manage
 
 ## :computer: Demo
 https://github.com/Miladepour/SyntaxSquad-Project-Kunji/assets/87202358/5d31620c-187c-4c1c-ba62-4c151dae46d8
+
+## :x: Problem
+Ex-prisoners often struggle to access the crucial legal information they need for post-release cases, creating a significant challenge in their efforts to reintegrate into society successfully. This lack of readily available, comprehensible resources hinders their ability to navigate the complex legal landscape and make informed decisions, perpetuating a cycle of uncertainty and reoffending.
+
+## :heavy_check_mark: Solution
+Admins can effortlessly compile a comprehensive list of NGOs offering legal advice, streamlining the process of accessing essential resources. For ex-prisoners, the app provides easy access to this curated list, ensuring they can quickly connect with organizations that can provide them with the legal guidance they need for a successful reintegration into society.
