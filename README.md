@@ -21,3 +21,11 @@ Admins can effortlessly compile a comprehensive list of NGOs offering legal advi
     - After filling otu form, select type of legal advice and location region.
     - View list of related NGOs.
     - Receive list of NGOs by email, SMS and WhatsApp.
+
+## :bookmark_tabs: Utilization
+- Full responsive.
+- Admin panel fully secured with Auth0.
+- Email, SMS and WhatsApp intergations.
+- Localization with full English and Hindi support.
+- Complete form validation using React Hook Form and Yup.
+- User details form protected with Google ReCaptcha.
