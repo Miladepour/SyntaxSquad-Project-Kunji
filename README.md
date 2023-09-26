@@ -9,3 +9,15 @@ Ex-prisoners often struggle to access the crucial legal information they need fo
 
 ## :heavy_check_mark: Solution
 Admins can effortlessly compile a comprehensive list of NGOs offering legal advice, streamlining the process of accessing essential resources. For ex-prisoners, the app provides easy access to this curated list, ensuring they can quickly connect with organizations that can provide them with the legal guidance they need for a successful reintegration into society.
+
+## :page_facing_up: Features
+- Admins
+    - Secure login.
+    - View, create, update and delete NGOs.
+    - View users who filled out form in the end user side.
+- Users
+    - Switch between English and Hindi languages.
+    - Fill out user details form.
+    - After filling otu form, select type of legal advice and location region.
+    - View list of related NGOs.
+    - Receive list of NGOs by email, SMS and WhatsApp.
