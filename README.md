@@ -37,7 +37,7 @@ Admins can effortlessly compile a comprehensive list of NGOs offering legal advi
 - User details form protected with Google ReCaptcha.
 
 ## :hammer: Tech Stack
-[![My Skills](https://skillicons.dev/icons?i=html,css,js,react,nodejs,postgres,gcp)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=html,css,bootstrap,js,react,nodejs,postgres,gcp)](https://skillicons.dev)
 
 ## :wrench: Additional Tech
 Auth0, Google ReCaptcha, SendGrid API, Twilio API, React Hook Form, Yup, ElephantSQL, GitHub Actions.
