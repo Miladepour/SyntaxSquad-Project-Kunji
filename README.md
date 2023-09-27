@@ -23,7 +23,7 @@ Admins can effortlessly compile a comprehensive list of NGOs offering legal advi
 - Users
     - Switch between English and Hindi languages.
     - Fill out user details form.
-    - After filling otu form, select type of legal advice and location region.
+    - After filling out form, select type of legal advice and location region.
     - View list of related NGOs.
     - Receive list of NGOs by email, SMS and WhatsApp.
 
