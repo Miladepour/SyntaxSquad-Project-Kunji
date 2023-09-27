@@ -40,7 +40,7 @@ Admins can effortlessly compile a comprehensive list of NGOs offering legal advi
 [![My Skills](https://skillicons.dev/icons?i=html,css,bootstrap,js,react,nodejs,postgres,gcp)](https://skillicons.dev)
 
 ## :wrench: Additional Tech
-Auth0, Google ReCaptcha, SendGrid API, Twilio API, React Hook Form, Yup, ElephantSQL, GCP App Engine, GCP Cloud Build, GCP Cloud Storage, GCP App Engine Admin API, GitHub Actions.
+Auth0, Google ReCaptcha, SendGrid API, Twilio API, React Hook Form, Yup, Cypress, ElephantSQL, GCP App Engine, GCP Cloud Build, GCP Cloud Storage, GCP App Engine Admin API, GitHub Actions.
 
 ## :gear: Automated Tests
 - End-to-End tests with Cypress.
