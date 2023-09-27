@@ -50,8 +50,8 @@ Auth0, Google ReCaptcha, SendGrid API, Twilio API, React Hook Form, Yup, Elephan
 - Database deployed to ElephantSQL.
 
 ### :earth_americas: Links
-- [Deployed Showcase Application](https://kunji-398816.nw.r.appspot.com)
+- [Deployed Portfolio Application](https://kunji-398816.nw.r.appspot.com)
 
-### :earth_americas: Auth0 login details for Showcase application
+### :earth_americas: Auth0 login details for portfolio application
 - Email: haroon@gmail.com
 - Password: password321@
