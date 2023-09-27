@@ -1,91 +1,57 @@
-# Starter Kit
+# 🔑 Kunji
+Streamline access to vital legal advice for ex-prisoners through NGO data management.
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+## 🧑‍🤝‍🧑 Team Project
+- Agile/SCRUM.
+- Four team members.
+- Four weeks development time.
 
-- [x] Full stack ES8+ with [Babel]
-- [x] [Node] LTS support (verified working on 14.x, 16.x and 18.x LTS releases)
-- [x] [Express] server
-- [x] Logging with [Winston] and [Morgan]
-- [x] [React] client with [Webpack]
-- [x] Client-side routing with [React Router]
-- [x] Linting with [ESLint] and [Prettier]
-- [x] Dev mode (watch modes for client and server, proxy to avoid CORS issues)
-- [x] Production build (single deployment artifact, React loaded via CDN)
-- [x] [Render] deployment
-- [x] [Cloud Foundry] deployment
-- [x] [Docker] build
-- [x] [Postgres] database with [node-postgres]
+## :computer: Demo
+https://github.com/Miladepour/SyntaxSquad-Project-Kunji/assets/87202358/5d31620c-187c-4c1c-ba62-4c151dae46d8
 
-## Setup
+## :x: Problem
+Ex-prisoners often struggle to access the crucial legal information they need for post-release cases, creating a significant challenge in their efforts to reintegrate into society successfully. This lack of readily available, comprehensible resources hinders their ability to navigate the complex legal landscape and make informed decisions, perpetuating a cycle of uncertainty and reoffending.
 
-> **Note** if you have _any problems_ setting up the starter kit, see the [wiki] and, if still not solved, post to
-> [`#cyf-full-stack-starter-kit` in Slack][2].
+## :heavy_check_mark: Solution
+Admins can effortlessly compile a comprehensive list of NGOs offering legal advice, streamlining the process of accessing essential resources. For ex-prisoners, the app provides easy access to this curated list, ensuring they can quickly connect with organizations that can provide them with the legal guidance they need for a successful reintegration into society.
 
-Pick one member of the team to own the repository and pipeline. That person should do the following:
+## :page_facing_up: Features
+- Admins
+    - Secure login.
+    - View, create, update and delete NGOs.
+    - View users who filled out form in the end user side.
+- Users
+    - Switch between English and Hindi languages.
+    - Fill out user details form.
+    - After filling out form, select type of legal advice and location region.
+    - View list of related NGOs.
+    - Receive list of NGOs by email, SMS and WhatsApp.
 
-1.  Click the "Use this template" button above (see [GitHub's docs][1]) to create your team repository and name it something appropriate for your project.
-    - Your repo should say _"generated from"_, **not** _"forked from"_, _"CodeYourFuture/cyf-final-project-starter-kit"_ at the top
-2.  In your repo, click the "Deploy to Render" button at the top of the README and log in using GitHub when prompted.
-3.  Fill in a service group name for your application and then click "Apply".
-4.  Once it has deployed successfully, click the "managed resources" link to view the application details.
+## :bookmark_tabs: Utilization
+- Full responsive.
+- Admin panel fully secured with Auth0.
+- Email integration with SendGrid.
+- SMS and WhatsApp integrations with Twilio.
+- Localization with full English and Hindi support.
+- Complete form validation using React Hook Form and Yup.
+- User details form protected with Google ReCaptcha.
 
-Whenever you commit to main (or e.g. merge a [pull request]) it will get automatically deployed!
+## :hammer: Tech Stack
+[![My Skills](https://skillicons.dev/icons?i=html,css,bootstrap,js,react,nodejs,postgres,gcp)](https://skillicons.dev)
 
-You should now make sure all of the project team are [collaborators] on the repository.
+## :wrench: Additional Tech
+Auth0, Google ReCaptcha, SendGrid API, Twilio API, React Hook Form, Yup, Cypress, ElephantSQL, GCP App Engine, GCP Cloud Build, GCP Cloud Storage, GCP App Engine Admin API, GitHub Actions.
 
-## Scripts
+## :gear: Automated Tests
+- End-to-End tests with Cypress.
 
-Various scripts are provided in the package file, but many are helpers for other scripts; here are the ones you'll
-commonly use:
+## :earth_americas: Deployment
+- Application deployed to GCP.
+- Database deployed to ElephantSQL.
 
-- `dev`: starts the frontend and backend in dev mode, with file watching (note that the backend runs on port 3100, and
-  the frontend is proxied to it).
-- `lint`: runs ESLint and Prettier against all the code in the project.
-- `serve`: builds and starts the app in production mode locally.
+### :earth_americas: Links
+- [Deployed Portfolio Application](https://kunji-398816.nw.r.appspot.com)
 
-### Debugging
-
-While running the dev mode using `npm run dev`, you can attach the Node debugger to the server process via port 9229.
-If you're using VS Code, a debugging configuration is provided for this.
-
-There is also a VS Code debugging configuration for the Chrome debugger, which requires the recommended Chrome
-extension, for debugging the client application.
-
-### Security
-
-If the project handles **any kind of** Personally Identifiable Information (PII) then make sure the following
-principles are followed:
-
-- Only collect **strictly necessary** PII;
-- Access to PII should be as restricted as possible;
-- Access to PII should only be possible after authentication. Authentication **must be done** via GitHub. **Ad hoc
-  authentication solutions are not allowed**;
-- Admins must be able to control who has access to the platform and at which levels using only GitHub groups;
-- There must be an audit mechanism in place. It is required by law to know who accessed what and when;
-- Code must be reviewed by senior developers before being pushed to production;
-- APIs must be secure. Make sure we are not handling security on the frontend.
-
-### Troubleshooting
-
-See the guidance in the [wiki].
-
-[1]: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template#creating-a-repository-from-a-template
-[2]: https://codeyourfuture.slack.com/archives/C021ATWS9A5
-[Babel]: https://babeljs.io/
-[Cloud Foundry]: https://www.cloudfoundry.org/
-[collaborators]: https://help.github.com/en/articles/inviting-collaborators-to-a-personal-repository
-[Docker]: https://www.docker.com
-[ESLint]: https://eslint.org/
-[Express]: https://expressjs.com/
-[Morgan]: https://github.com/expressjs/morgan
-[Node]: https://nodejs.org/en/
-[node-postgres]: https://node-postgres.com/
-[Postgres]: https://www.postgresql.org/
-[Prettier]: https://prettier.io/
-[pull request]: https://help.github.com/en/articles/about-pull-requests
-[React]: https://reactjs.org/
-[React Router]: https://reactrouter.com/web
-[Render]: https://render.com/
-[Webpack]: https://webpack.js.org/
-[wiki]: https://github.com/textbook/starter-kit/wiki
-[Winston]: https://github.com/winstonjs/winston
+### :earth_americas: Auth0 login details for portfolio application
+- Email: haroon@gmail.com
+- Password: password321@
