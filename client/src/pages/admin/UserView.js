@@ -11,7 +11,7 @@ export function UserView() {
       try {
         const accessToken = await getAccessTokenSilently({
           authorizationParams: {
-            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/",
+            audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://project-kunji-1694516509633.ue.r.appspot.com/",
           },
         });
 

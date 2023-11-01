@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Auth0Provider } from '@auth0/auth0-react';
 
 const Auth0ProviderWithHistory = ({ children }) => {
-  const domain = "dev-smy0lct7oni31spt.us.auth0.com";
-  const clientId = "49LiusOQku1efCsU4Pw01K9XzQ8nxK4l";
+  const domain = "dev-kunji.uk.auth0.com";
+  const clientId = "XbiA3jYGuPSsRyr0D3d4lBXxDJjhYKLw";
 
   const navigate = useNavigate();
 
@@ -18,7 +18,7 @@ const Auth0ProviderWithHistory = ({ children }) => {
       clientId={clientId}
       authorizationParams={{
         redirect_uri: window.location.origin + "/admin/users",
-        audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://starter-kit-j5ar.onrender.com/api/"
+        audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://project-kunji-1694516509633.ue.r.appspot.com/"
       }}
       onRedirectCallback={onRedirectCallback}
     >
