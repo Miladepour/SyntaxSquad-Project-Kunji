@@ -5,7 +5,7 @@ const { auth } = require('express-oauth2-jwt-bearer');
 
 const jwtCheck = auth({
 	audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://project-kunji-1694516509633.ue.r.appspot.com/",
-	issuerBaseURL: 'https://dev-smy0lct7oni31spt.us.auth0.com/',
+	issuerBaseURL: 'https://dev-kunji.uk.auth0.com/',
 	tokenSigningAlg: 'RS256'
 });
 
