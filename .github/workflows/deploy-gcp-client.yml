@@ -29,4 +29,4 @@ jobs:
           deliverables: app.yaml
           env_vars: ${{ secrets.GCP_ENV_CLIENT }}
       - name: Print to console
-        run: echo "Deployed!"
+        run: echo "Deployed!!"
