@@ -12,8 +12,8 @@ import { useTranslation } from "react-i18next";
 import fieldData from "../../../../data/fieldData";
 
 export default function Result() {
-  const { t } = useTranslation();
-  const { state } = useLocation();
+	const { t } = useTranslation();
+	const { state } = useLocation();
 	let [searchParams, setSearchParams] = useSearchParams();
 	const [service, setService] = useState(searchParams.get("service"));
 	const [location, setLocation] = useState(searchParams.get("location"));
@@ -143,123 +143,123 @@ export default function Result() {
 	}
 
 	function handleServiceChange(selectedService) {
-    setService(selectedService);
-    setSearchParams({
-      service: selectedService,
-      location: location,
-    });
-  }
+		setService(selectedService);
+		setSearchParams({
+			service: selectedService,
+			location: location,
+		});
+	}
 
-  function handleLocationChange(selectedLocation) {
-    setLocation(selectedLocation);
-    setSearchParams({
-      service: service,
-      location: selectedLocation,
-    });
-  }
+	function handleLocationChange(selectedLocation) {
+		setLocation(selectedLocation);
+		setSearchParams({
+			service: service,
+			location: selectedLocation,
+		});
+	}
 
 	return (
 		<>
 			<h3 className="text-center" style={{ color: "#004e87" }}>{t("result.heading")}</h3>
-			<div className="d-md-none">
-			<div className="d-flex justify-content-center">
-					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
-					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
-          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp} state={state} />
-			</div>
+			<div className="d-md-none" style={{ display: 'none' }}>
+				<div className="d-flex justify-content-center">
+					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} state={state} />
+					<SendSmsButton smsSent={smsSent} sendSms={sendSms} state={state} />
+					<SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp} state={state} />
+				</div>
 				<MobileVersion onServiceChange={handleServiceChange} onLocationChange={handleLocationChange} />
 			</div>
 			<div className="d-none d-md-block">
-		<div className="col-3">
-					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail}  state={state}  />
-					<SendSmsButton smsSent={smsSent} sendSms={sendSms}  state={state} />
-          <SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp} state={state} />
-		</div>
-		</div>
-		<div className={`d-flex ${styles.page}`}>
-			<div className="col-3 bg-light rounded m-2 d-none d-md-block">
-				<Form>
-					<Form.Group
-						className={styles.selectGroup}
-						style={{ color: "#004e87" }}
-						controlId="service"
-					>
-						<Form.Label className="fw-bolder">Service :</Form.Label>
-						{fieldData.services.map((type) => (
-							<div key={`${type}`} className=" d-flex mb-3">
-								<Form.Check
-									type="radio"
-									name="service"
-									id={`${type}`}
-									onChange={selectService}
-									checked={service === type && true}
-								/>
-								<span className="mx-2">{type}</span>
-							</div>
-						))}
-					</Form.Group>
-					<Form.Group
-						className={styles.selectGroup}
-						style={{ color: "#004e87" }}
-						controlId="location"
-					>
-						<Form.Label className="fw-bolder">Location :</Form.Label>
-						{["North", "East", "West", "Central", "South"].map((type) => (
-							<div key={`${type}`} className="mb-3">
-								<Form.Check
-									type="radio"
-									name="location"
-									id={`${type}`}
-									label={`${type}`}
-									checked={location === type && true}
-									onChange={selectLocation}
-								/>
-							</div>
-						))}
-					</Form.Group>
-				</Form>
+				<div className="col-3" style={{ display: 'none' }}>
+					<SendEmailButton emailSent={emailSent} sendEmail={sendEmail} state={state} />
+					<SendSmsButton smsSent={smsSent} sendSms={sendSms} state={state} />
+					<SendWhatsappButton whatsappSent={whatsappSent} sendWhatsapp={sendWhatsapp} state={state} />
+				</div>
 			</div>
-			<div className={`col-9 d-flex flex-column align-items-center rounded m-2 ${styles.dataTable}`}>
-				{data == "" ? (
-					<h2 className="m-4" style={{ color: "#004e87" }}>
-						No result matched...
-					</h2>
-				) : (
-					data.map((item) => (
-						<div
-							key={item.id}
-							className="card w-75 mt-2 bg-light"
-							style={{ border: "none" }}
+			<div className={`d-flex ${styles.page}`}>
+				<div className="col-3 bg-light rounded m-2 d-none d-md-block">
+					<Form>
+						<Form.Group
+							className={styles.selectGroup}
+							style={{ color: "#004e87" }}
+							controlId="service"
 						>
-							<div className="card-body" style={{ color: "#004e87" }}>
-								<h5 className="card-title">{item.organization}</h5>
-								<p className="card-text">
-									<span className="text-warning">
-										<LocationIcon />
-									</span>
-									<span className="m-2">{item.zone}</span>
-								</p>
-								<p className="card-text">{t("result.address")} : {item.address}</p>
-								<p className="card-text">
-									{item.contact &&
-										item.contact.map((item, index) => (
-											<span key={index}>
-												{t("userForm.phoneNumber")} : {item.phone_number} {item.description}
-											</span>
-										))}
-								</p>
-								<p className="card-text">
-									{item.website && `${t("result.website")} : ${item.website}`}
-								</p>
-								<p className="card-text">
-									{item.email && `${t("userForm.email")} : ${item.email}`}
-								</p>
+							<Form.Label className="fw-bolder">Service :</Form.Label>
+							{fieldData.services.map((type) => (
+								<div key={`${type}`} className=" d-flex mb-3">
+									<Form.Check
+										type="radio"
+										name="service"
+										id={`${type}`}
+										onChange={selectService}
+										checked={service === type && true}
+									/>
+									<span className="mx-2">{type}</span>
+								</div>
+							))}
+						</Form.Group>
+						<Form.Group
+							className={styles.selectGroup}
+							style={{ color: "#004e87" }}
+							controlId="location"
+						>
+							<Form.Label className="fw-bolder">Location :</Form.Label>
+							{["North", "East", "West", "Central", "South"].map((type) => (
+								<div key={`${type}`} className="mb-3">
+									<Form.Check
+										type="radio"
+										name="location"
+										id={`${type}`}
+										label={`${type}`}
+										checked={location === type && true}
+										onChange={selectLocation}
+									/>
+								</div>
+							))}
+						</Form.Group>
+					</Form>
+				</div>
+				<div className={`col-9 d-flex flex-column align-items-center rounded m-2 ${styles.dataTable}`}>
+					{data == "" ? (
+						<h2 className="m-4" style={{ color: "#004e87" }}>
+							No result matched...
+						</h2>
+					) : (
+						data.map((item) => (
+							<div
+								key={item.id}
+								className="card w-75 mt-2 bg-light"
+								style={{ border: "none" }}
+							>
+								<div className="card-body" style={{ color: "#004e87" }}>
+									<h5 className="card-title">{item.organization}</h5>
+									<p className="card-text">
+										<span className="text-warning">
+											<LocationIcon />
+										</span>
+										<span className="m-2">{item.zone}</span>
+									</p>
+									<p className="card-text">{t("result.address")} : {item.address}</p>
+									<p className="card-text">
+										{item.contact &&
+											item.contact.map((item, index) => (
+												<span key={index}>
+													{t("userForm.phoneNumber")} : {item.phone_number} {item.description}
+												</span>
+											))}
+									</p>
+									<p className="card-text">
+										{item.website && `${t("result.website")} : ${item.website}`}
+									</p>
+									<p className="card-text">
+										{item.email && `${t("userForm.email")} : ${item.email}`}
+									</p>
+								</div>
 							</div>
-						</div>
-					))
-				)}
+						))
+					)}
+				</div>
 			</div>
-		</div>
 		</>
 	);
 }

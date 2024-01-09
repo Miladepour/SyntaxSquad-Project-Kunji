@@ -6,7 +6,7 @@ const ngoSchema = require("../validations/NgoValidation");
 const { auth } = require('express-oauth2-jwt-bearer');
 
 const jwtCheck = auth({
-  audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://project-kunji-1694516509633.ue.r.appspot.com/",
+  audience: process.env.NODE_ENV === "development" ? "http://localhost:3000/api/" : "https://www.prisonhelpline.org/",
   issuerBaseURL: 'https://dev-kunji.uk.auth0.com/',
   tokenSigningAlg: 'RS256'
 });
